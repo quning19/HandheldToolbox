@@ -1,12 +1,24 @@
+__pycache__/
+*.py[cod]
 .venv/
-.coverage*
+.deps/
+.superpowers/
+test_data/
+references/
+jobs/
+*.egg-info/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-__pycache__/
-*.py[cod]
-dist/
+.coverage*
 build/
-jobs/
-*.egg-info/
+dist/
 *.tmp
+
+# Local settings and credentials
+.env
+.env.*
+!.env.example
+
+# Web dependencies
+node_modules/

@@ -1,43 +1,21 @@
-# RetroLibX · 天马G转换扩展
+# 天马G → 多前端转换
 
-将天马G/Pegasus游戏库转换为Android ES-DE列表和媒体，保留RetroLibX的通用模型及其他前端适配器。
+基于RetroLibX扩展，保留通用模型、适配器、操作计划和执行器。当前先实现天马G→Android ES-DE，后续可增加其他目标前端及明确的天马优化步骤。
 
-平台配置共用、已有列表合并、来源规则和Android任务生成已实现。ES-DE 转换只导出封面、Logo、视频三类素材。共用素材默认关闭；明确开启后核对所有目标副本、局部更新原metadata，再清理对应源素材，见 [SHARED_MEDIA.md](docs/SHARED_MEDIA.md)。获批的15个共用素材本地用例已分别取得通过结果，失败项修复后定向复测；这部分未做全量回归或共用迁移设备执行。新增的 `upload` 默认预览，`--apply` 才按 C2/C4 上传；新增上传用例未执行。完整状态见[STATUS.md](docs/STATUS.md)。
+**当前状态：平台来源、列表合并及来源规则已统一。ES-DE 转换只导出封面、Logo、视频三类素材；共用素材默认关闭，开启时核对复制结果、局部更新原metadata，再清理对应源素材。获批的15个共用素材本地用例已分别取得通过结果，首轮失败项修复后定向复测；未做全量回归或设备执行。设备显示、启动和VIB震动由用户验收。**
 
-## 使用当前源码
+- [代码运行入口](retrolibx/README.md)、[当前状态](retrolibx/docs/STATUS.md)：Python 3.12+，功能及验收边界。
+- [Android使用说明](retrolibx/docs/ANDROID.md)：scan/capture、多平台build及分步deploy入口；正常执行与专项检查/修复分别授权。
+- [ES-DE 素材与天马G共用](retrolibx/docs/SHARED_MEDIA.md)：三类素材、默认关闭的迁移模式及原metadata局部更新。
+- [共用平台配置](retrolibx/docs/PLATFORMS.md)：沿用主题转换工具验证过的名称、目录及系统定义。
+- [天马来源规则](retrolibx/docs/SOURCE_PROFILES.md)：媒体补找、版本说明及 VIB 确认的配置与选择方式。
+- [模型、目录和数据保留说明](retrolibx/docs/PROJECT_GUIDE.md)：合并、排序、完整平台配置、输入输出及 VIB 的实际边界。
+- [review处理状态](retrolibx/docs/REVIEW-2026-10-12.md)：已修复及暂缓问题，原报告归档。
+- [结果与快照索引](jobs/README.md)、[历史实现记录入口](docs/IMPLEMENTATION.md)。
+- [方案](docs/PLAN.md)、[开源评估](docs/OPEN_SOURCE.md)、[资源说明](docs/RESOURCES.md)。
 
-需要Python 3.12+，依赖由[pyproject.toml](pyproject.toml)声明、[uv.lock](uv.lock)固定。在本仓库目录使用现有`.venv`运行：
+本地Git仓库位于本项目根目录，统一管理retrolibx源码和项目文档。`main`保存当前开发基线，`feature/web-app`用于后续Web应用开发；分支、提交和合并约定见[Git工作流](docs/GIT_WORKFLOW.md)。保留RetroLibX上游历史及MIT许可，上游基于提交`f1a73c126ba450ae7d01a856e17ed7aad83eeff9`；当前改动已在本地提交，尚未创建线上fork或推送。`upstream`保留原项目地址，尚未配置`origin`。
 
-```powershell
-& '.\.venv\Scripts\python.exe' -m retrolibx.cli scan --config examples/profile.local.json
-& '.\.venv\Scripts\python.exe' -m retrolibx.cli build --config examples/profile.local.json --platform GBA --out jobs/gba
-```
+真实ROM/媒体、设备快照、第三方参考和任务包位于test_data、references与jobs，由Git忽略；源码、当前文档和docs/archive历史文档纳入版本管理。旧superpowers及上游任务表不驱动当前实施，详见[资源清单](docs/RESOURCES.md)。
 
-配置例子指向外层真实节选及MuMu独立目录，使用前按实际环境调整。`build`可重复指定`--platform`，一次生成多个平台的一份任务，不需要逐平台生成后拼接。生成不应用到设备。`deploy`默认本地预览，`--apply`才执行上传、设备内复制和电脑端XML发布；`--stage upload|copy|publish`限定单步，`--skip-platform-config`排除平台配置。结果和阶段耗时保存在任务目录。原有`upload`、`publish`入口保留。普通convert默认复制ROM；Android流程将ROM留在原目录，共用关闭。额外资源检查与修复独立授权。详细使用见[ANDROID.md](docs/ANDROID.md)。本轮整理及新增用例仅静态review，未运行测试或设备操作。
-
-## 文档入口
-
-| 文档 | 内容 |
-|---|---|
-| [STATUS.md](docs/STATUS.md) | 实现状态、检查范围及待验收事项 |
-| [ANDROID.md](docs/ANDROID.md) | scan、capture、build、C2/C4 upload及任务包使用 |
-| [PROJECT_GUIDE.md](docs/PROJECT_GUIDE.md) | 模型、目录、合并和排序边界 |
-| [PLATFORMS.md](docs/PLATFORMS.md) | 完整平台XML基线及识别 |
-| [SOURCE_PROFILES.md](docs/SOURCE_PROFILES.md) | 普通Pegasus与天马G来源规则 |
-| [review处理状态](docs/REVIEW-2026-10-12.md) | 已修复问题及暂缓事项 |
-| [历史资料](docs/archive/README.md) | 上游设计、旧模板及原review |
-
-## 仓库结构
-
-```text
-src/frontend_platforms/   共用平台加载、补充信息与发布用XML副本
-src/retrolibx/            模型、适配器、计划、执行器、CLI
-src/retrolibx/profiles/   来源规则JSON
-tests/                   测试源码，按用户批准范围执行
-examples/                本地配置例子
-docs/                    当前说明；archive/保存历史资料
-```
-
-真实ROM、设备快照和任务在外层工作区。运行环境、缓存及输出均忽略。平台维护基线来自相邻FrontendThemeConverter，独立安装使用声明的发布副本。
-
-基于上游提交`f1a73c126ba450ae7d01a856e17ed7aad83eeff9`，保留Git历史与[MIT许可](LICENSE)。第三方ES-DE模板许可随[历史模板](docs/archive/templates/NOTICE.md)保留。本地分支frontend-trans-tool，当前尚未提交或推送。
+2026-10-14整理已将部署、计时和metadata启动转换收进源码，过期任务与临时工具收敛为一个恢复归档。最新部署及通过报告保留，见[清理记录](jobs/cleanup-20261014.json)；本轮代码仅静态review，未运行新测试或设备操作。

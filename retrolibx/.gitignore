@@ -1,0 +1,12 @@
+.venv/
+.coverage*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/
+*.py[cod]
+dist/
+build/
+jobs/
+*.egg-info/
+*.tmp
