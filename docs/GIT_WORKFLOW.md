@@ -47,7 +47,7 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 
 ## 跟踪范围与远程
 
-2026-10-14后续需求已转为Windows应用，页面方案见[界面记录](WINDOWS_UI_PLAN.md)。`feature/web-app`保留原始名称与基线；本次从相同main基线创建`fix/esde-folder-covers`，方案记录和子目录封面修复分别保存为独立本地提交。该修复的10个局部用例已单独获得用户批准并通过；尚未合入main、推送或部署到设备。
+2026-10-14后续需求已转为Windows应用，页面方案见[界面记录](WINDOWS_UI_PLAN.md)。`feature/web-app`保留原始名称与基线；`fix/esde-folder-covers`保存方案记录和子目录封面修复的独立本地提交，10个获批局部用例通过，设备已补齐 GBA hack 8 个与 PS1 4 个文件夹封面。当前 `feature/windows-ui` 从该修复分支继续，保留已提交修复和设计方案，实现原生窗口和模拟交互；尚未合入main或推送。
 
 - 纳入：项目README、docs及历史文档、retrolibx源码、测试源码、配置、锁文件及许可。
 - 忽略：test_data、references、jobs、.deps、虚拟环境、缓存、构建产物、node_modules及本地.env文件。被忽略的本地数据不由Git保存。

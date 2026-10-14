@@ -1,0 +1,4 @@
+# Desktop dependency versions installed for this UI delivery.
+# No business backend import/connection is required to run launch_gui.py.
+PySide6==6.12.0
+PySide6-Fluent-Widgets==1.11.3

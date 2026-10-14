@@ -22,3 +22,7 @@ dist/
 
 # Web dependencies
 node_modules/
+
+# Portable desktop user data
+/settings.json
+/workspace/

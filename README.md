@@ -5,6 +5,7 @@
 **当前状态：平台来源、列表合并及来源规则已统一。ES-DE 转换只导出封面、Logo、视频三类素材；共用素材默认关闭，开启时核对复制结果、局部更新原metadata，再清理对应源素材。获批的15个共用素材本地用例已分别取得通过结果，首轮失败项修复后定向复测；未做全量回归或设备执行。设备显示、启动和VIB震动由用户验收。**
 
 - [代码运行入口](retrolibx/README.md)、[当前状态](retrolibx/docs/STATUS.md)：Python 3.12+，功能及验收边界。
+- [Windows 图形界面](docs/WINDOWS_GUI.md)：PySide6 / QFluentWidgets 原生 Fluent 工作台预览，根目录双击 `启动界面.cmd`；游戏库和主题业务尚未接入。
 - [Android使用说明](retrolibx/docs/ANDROID.md)：scan/capture、多平台build及分步deploy入口；正常执行与专项检查/修复分别授权。
 - [ES-DE 素材与天马G共用](retrolibx/docs/SHARED_MEDIA.md)：三类素材、默认关闭的迁移模式及原metadata局部更新。
 - [共用平台配置](retrolibx/docs/PLATFORMS.md)：沿用主题转换工具验证过的名称、目录及系统定义。

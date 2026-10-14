@@ -29,7 +29,7 @@ GT78_VN本轮已完成媒体清空、完整四文件配置及七个主题重传�
 
 ## 下一步
 
-Windows 图形应用的页面和业务方案已记录在 [Windows 应用界面方案](WINDOWS_UI_PLAN.md)，原型仅使用示例数据，尚未接入业务。本轮先处理 ES-DE 游戏子目录缺少封面的独立修复。
+Windows 图形应用的页面和业务方案已记录在 [Windows 应用界面方案](WINDOWS_UI_PLAN.md)。子目录封面修复及设备补齐已完成（GBA hack 8 个、PS1 4 个）。当前开发转到 `feature/windows-ui`，先将 Fluent 原型实现为原生窗口及模拟交互，尚不接入真实业务；源码和运行说明见 [Windows 图形界面开发](WINDOWS_GUI.md)。
 
 | 事项 | 状态 |
 |---|---|
