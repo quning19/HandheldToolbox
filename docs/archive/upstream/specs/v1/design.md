@@ -2,6 +2,21 @@
 
 ## 1. Goals and constraints
 
+The Pegasus G / Android extension retains IR/intent/plan boundaries. Android tasks
+consume ConversionPlan instead of deriving a second media mapping. Scoped device
+capture reads metadata and file indexes only. See [Android usage](../../docs/ANDROID.md)
+for configuration guards, limitations and acceptance.
+
+Platform identity comes from the shared frontend_platforms/platforms.json extracted
+from the tested FrontendThemeConverter definitions. Internal names, ROM directories,
+themes and default system commands follow that configuration, including spaces and
+case. Target aliases are metadata and do not rewrite internal platform identity.
+See [shared platform configuration](../../docs/PLATFORMS.md).
+
+The four custom_systems-PG XML files are the complete configuration baseline.
+Platform selection scopes game data only; exports retain the full system table
+and companion rules. Launch blockers prohibit execution scripts, not previews.
+
 This design implements the confirmed [V1 requirements](requirements.md) in an empty repository. The primary design goals are format isolation, source safety, deterministic output, useful partial-failure handling, and straightforward third-party extension.
 
 Hard constraints:
@@ -368,7 +383,9 @@ Every adapter receives minimal, complete, malformed, missing-media, multi-ROM, u
 - Dry-run produces no writes.
 - Source remains byte-identical for default conversions.
 - Same-root and path-escape attempts fail before mutation.
-- All transfer and conflict modes have explicit tests.
+- Transfer and conflict modes have explicit tests, except legacy symbolic-link export.
+- The Android project uses ordinary files. Symbolic-link creation and the `link` alias
+  are excluded from tests and coverage; containment and unsafe-link rejection remain in scope.
 - Executor detects target changes after planning.
 
 The CI-quality command set will be `uv run pytest --cov`, `uv run ruff check .`, `uv run ruff format --check .`, and `uv run mypy src`.

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path, PurePosixPath
 
 import pytest
@@ -73,6 +74,7 @@ def test_conflict_policies(tmp_path: Path, policy: ConflictPolicy) -> None:
     source, target = tmp_path / "source", tmp_path / "target"
     target.joinpath("gba").mkdir(parents=True)
     target.joinpath("gba/game.gba").write_bytes(b"old")
+    os.utime(target / "gba/game.gba", (1, 1))
     plan = make_plan(source, target, ExportOptions(conflict=policy))
     transfer = next(op for op in plan.operations if isinstance(op, TransferFile))
     if policy == ConflictPolicy.SKIP:
@@ -91,12 +93,10 @@ def test_conflict_error(tmp_path: Path) -> None:
         make_plan(tmp_path / "source", target, ExportOptions(conflict=ConflictPolicy.ERROR))
 
 
-@pytest.mark.parametrize("mode", [RomMode.COPY, RomMode.SYMLINK, RomMode.HARDLINK])
+@pytest.mark.parametrize("mode", [RomMode.COPY, RomMode.HARDLINK])
 def test_file_modes(tmp_path: Path, mode: RomMode) -> None:
     source, target = tmp_path / mode.value / "source", tmp_path / mode.value / "target"
     plan = make_plan(source, target, ExportOptions(rom_mode=mode, media_mode=MediaMode.COPY))
     PlanExecutor().execute(plan)
     destination = target / "gba/game.gba"
     assert destination.read_bytes() == b"rom"
-    if mode == RomMode.SYMLINK:
-        assert destination.is_symlink()

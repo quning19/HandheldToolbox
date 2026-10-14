@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<!-- This is the ES-DE import rules configuration file for Android -->
+<ruleList>
+    <!-- 手机平台 -->
+    <system name="androidapps">
+        <rule name="Android Package" type="androidpackage">
+            <extension>.app</extension>
+        </rule>
+    </system>
+    <system name="androidgames">
+        <rule name="Android Package" type="androidpackage">
+            <extension>.app</extension>
+        </rule>
+    </system>
+    <system name="emulators">
+        <rule name="Android Package" type="androidpackage">
+            <extension>.app</extension>
+        </rule>
+    </system>
+    <!-- 任天堂家用机 -->
+    <system name="nes">
+        <rule name="Nintendo NES ROM" type="file">
+            <extension>.nes .NES .fds .FDS .unf .UNF .unif .UNIF .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="snes">
+        <rule name="Nintendo SNES ROM" type="file">
+            <extension>.sfc .SFC .smc .SMC .bin .BIN .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="n64">
+        <rule name="Nintendo 64 ROM" type="file">
+            <extension>.n64 .N64 .z64 .Z64 .v64 .V64 .bin .BIN .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="gc">
+        <rule name="Nintendo GameCube ROM" type="file">
+            <extension>.iso .ISO .gcm .GCM .gcz .GCZ .rvz .RVZ .wbfs .WBFS .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="wii">
+        <rule name="Nintendo Wii ROM" type="file">
+            <extension>.iso .ISO .wbfs .WBFS .wad .WAD .rvz .RVZ .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="switch">
+        <rule name="Nintendo Switch ROM" type="file">
+            <extension>.xci .XCI .nsp .NSP .nro .NRO .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <!-- 任天堂掌机 -->
+    <system name="gameandwatch">
+        <rule name="Game and Watch ROM" type="file">
+            <extension>.mgw .MGW .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="gb">
+        <rule name="Game Boy ROM" type="file">
+            <extension>.gb .GB .gbc .GBC .dmg .DMG .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="gbc">
+        <rule name="Game Boy Color ROM" type="file">
+            <extension>.gbc .GBC .gb .GB .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="gba">
+        <rule name="Game Boy Advance ROM" type="file">
+            <extension>.gba .GBA .bin .BIN .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="nds">
+        <rule name="Nintendo DS ROM" type="file">
+            <extension>.nds .NDS .bin .BIN .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="n3ds">
+        <rule name="Nintendo 3DS ROM" type="file">
+            <extension>.3ds .3DS .cci .CCI .cxi .CXI .app .APP .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <!-- 索尼平台 -->
+    <system name="psx">
+        <rule name="PlayStation ROM" type="file">
+            <extension>.bin .BIN .cue .CUE .chd .CHD .pbp .PBP .iso .ISO .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="ps2">
+        <rule name="PlayStation 2 ROM" type="file">
+            <extension>.iso .ISO .bin .BIN .chd .CHD .cso .CSO .elf .ELF .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="psp">
+        <rule name="PlayStation Portable ROM" type="file">
+            <extension>.iso .ISO .cso .CSO .pbp .PBP .chd .CHD .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="psvita">
+        <rule name="PlayStation Vita ROM" type="file">
+            <extension>.psvita .pkg .PKG</extension>
+        </rule>
+    </system>
+    <!-- 世嘉平台 -->
+    <system name="megadrive">
+        <rule name="Sega Mega Drive ROM" type="file">
+            <extension>.md .MD .gen .GEN .bin .BIN .smd .SMD .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="sega32x">
+        <rule name="Sega 32X ROM" type="file">
+            <extension>.32x .32X .bin .BIN .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="saturn">
+        <rule name="Sega Saturn ROM" type="file">
+            <extension>.cue .CUE .bin .BIN .chd .CHD .iso .ISO .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="dreamcast">
+        <rule name="Sega Dreamcast ROM" type="file">
+            <extension>.cdi .CDI .gdi .GDI .chd .CHD .cue .CUE .iso .ISO .7z .7Z .zip .ZIP</extension>
+        </rule>
+    </system>
+    <!-- 街机 -->
+    <system name="arcade">
+        <rule name="Arcade ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z .neo .NEO</extension>
+        </rule>
+    </system>
+    <system name="cps1">
+        <rule name="CPS-1 ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="cps2">
+        <rule name="CPS-2 ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="cps3">
+        <rule name="CPS-3 ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="fbneo">
+        <rule name="FinalBurn Neo ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="neogeo">
+        <rule name="Neo Geo ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="mame">
+        <rule name="MAME ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z</extension>
+        </rule>
+    </system>
+    <system name="naomi">
+        <rule name="Sega NAOMI ROM" type="file">
+            <extension>.zip .ZIP .7z .7Z .bin .BIN .dat .DAT</extension>
+        </rule>
+    </system>
+    <!-- 游戏引擎 -->
+    <system name="flash">
+        <rule name="Flash Game" type="file">
+            <extension>.swf .SWF</extension>
+        </rule>
+    </system>
+    <system name="openbor">
+        <rule name="OpenBOR Game" type="file">
+            <extension>.pak .PAK</extension>
+        </rule>
+    </system>
+    <system name="easyrpg">
+        <rule name="EasyRPG Game" type="file">
+            <extension>.easyrpg .zip .ZIP</extension>
+        </rule>
+    </system>
+    <system name="tic80">
+        <rule name="TIC-80 Game" type="file">
+            <extension>.tic .TIC</extension>
+        </rule>
+    </system>
+    <system name="pico8">
+        <rule name="PICO-8 Game" type="file">
+            <extension>.p8 .P8 .png .PNG</extension>
+        </rule>
+    </system>
+    <system name="arduboy">
+        <rule name="Arduboy Game" type="file">
+            <extension>.hex .HEX</extension>
+        </rule>
+    </system>
+    <!-- 其他平台 -->
+    <system name="j2me">
+        <rule name="J2ME Game" type="file">
+            <extension>.jar .JAR .jlmod .JLMOD</extension>
+        </rule>
+    </system>
+    <system name="symbian">
+        <rule name="Symbian Game" type="file">
+            <extension>.json .JSON .sis .SIS</extension>
+        </rule>
+    </system>
+    <system name="dos">
+        <rule name="DOS Game" type="file">
+            <extension>.exe .EXE .com .COM .bat .BAT .dosz .DOSZ</extension>
+        </rule>
+    </system>
+    <system name="windows">
+        <rule name="Windows Game" type="file">
+            <extension>.desktop .shortcut .egg</extension>
+        </rule>
+    </system>
+    <system name="wiiu">
+        <rule name="Wii U ROM" type="file">
+            <extension>.rpx .RPX .wud .WUD .wux .WUX .wua .WUA</extension>
+        </rule>
+    </system>
+    <system name="ps3">
+        <rule name="PlayStation 3 ROM" type="file">
+            <extension>.iso .ISO .ps3 .PS3</extension>
+        </rule>
+    </system>
+    <system name="xbox360">
+        <rule name="Xbox 360 ROM" type="file">
+            <extension>.iso .ISO .xbla .XBLA</extension>
+        </rule>
+    </system>
+    <system name="steam">
+        <rule name="Steam Game" type="file">
+            <extension>.steam</extension>
+        </rule>
+    </system>
+</ruleList>

@@ -40,8 +40,11 @@ def _normalized_parts(path: str | Path) -> tuple[str, ...]:
 class FileIndex:
     """Index files once and resolve stale absolute or differently rooted references safely."""
 
-    def __init__(self, root: Path, *, exclude: Iterable[Path] = ()) -> None:
+    def __init__(
+        self, root: Path, *, exclude: Iterable[Path] = (), platform_boundary: bool = False
+    ) -> None:
         self.root = root.resolve(strict=False)
+        root = self.root
         excluded = {item.resolve(strict=False) for item in exclude}
         self._by_name: dict[str, list[Path]] = defaultdict(list)
         self._files: list[tuple[Path, tuple[str, ...]]] = []
@@ -49,6 +52,12 @@ class FileIndex:
             return
         for candidate in root.rglob("*"):
             if not candidate.is_file() or _ignored(candidate, root):
+                continue
+            if platform_boundary and any(
+                (parent / "metadata.pegasus.txt").is_file()
+                for parent in candidate.parents
+                if parent != root and parent.is_relative_to(root)
+            ):
                 continue
             resolved = candidate.resolve(strict=False)
             if resolved in excluded:
@@ -91,3 +100,16 @@ class FileIndex:
             if len(preferred) == 1:
                 return preferred[0]
         return matches[0] if len(matches) == 1 else None
+
+
+def rom_relative_path(path: Path, metadata: dict[str, object]) -> Path:
+    """Keep platform-local hierarchy without trusting absolute source references."""
+    value = metadata.get("relative_path") or metadata.get("source_path") or path.name
+    relative = Path(str(value).replace("\\", "/"))
+    if relative.is_absolute() or str(value).startswith("/") or relative.drive:
+        relative = Path(path.name)
+    if ".." in relative.parts or any(c in str(relative) for c in "\r\n\t\x00"):
+        from retrolibx.errors import ValidationError
+
+        raise ValidationError(f"Unsafe ROM relative path: {value!r}")
+    return relative

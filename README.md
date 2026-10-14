@@ -1,96 +1,43 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/tiancheng91/RetroLibX/main/assets/repo-card.png" alt="RetroLibX — Universal Retro Game Library Converter" width="100%">
-</p>
+# RetroLibX · 天马G转换扩展
 
-<p align="center">
-  <a href="https://github.com/tiancheng91/RetroLibX/actions/workflows/ci.yml"><img src="https://github.com/tiancheng91/RetroLibX/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/tiancheng91/RetroLibX/actions/workflows/publish.yml"><img src="https://github.com/tiancheng91/RetroLibX/actions/workflows/publish.yml/badge.svg" alt="Publish"></a>
-  <a href="https://pypi.org/project/retrolibx/"><img src="https://img.shields.io/pypi/v/retrolibx?label=pypi&color=blue" alt="PyPI version"></a>
-  <a href="https://pypi.org/project/retrolibx/"><img src="https://img.shields.io/pypi/pyversions/retrolibx" alt="Python versions"></a>
-  <a href="https://github.com/tiancheng91/RetroLibX/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/retrolibx" alt="License"></a>
-</p>
+将天马G/Pegasus游戏库转换为Android ES-DE列表和媒体，保留RetroLibX的通用模型及其他前端适配器。
 
----
+平台配置共用、已有列表合并、来源规则和Android任务生成已实现。ES-DE 转换只导出封面、Logo、视频三类素材。共用素材默认关闭；明确开启后核对所有目标副本、局部更新原metadata，再清理对应源素材，见 [SHARED_MEDIA.md](docs/SHARED_MEDIA.md)。获批的15个共用素材本地用例已分别取得通过结果，失败项修复后定向复测；这部分未做全量回归或共用迁移设备执行。新增的 `upload` 默认预览，`--apply` 才按 C2/C4 上传；新增上传用例未执行。完整状态见[STATUS.md](docs/STATUS.md)。
 
-# RetroLibX
+## 使用当前源码
 
-**Universal Retro Game Library Converter**
+需要Python 3.12+，依赖由[pyproject.toml](pyproject.toml)声明、[uv.lock](uv.lock)固定。在本仓库目录使用现有`.venv`运行：
 
-RetroLibX migrates ROM references, metadata, artwork, videos, collections, and launch settings between RetroArch, generic EmulationStation, ROCKNIX, ES-DE, and Pegasus. All conversions pass through a typed, platform-neutral intermediate representation rather than point-to-point converters.
-
-## Quick Start
-
-Run RetroLibX directly with [uv](https://docs.astral.sh/uv/) without installing it:
-
-```bash
-uvx retrolibx --help
+```powershell
+& '.\.venv\Scripts\python.exe' -m retrolibx.cli scan --config examples/profile.local.json
+& '.\.venv\Scripts\python.exe' -m retrolibx.cli build --config examples/profile.local.json --platform GBA --out jobs/gba
 ```
 
-Convert a RetroArch library to ROCKNIX:
+配置例子指向外层真实节选及MuMu独立目录，使用前按实际环境调整。`build`可重复指定`--platform`，一次生成多个平台的一份任务，不需要逐平台生成后拼接。生成不应用到设备。`deploy`默认本地预览，`--apply`才执行上传、设备内复制和电脑端XML发布；`--stage upload|copy|publish`限定单步，`--skip-platform-config`排除平台配置。结果和阶段耗时保存在任务目录。原有`upload`、`publish`入口保留。普通convert默认复制ROM；Android流程将ROM留在原目录，共用关闭。额外资源检查与修复独立授权。详细使用见[ANDROID.md](docs/ANDROID.md)。本轮整理及新增用例仅静态review，未运行测试或设备操作。
 
-```bash
-uvx retrolibx convert /path/to/retroarch \
-  --to rocknix \
-  --output /path/to/rocknix
+## 文档入口
+
+| 文档 | 内容 |
+|---|---|
+| [STATUS.md](docs/STATUS.md) | 实现状态、检查范围及待验收事项 |
+| [ANDROID.md](docs/ANDROID.md) | scan、capture、build、C2/C4 upload及任务包使用 |
+| [PROJECT_GUIDE.md](docs/PROJECT_GUIDE.md) | 模型、目录、合并和排序边界 |
+| [PLATFORMS.md](docs/PLATFORMS.md) | 完整平台XML基线及识别 |
+| [SOURCE_PROFILES.md](docs/SOURCE_PROFILES.md) | 普通Pegasus与天马G来源规则 |
+| [review处理状态](docs/REVIEW-2026-10-12.md) | 已修复问题及暂缓事项 |
+| [历史资料](docs/archive/README.md) | 上游设计、旧模板及原review |
+
+## 仓库结构
+
+```text
+src/frontend_platforms/   共用平台加载、补充信息与发布用XML副本
+src/retrolibx/            模型、适配器、计划、执行器、CLI
+src/retrolibx/profiles/   来源规则JSON
+tests/                   测试源码，按用户批准范围执行
+examples/                本地配置例子
+docs/                    当前说明；archive/保存历史资料
 ```
 
-Preview the conversion without writing any files:
+真实ROM、设备快照和任务在外层工作区。运行环境、缓存及输出均忽略。平台维护基线来自相邻FrontendThemeConverter，独立安装使用声明的发布副本。
 
-```bash
-uvx retrolibx convert /path/to/retroarch \
-  --to rocknix \
-  --output /path/to/rocknix \
-  --dry-run
-```
-
-For a non-standard RetroArch playlist whose title is stored in another field, select it
-explicitly. The original `label` is still used to match thumbnails:
-
-```bash
-uvx retrolibx scan /path/to/library --game-name-field core_name
-uvx retrolibx convert /path/to/library --to rocknix --output /path/to/target \
-  --game-name-field core_name
-```
-
-The source is read-only by default. ROM modes are `copy`, `move`, `symlink` (`link` alias), `hardlink`, and `none`; media modes are `copy`, `symlink`, and `hardlink`. Conflict policies are `skip`, `overwrite`, `rename`, `error`, and `newer`.
-
-## Commands
-
-- `detect`: rank supported source formats.
-- `scan`: import and summarize a library; `--json` outputs RLX IR and `--hash` calculates ROM hashes.
-- `convert`: plan and execute a conversion; `--dry-run` never writes.
-- `inspect`: show systems, games, ROMs, and media.
-- `validate`: report broken paths, unknown systems, duplicates, and malformed metadata.
-
-Aliases: `ra` → `retroarch`, `es` → `emulationstation`, `esde` → `es-de`.
-
-## Repository discovery
-
-RetroLibX does not require one fixed repository layout. It recursively discovers `.lpl`,
-`gamelist.xml`, and `metadata.pegasus.txt` below the supplied source root (excluding tool and
-VCS directories). Referenced ROM and media paths are resolved in this order:
-
-1. an existing absolute path;
-2. a path relative to the metadata file or detected frontend root;
-3. a path relative to the supplied repository root;
-4. a unique trailing-path match, which handles stale device roots such as `/storage/roms`;
-5. a unique filename match, with semantic directory hints for ROMs, covers, screenshots,
-   videos, and manuals.
-
-Ambiguous filename matches are intentionally left unresolved and reported by validation instead
-of silently selecting the wrong game or artwork.
-
-## Development
-
-```bash
-uv run pytest --cov
-uv run ruff check .
-uv run ruff format --check .
-uv run mypy src
-```
-
-Architecture and acceptance criteria are documented in [`specs/v1`](specs/v1). Adapters implement detection/import/render only. Rendering returns an `ExportIntent`; the planner resolves all conflicts and paths; the executor is the sole filesystem writer.
-
-## License
-
-RetroLibX is released under the [MIT License](LICENSE).
+基于上游提交`f1a73c126ba450ae7d01a856e17ed7aad83eeff9`，保留Git历史与[MIT许可](LICENSE)。第三方ES-DE模板许可随[历史模板](docs/archive/templates/NOTICE.md)保留。本地分支frontend-trans-tool，当前尚未提交或推送。

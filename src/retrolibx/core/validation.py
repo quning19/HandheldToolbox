@@ -5,7 +5,6 @@ from collections import Counter
 from retrolibx.registry import SystemRegistry
 
 from .models import Diagnostic, Library
-from .normalize import normalized_filename
 
 
 def validate_library(library: Library, registry: SystemRegistry) -> list[Diagnostic]:
@@ -20,7 +19,7 @@ def validate_library(library: Library, registry: SystemRegistry) -> list[Diagnos
                     system_id=system.id,
                 )
             )
-        names = Counter(normalized_filename(rom.path) for game in system.games for rom in game.roms)
+        names = Counter(str(rom.path.resolve()) for game in system.games for rom in game.roms)
         for game in system.games:
             if not game.roms:
                 diagnostics.append(
@@ -44,7 +43,7 @@ def validate_library(library: Library, registry: SystemRegistry) -> list[Diagnos
                             game_name=game.name,
                         )
                     )
-                if names[normalized_filename(rom.path)] > 1:
+                if names[str(rom.path.resolve())] > 1:
                     diagnostics.append(
                         Diagnostic(
                             severity="warning",

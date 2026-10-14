@@ -37,7 +37,7 @@ jobs:
           }
 
       - name: Run tests
-        run: uv run pytest --cov=retrolibx --cov-fail-under=80
+        run: uv run pytest --cov=retrolibx --cov=frontend_platforms --cov-fail-under=80
 
       - name: Run lint and type checks
         run: |

@@ -10,12 +10,18 @@ from pydantic import BaseModel
 
 from retrolibx.adapters import AdapterRegistry, builtin_registry
 from retrolibx.adapters.base import DetectionResult, LibraryAdapter
+from retrolibx.adapters.esde.merge import merge_gamelists
 from retrolibx.core.executor import PlanExecutor
 from retrolibx.core.models import Diagnostic, Library
 from retrolibx.core.operations import ConversionPlan, ExecutionReport
-from retrolibx.core.options import ExportOptions, ImportOptions
+from retrolibx.core.options import ConflictPolicy, ExportOptions, ImportOptions, MediaMode, RomMode
 from retrolibx.core.planner import ConversionPlanner
 from retrolibx.core.validation import validate_library
+from retrolibx.errors import ValidationError
+from retrolibx.registry import SystemRegistry
+from retrolibx.utils.discovery import rom_relative_path
+
+from .shared_media import prepare_shared_media
 
 
 class ConversionResult(BaseModel):
@@ -30,8 +36,11 @@ class ConversionService:
         adapters: AdapterRegistry | None = None,
         planner: ConversionPlanner | None = None,
         executor: PlanExecutor | None = None,
+        platform_config_dir: Path | None = None,
     ) -> None:
-        self.adapters = adapters or builtin_registry()
+        self.adapters = adapters or builtin_registry(
+            SystemRegistry.load(platform_config_dir=platform_config_dir)
+        )
         self.planner = planner or ConversionPlanner()
         self.executor = executor or PlanExecutor()
 
@@ -66,11 +75,43 @@ class ConversionService:
         source_adapter, library = self.import_library(source, source_format, import_options)
         target_adapter = self.adapters.resolve(target_format)
         options = export_options or ExportOptions()
+        if options.shared_pegasus and target_adapter.name != "es-de":
+            raise ValidationError("--shared-pegasus is only available for ES-DE exports")
+        if options.shared_pegasus and options.conflict == ConflictPolicy.RENAME:
+            raise ValidationError("Shared media migration requires stable filenames; rename is not supported")
+        if options.shared_pegasus and (options.rom_mode != RomMode.NONE or options.media_mode != MediaMode.COPY):
+            raise ValidationError("Shared media requires ROM mode none and media mode copy")
+        if options.shared_pegasus and any(d.severity == "error" for d in library.diagnostics):
+            raise ValidationError("Resolve source library errors before migrating shared media")
         intent = target_adapter.render_library(library, target, options)
+        if target_adapter.name == "es-de":
+            rom_roots: dict[str, str] = {}
+            for system in library.systems:
+                target_name = system.metadata.get("target_system", system.id)
+                if options.rom_mode != RomMode.NONE:
+                    directory = self.adapters.systems.directory(system.id, "es-de") or system.id
+                    rom_root = target.resolve() / "ROMs" / directory
+                else:
+                    roots: set[Path] = set()
+                    for game in system.games:
+                        for rom in game.roms:
+                            relative = rom_relative_path(rom.path, rom.metadata)
+                            roots.add(rom.path.resolve().parents[len(relative.parts) - 1])
+                    if len(roots) > 1:
+                        raise ValidationError(f"Multiple ROM roots for ES-DE system: {system.id}")
+                    rom_root = next(iter(roots), source.resolve())
+                rom_roots[target_name] = rom_root.as_posix()
+            merge_gamelists(intent, target, rom_roots)
+            if options.shared_pegasus:
+                prepare_shared_media(
+                    library, intent, library.source_path or source,
+                    (target.resolve() / "downloaded_media").as_posix(),
+                    (import_options or ImportOptions()).metadata_encoding,
+                )
         intent.diagnostics.extend(self._loss_report(source_adapter, target_adapter, library))
         plan = self.planner.plan(
             intent,
-            source_root=source,
+            source_root=(library.source_path or source) if options.shared_pegasus else source,
             target_root=target,
             source_format=source_adapter.name,
             target_format=target_adapter.name,

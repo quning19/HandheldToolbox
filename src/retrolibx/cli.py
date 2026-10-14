@@ -9,10 +9,18 @@ from typing import Annotated
 import typer
 from pydantic import BaseModel
 from rich.console import Console
+from rich.markup import escape
 from rich.table import Table
+from rich.text import Text
 
 from retrolibx import __version__
 from retrolibx.application import ConversionService
+from retrolibx.application.device import (
+    AdbReader, AdbUploader, capture_device, plan_device_upload,
+)
+from retrolibx.application.handheld import HandheldConfig, build_handheld, scan_handheld
+from retrolibx.application.publication import AdbPublisher, plan_publication
+from retrolibx.application.deployment import DeploymentStage, deploy_task, plan_deployment
 from retrolibx.core.models import Diagnostic, Library
 from retrolibx.core.operations import ConversionPlan
 from retrolibx.core.options import ConflictPolicy, ExportOptions, ImportOptions, MediaMode, RomMode
@@ -46,7 +54,7 @@ def _library_table(library: Library) -> Table:
     table.add_column("Media", justify="right")
     for system in library.systems:
         table.add_row(
-            system.name,
+            Text(system.name),
             str(len(system.games)),
             str(sum(len(game.media.items()) for game in system.games)),
         )
@@ -61,7 +69,7 @@ def _diagnostics(items: list[Diagnostic]) -> None:
             "red" if item.severity == "error" else "yellow" if item.severity == "warning" else "dim"
         )
         error_console.print(
-            f"[{style}]{item.severity.upper()}[/{style}] {item.code}: {item.message}"
+            f"[{style}]{item.severity.upper()}[/{style}] {escape(item.code)}: {escape(item.message)}"
         )
 
 
@@ -106,22 +114,31 @@ def detect(path: Path, json_output: Annotated[bool, typer.Option("--json")] = Fa
 
 @app.command()
 def scan(
-    path: Path,
+    path: Path | None = None,
+    config: Annotated[Path | None, typer.Option("--config")] = None,
     source_format: Annotated[str | None, typer.Option("--from")] = None,
+    source_profile: Annotated[Path | None, typer.Option("--source-profile")] = None,
     json_output: Annotated[bool, typer.Option("--json")] = False,
     calculate_hashes: Annotated[bool, typer.Option("--hash")] = False,
     game_name_field: Annotated[
         str, typer.Option("--game-name-field", help="Source field used as the game name")
     ] = "label",
 ) -> None:
-    _, library = ConversionService().import_library(
-        path,
-        source_format,
-        ImportOptions(
-            calculate_hashes=calculate_hashes,
-            game_name_field=game_name_field,
-        ),
-    )
+    if config is not None:
+        if source_profile is not None:
+            raise ValidationError("Set source_profile inside --config when using a configuration file")
+        library = scan_handheld(HandheldConfig.load(config))
+    elif path is not None:
+        _, library = ConversionService().import_library(
+            path,
+            source_format,
+            ImportOptions(
+                calculate_hashes=calculate_hashes, game_name_field=game_name_field,
+                source_profile=source_profile,
+            ),
+        )
+    else:
+        raise ValidationError("Provide a source path or --config")
     if json_output:
         _json(library)
     else:
@@ -129,27 +146,108 @@ def scan(
         _diagnostics(library.diagnostics)
 
 
+@app.command()
+def build(
+    config: Annotated[Path, typer.Option("--config")],
+    platforms: Annotated[list[str], typer.Option("--platform")],
+    output: Annotated[Path, typer.Option("--out")],
+) -> None:
+    """Preview selected Pegasus platforms and build an offline Android task."""
+    summary = build_handheld(HandheldConfig.load(config), platforms, output)
+    _json(summary)
+    if summary["errors"]:
+        raise typer.Exit(4)
+
+
+@app.command()
+def capture(
+    adb: Annotated[Path, typer.Option("--adb")],
+    serial: Annotated[str, typer.Option("--serial")],
+    source_root: Annotated[str, typer.Option("--source-root")],
+    esde_root: Annotated[str, typer.Option("--esde-root")],
+    platforms: Annotated[list[str], typer.Option("--platform")],
+    output: Annotated[Path, typer.Option("--out")],
+    systems_template: Annotated[Path | None, typer.Option("--systems-template")] = None,
+) -> None:
+    """Read selected metadata and indexes without downloading ROM or media contents."""
+    _json(
+        capture_device(
+            AdbReader(adb, serial), source_root, platforms, esde_root, output, systems_template
+        )
+    )
+
+
+@app.command()
+def upload(
+    source: Path,
+    adb: Annotated[Path, typer.Option("--adb")],
+    serial: Annotated[str, typer.Option("--serial")],
+    remote: Annotated[str, typer.Option("--remote", help="Complete remote directory or filename")],
+    apply: Annotated[bool, typer.Option("--apply", help="Perform the previewed upload")] = False,
+) -> None:
+    """Preview/upload one full directory via C2, or one file via C4."""
+    if apply:
+        _json(AdbUploader(adb, serial).upload(source, remote))
+    else:
+        _json({**plan_device_upload(source, remote), "serial": serial, "applied": False})
+
+
+@app.command()
+def publish(
+    task: Path,
+    adb: Annotated[Path, typer.Option("--adb")],
+    serial: Annotated[str, typer.Option("--serial")],
+    skip_platform_config: Annotated[bool, typer.Option("--skip-platform-config", help="Publish lists without replacing platform XML")] = False,
+    apply: Annotated[bool, typer.Option("--apply", help="Publish the approved XML payloads via ADB")] = False,
+) -> None:
+    """Preview/publish metadata from this computer; does not execute the media script."""
+    if apply:
+        _json(AdbPublisher(adb, serial).publish(task, skip_platform_config))
+    else:
+        _json({**plan_publication(task, skip_platform_config), "serial": serial})
+
+
+@app.command()
+def deploy(
+    task: Path,
+    adb: Annotated[Path, typer.Option("--adb")],
+    serial: Annotated[str, typer.Option("--serial")],
+    remote: Annotated[str, typer.Option("--remote", help="Complete remote apply.sh filename")],
+    stage: Annotated[DeploymentStage, typer.Option("--stage", help="Run only the selected approved stage, or all")] = DeploymentStage.ALL,
+    skip_platform_config: Annotated[bool, typer.Option("--skip-platform-config")] = False,
+    apply: Annotated[bool, typer.Option("--apply")] = False,
+) -> None:
+    """Preview/deploy a multi-platform task, recording stage timings locally."""
+    if apply:
+        _json(deploy_task(AdbPublisher(adb, serial), task, remote, stage, skip_platform_config))
+    else:
+        _json({**plan_deployment(task, remote, stage, skip_platform_config), "serial": serial})
+
+
 @app.command("inspect")
 def inspect_command(
     path: Path,
     source_format: Annotated[str | None, typer.Option("--from")] = None,
+    source_profile: Annotated[Path | None, typer.Option("--source-profile")] = None,
     json_output: Annotated[bool, typer.Option("--json")] = False,
     game_name_field: Annotated[
         str, typer.Option("--game-name-field", help="Source field used as the game name")
     ] = "label",
 ) -> None:
     _, library = ConversionService().import_library(
-        path, source_format, ImportOptions(game_name_field=game_name_field)
+        path, source_format,
+        ImportOptions(game_name_field=game_name_field, source_profile=source_profile),
     )
     if json_output:
         _json(library)
     else:
         console.print(_library_table(library))
         for system in library.systems:
-            console.print(f"[bold]{system.name}[/bold] ({system.id})")
+            console.print(f"{system.name} ({system.id})", markup=False)
             for game in system.games:
                 console.print(
-                    f"  {game.name} — {len(game.roms)} ROM(s), {len(game.media.items())} media"
+                    f"  {game.name} — {len(game.roms)} ROM(s), {len(game.media.items())} media",
+                    markup=False,
                 )
         _diagnostics(library.diagnostics)
 
@@ -158,13 +256,15 @@ def inspect_command(
 def validate(
     path: Path,
     source_format: Annotated[str | None, typer.Option("--from")] = None,
+    source_profile: Annotated[Path | None, typer.Option("--source-profile")] = None,
     json_output: Annotated[bool, typer.Option("--json")] = False,
     game_name_field: Annotated[
         str, typer.Option("--game-name-field", help="Source field used as the game name")
     ] = "label",
 ) -> None:
     _, library = ConversionService().import_library(
-        path, source_format, ImportOptions(game_name_field=game_name_field)
+        path, source_format,
+        ImportOptions(game_name_field=game_name_field, source_profile=source_profile),
     )
     if json_output:
         _json(library.diagnostics)
@@ -184,24 +284,30 @@ def convert(
     target_format: Annotated[str, typer.Option("--to")],
     output: Annotated[Path, typer.Option("--output")],
     source_format: Annotated[str | None, typer.Option("--from")] = None,
+    platform_config_dir: Annotated[
+        Path | None, typer.Option("--platform-config-dir", help="Complete shared platform XML directory")
+    ] = None,
+    source_profile: Annotated[Path | None, typer.Option("--source-profile")] = None,
     dry_run: Annotated[bool, typer.Option("--dry-run")] = False,
     rom_mode: Annotated[RomMode, typer.Option("--rom-mode")] = RomMode.COPY,
     media_mode: Annotated[MediaMode, typer.Option("--media-mode")] = MediaMode.COPY,
     conflict: Annotated[ConflictPolicy, typer.Option("--conflict")] = ConflictPolicy.SKIP,
     in_place: Annotated[bool, typer.Option("--in-place")] = False,
+    shared_pegasus: Annotated[bool, typer.Option("--shared-pegasus", help="Migrate media and patch original Pegasus metadata; requires --rom-mode none (default off)")] = False,
     json_output: Annotated[bool, typer.Option("--json")] = False,
     game_name_field: Annotated[
         str, typer.Option("--game-name-field", help="Source field used as the game name")
     ] = "label",
 ) -> None:
-    result = ConversionService().convert(
+    result = ConversionService(platform_config_dir=platform_config_dir).convert(
         source,
         output,
         target_format,
         source_format=source_format,
-        import_options=ImportOptions(game_name_field=game_name_field),
+        import_options=ImportOptions(game_name_field=game_name_field, source_profile=source_profile),
         export_options=ExportOptions(
-            rom_mode=rom_mode, media_mode=media_mode, conflict=conflict, in_place=in_place
+            rom_mode=rom_mode, media_mode=media_mode, conflict=conflict, in_place=in_place,
+            shared_pegasus=shared_pegasus
         ),
         dry_run=dry_run,
     )
@@ -223,14 +329,14 @@ def run() -> None:
     try:
         app()
     except (DetectionError, ParseError) as exc:
-        error_console.print(f"[red]Error:[/red] {exc}")
-        raise typer.Exit(3) from exc
+        error_console.print(f"[red]Error:[/red] {escape(str(exc))}")
+        raise SystemExit(3) from exc
     except (ConflictError, ValidationError) as exc:
-        error_console.print(f"[red]Error:[/red] {exc}")
-        raise typer.Exit(4) from exc
+        error_console.print(f"[red]Error:[/red] {escape(str(exc))}")
+        raise SystemExit(4) from exc
     except RetroLibXError as exc:
-        error_console.print(f"[red]Error:[/red] {exc}")
-        raise typer.Exit(1) from exc
+        error_console.print(f"[red]Error:[/red] {escape(str(exc))}")
+        raise SystemExit(1) from exc
 
 
 if __name__ == "__main__":

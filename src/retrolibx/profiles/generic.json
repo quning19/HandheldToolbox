@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "name": "generic",
+  "media_directory": null,
+  "media_fallbacks": {},
+  "developer_as_version_note": false,
+  "version_note_label": "版本说明",
+  "confirmation_systems": []
+}

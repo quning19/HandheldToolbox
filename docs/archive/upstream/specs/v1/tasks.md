@@ -1,5 +1,19 @@
 # RetroLibX V1 Implementation Plan
 
+## Pegasus G / Android extension
+
+- [x] Extract tested theme platform definitions and recognition; connect both tools.
+- [x] Replace gbah/gbavib internal identities with GBA HACK/GBA vib and retain ROM/theme names.
+- [x] Read-only compare all four platform XML files with RP6; preserve the complete configuration independently of game selection.
+- [ ] Run any further tests only after explicit user approval; default to static review.
+- [x] Repair file/files parsing, media fallback and selected-platform boundaries.
+- [x] Generate per-ROM ES-DE media and lists with subdirectories and collision checks.
+- [x] Preserve existing metadata, system IDs, themes and commands; guard and back up XML.
+- [x] Add batch Android capture and an offline script from the same ConversionPlan.
+- [x] Verify real 12/36, 15/45 and full-library 503/1509 mappings.
+- [x] Verify MuMu copy/hash, rerun, external config changes and interrupted copies.
+- [ ] Validate ES-DE display, emulator launch, VIB rumble and manual terminal permissions.
+
 - [x] 1. Bootstrap the Python project
   - Add `pyproject.toml`, package metadata, CLI entry point, dependency and tool configuration.
   - Create the source/test directory structure and basic documentation.
@@ -12,7 +26,7 @@
 
 - [x] 3. Implement planning and safe execution
   - Implement export intents, typed operations, conflict handling, containment checks, dry-run plans, executor, and manifest.
-  - Cover ROM/media modes and source-safety invariants.
+  - Cover ROM/media modes and source-safety invariants; legacy symbolic-link export is excluded from project tests and coverage by user request.
   - _Requirements: 8_
 
 - [x] 4. Implement RetroArch and ROCKNIX vertical slice

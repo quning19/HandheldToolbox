@@ -1,0 +1,8 @@
+{
+  "source_root": "../../test_data/original_excerpt/Roms",
+  "source_profile": "../src/retrolibx/profiles/pegasus-g.json",
+  "device_rom_root": "/storage/emulated/0/Download/FrontendTransTool-test/Roms",
+  "esde_root": "/storage/emulated/0/Download/FrontendTransTool-test/ES-DE",
+  "target_empty": true,
+  "shared_pegasus": false
+}

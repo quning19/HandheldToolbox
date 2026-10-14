@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "name": "pegasus-g",
+  "media_directory": "media",
+  "media_fallbacks": {
+    "box_front": [
+      "boxfront",
+      "box_front",
+      "boxart2d"
+    ],
+    "logo": [
+      "logo",
+      "wheel"
+    ],
+    "video": "video"
+  },
+  "developer_as_version_note": true,
+  "version_note_label": "版本说明",
+  "confirmation_systems": [
+    "GBA vib"
+  ]
+}

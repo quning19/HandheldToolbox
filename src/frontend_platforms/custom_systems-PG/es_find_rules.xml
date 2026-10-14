@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<ruleList>
+    <!-- 3DS -->
+    <emulator name="CITRA-MMJ">
+        <rule type="androidpackage">
+            <entry>org.citra.emu/org.citra.emu.ui.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="AZAHAR">
+        <rule type="androidpackage">
+            <entry>io.github.lime3ds.android/org.citra.citra_emu.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <!-- PS2 -->
+    <emulator name="NetherSX2">
+        <rule type="androidpackage">
+            <entry>xyz.aethersx2.android/xyz.aethersx2.android.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="AETHERSX2">
+        <rule type="androidpackage">
+            <entry>xyz.aethersx2.android/xyz.aethersx2.android.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="ARMSX2">
+        <rule type="androidpackage">
+            <entry>com.arm.aethersx2/xyz.aethersx2.android.MainActivity</entry>
+        </rule>
+    </emulator>
+    <!-- PS1 -->
+    <emulator name="DUCKSTATION">
+        <rule type="androidpackage">
+            <entry>com.github.stenzek.duckstation/.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <!-- PSP -->
+    <emulator name="PPSSPP">
+        <rule type="androidpackage">
+            <entry>org.ppsspp.ppsspp/.PpssppActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="PPSSPP-GOLD">
+        <rule type="androidpackage">
+            <entry>org.ppsspp.ppssppgold/org.ppsspp.ppsspp.PpssppActivity</entry>
+        </rule>
+    </emulator>
+    <!-- DC -->
+    <emulator name="FLYCAST">
+        <rule type="androidpackage">
+            <entry>com.flycast.flycast/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <!-- N64 -->
+    <emulator name="M64PLUS-FZ">
+        <rule type="androidpackage">
+            <entry>org.mupen64plusae.v3.fzurita/org.mupen64plusae.v3.fzurita.GameActivity</entry>
+        </rule>
+    </emulator>
+    <!-- NDS -->
+    <emulator name="DRASTIC">
+        <rule type="androidpackage">
+            <entry>com.dsemu.drastic/com.dsemu.drastic.DrasticActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MELONDS-NIGHTLY">
+        <rule type="androidpackage">
+            <entry>me.magnum.melonds.nightly/me.magnum.melonds.ui.RomLaunchActivity</entry>
+        </rule>
+    </emulator>
+    <!-- NGC/WII -->
+    <emulator name="DOLPHIN">
+        <rule type="androidpackage">
+            <entry>org.dolphinemu.dolphinemu/org.dolphinemu.dolphinemu.ui.main.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="DOLPHIN-MMJR">
+        <rule type="androidpackage">
+            <entry>org.dolphinemu.mmjr/org.dolphinemu.dolphinemu.ui.main.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="DOLPHIN-MMJR2">
+        <rule type="androidpackage">
+            <entry>org.dolphinemu.mmjr2/org.dolphinemu.dolphinemu.ui.main.MainActivity</entry>
+        </rule>
+    </emulator>
+    <!-- SWITCH -->
+    <emulator name="YUZU">
+        <rule type="androidpackage">
+            <entry>org.yuzu.yuzu_emu/org.yuzu.yuzu_emu.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="YUZU+">
+        <rule type="androidpackage">
+            <entry>org.yuzu.yuzu_plus/org.yuzu.yuzu_plus.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="SUDACHI">
+        <rule type="androidpackage">
+            <entry>org.sudachi.sudachi_emu/org.sudachi.sudachi_emu.activities.EmulationActivity</entry>
+            <entry>org.sudachi.sudachi_emu.ea/org.sudachi.sudachi_emu.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="CITRON">
+        <rule type="androidpackage">
+            <entry>org.citron.citron_emu/org.citron.citron_emu.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="EDEN">
+        <rule type="androidpackage">
+            <entry>dev.eden.eden_emulator/org.yuzu.yuzu_emu.activities.EmulationActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="KENJI-NX">
+        <rule type="androidpackage">
+            <entry>org.kenjinx.android/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="SKYLINE">
+        <rule type="androidpackage">
+            <entry>org.skyline.emu/org.skyline.emu.MainActivity</entry>
+        </rule>
+    </emulator>
+    <!-- OpenBOR -->
+    <emulator name="OPENBOR">
+        <rule type="androidpackage">
+            <entry>org.openbor.engine/.GameActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-7533">
+        <rule type="androidpackage">
+            <entry>org.openbor7533.engine/org.openbor.engine.GameActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-6391">
+        <rule type="androidpackage">
+            <entry>org.openbor6391.engine/org.libsdl.app.SDLActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-PLUS-526">
+        <rule type="androidpackage">
+            <entry>org.openbor526.engine/org.openbor.engine.GameActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-PLUS-413">
+        <rule type="androidpackage">
+            <entry>org.openbor413.engine/org.openbor.engine.GameActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-PLUS-262">
+        <rule type="androidpackage">
+            <entry>org.openbor262.engine/org.libsdl.app.SDLActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="OPENBOR-FFLNS">
+        <rule type="androidpackage">
+            <entry>org.openborfflns.engine/org.libsdl.app.SDLActivity</entry>
+        </rule>
+    </emulator>
+    <!-- PC模拟器 -->
+    <emulator name="WINLATOR">
+        <rule type="androidpackage">
+            <entry>com.winlator/com.winlator.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="WINLATOR-CMOD">
+        <rule type="androidpackage">
+            <entry>com.winlator.cmod/.XServerDisplayActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="WINLATOR-GLIBC">
+        <rule type="androidpackage">
+            <entry>com.winlator.glibc/.XServerDisplayActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="WINLATOR-PROOT">
+        <rule type="androidpackage">
+            <entry>com.winlator.proot/.XServerDisplayActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="EXAGEAR">
+        <rule type="androidpackage">
+            <entry>com.ludashi.benchmara/com.ludashi.benchmara.activities.EDStartupActivity</entry>
+        </rule>
+    </emulator>
+    <!-- J2ME -->
+    <emulator name="JL-MOD">
+        <rule type="androidpackage">
+            <entry>ru.woesss.j2meloader/ru.playsoftware.j2meloader.ui.main.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="JL-MOD-CONFIG">
+        <rule type="androidpackage">
+            <entry>ru.woesss.j2meloader/ru.playsoftware.j2meloader.config.ConfigActivity</entry>
+        </rule>
+    </emulator>
+    <!-- RPG Maker -->
+    <emulator name="JOIPLAY">
+        <rule type="androidpackage">
+            <entry>cyou.joiplay.joiplay/cyou.joiplay.joiplay.activities.SplashActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="JOIPLAY-BIGCUP">
+        <rule type="androidpackage">
+            <entry>cyou.joiplay.joiplay/.activities.ShortcutActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MALDIVES">
+        <rule type="androidpackage">
+            <entry>net.miririt.maldivesplayer/net.miririt.maldives.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="AOPAOP">
+        <rule type="androidpackage">
+            <entry>com.aopaop.app/com.aopaop.app.module.common.SplashActivity</entry>
+        </rule>
+    </emulator>
+    <!-- 其他 -->
+    <emulator name="RUFFLE">
+        <rule type="androidpackage">
+            <entry>com.ruffle.emulator/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="SWF-PLAYER">
+        <rule type="androidpackage">
+            <entry>com.swfplayer/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="SOLARUS">
+        <rule type="androidpackage">
+            <entry>org.solarus_games.solarus/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="LOVE2D">
+        <rule type="androidpackage">
+            <entry>org.love2d.android/org.love2d.android.GameActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MINE">
+        <rule type="androidpackage">
+            <entry>cn.natdon.onscripterv2/cn.natdon.onscripterv2.start</entry>
+        </rule>
+    </emulator>
+    <emulator name="TYRANOR">
+        <rule type="androidpackage">
+            <entry>com.akira.tyranoemu/com.akira.tyranoemu.app.TyActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="PLAYSTATION-MOBILE">
+        <rule type="androidpackage">
+            <entry>com.playstation.psstore/com.playstation.psstore.ui.start.StartPsmContentBridgeActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="GAMENATIVE">
+        <rule type="androidpackage">
+            <entry>app.gamenative/.LauncherActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="GAMEHUB-LITE">
+        <rule type="androidpackage">
+            <entry>gamehub.lite/.LauncherActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MAME4DROID">
+        <rule type="androidpackage">
+            <entry>com.mame4droid.plus/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MAME4DROID-2024">
+        <rule type="androidpackage">
+            <entry>com.mame4droid.plus2024/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="NEO-EMU">
+        <rule type="androidpackage">
+            <entry>com.neogeo.emu/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="SATURN-EMU">
+        <rule type="androidpackage">
+            <entry>com.saturn.emu/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="VITA3K">
+        <rule type="androidpackage">
+            <entry>org.vita3k.emulator/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="CEMU">
+        <rule type="androidpackage">
+            <entry>com.cemu.app/.MainActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="APS3E">
+        <rule type="androidpackage">
+            <entry>aenu.aps3e/.EmulatorActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="AX360E">
+        <rule type="androidpackage">
+            <entry>aenu.ax360e/aenu.ax360e.EmulatorActivity</entry>
+            <entry>aenu.ax360e.free/aenu.ax360e.EmulatorActivity</entry>
+        </rule>
+    </emulator>
+    <!-- 云游戏 -->
+    <emulator name="CLOUD-GAME">
+        <rule type="androidpackage">
+            <entry>com.tdzy.cloudgame/.ui.activity.HandheldConsoleActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="EGG-GAME">
+        <rule type="androidpackage">
+            <entry>com.xiaoji.egggame/com.xj.app.SplashActivity</entry>
+        </rule>
+    </emulator>
+    <emulator name="MOONLIGHT">
+        <rule type="androidpackage">
+            <entry>com.limelight/com.limelight.ShortcutTrampoline</entry>
+        </rule>
+    </emulator>
+    <emulator name="MOONLIGHT-DEBUG">
+        <rule type="androidpackage">
+            <entry>com.limelight.debug/com.limelight.ShortcutTrampoline</entry>
+        </rule>
+    </emulator>
+    <emulator name="INFINITY">
+        <rule type="androidpackage">
+            <entry>com.infinity.emulator/.MainActivity</entry>
+        </rule>
+    </emulator>
+</ruleList>

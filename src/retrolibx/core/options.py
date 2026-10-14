@@ -1,8 +1,9 @@
 """User-selectable import and export policies."""
 
 from enum import StrEnum
+from pathlib import Path
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class RomMode(StrEnum):
@@ -31,6 +32,9 @@ class ConflictPolicy(StrEnum):
 class ImportOptions(BaseModel):
     calculate_hashes: bool = False
     game_name_field: str = "label"
+    platforms: list[str] = Field(default_factory=list)
+    metadata_encoding: str = "utf-8-sig"
+    source_profile: Path | None = None
 
 
 class ExportOptions(BaseModel):
@@ -38,3 +42,4 @@ class ExportOptions(BaseModel):
     media_mode: MediaMode = MediaMode.COPY
     conflict: ConflictPolicy = ConflictPolicy.SKIP
     in_place: bool = False
+    shared_pegasus: bool = False
