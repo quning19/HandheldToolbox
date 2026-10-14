@@ -60,6 +60,7 @@ def test_three_media_roles_preserve_paths_and_ignore_other_assets(tmp_path: Path
         library, tmp_path / "out", ExportOptions(rom_mode=RomMode.NONE)
     )
     assert {file.destination.as_posix() for file in intent.files} == {
+        "downloaded_media/gba/covers/nested.jpg",
         "downloaded_media/gba/covers/nested/game.jpg",
         "downloaded_media/gba/marquees/nested/game.webp",
         "downloaded_media/gba/videos/nested/game.mp4",
@@ -113,13 +114,14 @@ def test_shared_migration_dry_run_preserves_source_and_plans_original_metadata(t
     media = [op for op in result.plan.operations if isinstance(op, TransferFile) and op.category == "media"]
     updates = [op for op in result.plan.operations if isinstance(op, WriteSourceMetadata)]
     migrations = [op for op in result.plan.operations if isinstance(op, MigrateSourceMedia)]
-    assert len(media) == len(updates) == len(migrations) == 1
+    assert len(media) == 2 and len(updates) == len(migrations) == 1
     update = updates[0]
     assert update.destination == meta
     desired = base64.b64decode(update.content_base64)
-    assert desired == original + f"assets.box_front: {media[0].destination.as_posix()}\r\n".encode()
+    game_cover = target / "downloaded_media/gba/covers/nested/game.jpg"
+    assert desired == original + f"assets.box_front: {game_cover.as_posix()}\r\n".encode()
     assert update.expected_sha256 == hashlib.sha256(original).hexdigest()
-    assert migrations[0].targets == [media[0].destination]
+    assert migrations[0].targets == sorted([operation.destination for operation in media], key=str)
     assert result.execution is None and not target.exists()
     assert meta.read_bytes() == original
 
@@ -135,6 +137,7 @@ def test_default_conversion_keeps_original_metadata_and_media(tmp_path: Path) ->
     )
     assert meta.read_bytes() == original
     assert source.joinpath("media/Game/boxFront.jpeg").read_bytes() == b"cover"
+    assert (tmp_path / "out/downloaded_media/gba/covers/nested.jpg").read_bytes() == b"cover"
     assert not any(isinstance(op, (WriteSourceMetadata, MigrateSourceMedia)) for op in result.plan.operations)
 
 
@@ -155,6 +158,7 @@ def test_shared_migration_updates_in_place_after_all_rom_copies_and_keeps_mini(t
     cover = target / "downloaded_media/gba/covers/nested/game.jpg"
     assert cover.read_bytes() == b"cover"
     assert target.joinpath("downloaded_media/gba/covers/nested/second.jpg").read_bytes() == b"cover"
+    assert target.joinpath("downloaded_media/gba/covers/nested.jpg").read_bytes() == b"cover"
     assert meta.read_bytes() == original + f"assets.box_front: {cover.as_posix()}\r\n".encode()
     assert not source.joinpath("media/Game/boxFront.jpeg").exists()
     assert mini.read_bytes() == b"mini"
@@ -273,9 +277,11 @@ def test_android_shared_migration_is_opt_in_and_build_does_not_change_source(tmp
     )
     output = tmp_path / "task"
     summary = build_handheld(config, ["GBA"], output)
+    assert summary["media_targets"] == 2
     assert summary["source_metadata_updates"] == int(shared)
     assert not output.joinpath("files/pegasus").exists()
     script = output.joinpath("apply.sh").read_text(encoding="utf-8")
+    assert "/covers/nested.jpg" in script
     if shared:
         encoded = output / "files/source-metadata/GBA/metadata.pegasus.txt.b64"
         desired = base64.b64decode(encoded.read_text())

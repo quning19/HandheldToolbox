@@ -23,6 +23,16 @@ source_root是电脑目录或设备索引目录；device_rom_root是掌机实际
 
 默认使用FrontendThemeConverter已验证的[共用平台配置](PLATFORMS.md)：内部平台与系统名使用GBA HACK，ROM目录和主题使用GBA hack，VIB使用GBA vib；Wii保留系统名wii与目录WII。systems_template现在可省略，也可明确指定外部模板。system_ids只指定输出系统名，不改变内部平台；现有系统ROM路径唯一匹配时优先复用现有标识、主题与启动命令，有重叠或多个匹配则停止。支持ES-DE原生settings/es_settings.xml及旧根目录设置布局；读取并核对原始字节哈希，不改写设置。
 
+## 游戏子目录封面
+
+ES-DE 按文件或文件夹在平台内的相对路径查找媒体，不读取 `gamelist.xml` 中的 `<image>` 标签。子目录不会自动沿用内部游戏的图片。转换时为含有现存 ROM 和有效封面的子目录补充独立封面，使用内部游戏的原封面，不缩放、不拼图。
+
+例如 `GBA hack/合集/game.zip` 的游戏封面位于 `<媒体目录>/<系统名>/covers/合集/game.png`，文件夹封面则位于 `<媒体目录>/<系统名>/covers/合集.png`。嵌套目录逐级补齐，目录名里的点和中文完整保留。优先采用直属游戏的封面；没有直属候选时采用较近的后代游戏，相同层级按 ROM 相对路径固定选择。没有可用游戏封面的目录不生成图片。
+
+文件夹封面只增加媒体复制项，不增加游戏、改变文件夹进入行为或修改来源 metadata。图片目标与已有游戏媒体计划冲突时保留游戏图片并发出警告；其他已有目标文件沿用所选冲突策略。共用模式仍按游戏绑定更新来源引用，文件夹副本包含在同一来源图片的副本检查中。
+
+命名和查找规则依据 [ES-DE 媒体说明](https://gitlab.com/es-de/emulationstation-de/-/blob/master/USERGUIDE.md#manually-copying-game-media-files)及[官方 FileData 实现](https://gitlab.com/es-de/emulationstation-de/-/blob/master/es-app/src/FileData.cpp)。主题决定使用的图片类型；现有 Canvas 的网格采用 cover，或包含 cover 的回退顺序。
+
 ## 设备输入
 
 旧列表的绝对 ROM 根目录与当前来源目录不同时，配置 `gamelist_rom_roots`，按输出系统名明确列出允许的旧根。例如 `{"psx": ["/storage/实际卡号/Roms/psx"]}` 可将旧绝对路径归一成当前 PS1 系统的相对路径；未声明的其他根仍拒绝合并。旧列表系统目录名与当前配置不同，可用 `gamelist_sources` 明确指定来源，例如 `{"nes": "famicom", "megadrive": "genesis", "sfc": "snes"}`。仅在当前目标列表不存在时读取该旧列表，保留收藏、统计和额外记录；发布基线仍以当前目标文件是否存在为准，旧列表不删除。这些选项只改变本地转换，需按实际捕获资料填写，不采用任意根或模糊匹配。新增的两个局部用例尚未运行。

@@ -47,10 +47,12 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 
 ## 跟踪范围与远程
 
+2026-10-14后续需求已转为Windows应用，页面方案见[界面记录](WINDOWS_UI_PLAN.md)。`feature/web-app`保留原始名称与基线；本次从相同main基线创建`fix/esde-folder-covers`，方案记录和子目录封面修复分别保存为独立本地提交。该修复的10个局部用例已单独获得用户批准并通过；尚未合入main、推送或部署到设备。
+
 - 纳入：项目README、docs及历史文档、retrolibx源码、测试源码、配置、锁文件及许可。
 - 忽略：test_data、references、jobs、.deps、虚拟环境、缓存、构建产物、node_modules及本地.env文件。被忽略的本地数据不由Git保存。
 - `upstream`保留`https://github.com/tiancheng91/retrolibx.git`，供来源追溯；main不跟踪upstream/main，避免日常pull误用原项目分支。
 - 尚未配置origin、创建线上仓库或推送；现有Git作者信息继续使用本机配置。
 - 原GitHub Actions文件仍在`retrolibx/.github/workflows/`，作为原项目配置保留。当前没有启用根目录CI或线上发布；后续接入远程时再按项目结构处理。
 
-本次仅静态查看Git状态、文件清单及文档diff，未执行测试、lint、类型检查、构建或设备操作。
+仓库初始化时仅静态查看Git状态、文件清单及文档diff，未执行测试、lint、类型检查、构建或设备操作。后续文件夹封面修复的获批测试范围见上述记录。

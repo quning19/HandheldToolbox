@@ -97,10 +97,91 @@ def test_shared_media_and_nested_names(tmp_path: Path) -> None:
     assert {str(f.destination) for f in intent.files} == {
         "downloaded_media/gba/covers/版本A/game.png",
         "downloaded_media/gba/covers/版本B/game.png",
+        "downloaded_media/gba/covers/版本A.png",
+        "downloaded_media/gba/covers/版本B.png",
     }
+    assert len(intent.media_bindings) == 1
     roundtrip = pegasus.render_library(library, tmp_path / "pegasus", ExportOptions())
     assert "x-custom: keep" in roundtrip.texts[0].content
     assert "file: 版本A/game.zip" in roundtrip.texts[0].content
+
+
+def test_folder_cover_prefers_direct_rom_then_stable_path_and_skips_missing_rom(tmp_path):
+    games = []
+    for relative, cover_name, exists in [
+        ("Set/deep/A.gba", "nested.webp", True),
+        ("Set/Z.gba", "last.png", True),
+        ("Set/A.gba", "first.png", True),
+        ("Missing/game.gba", "missing.png", False),
+    ]:
+        rom = tmp_path / relative
+        if exists:
+            rom.parent.mkdir(parents=True, exist_ok=True)
+            rom.write_bytes(b"rom")
+        cover = tmp_path / cover_name
+        cover.write_bytes(b"cover")
+        games.append(Game(
+            name=relative,
+            roms=[Rom(path=rom, metadata={"relative_path": relative})],
+            media=Media(box_front=cover),
+        ))
+    intent = ESDEAdapter(SystemRegistry.load()).render_library(
+        Library(format="pegasus", systems=[System(id="gba", name="GBA", games=games)]),
+        tmp_path / "output", ExportOptions(rom_mode=RomMode.NONE),
+    )
+    sources = {str(request.destination): request.source for request in intent.files}
+    assert sources["downloaded_media/gba/covers/Set.png"] == tmp_path / "first.png"
+    assert sources["downloaded_media/gba/covers/Set/deep.webp"] == tmp_path / "nested.webp"
+    assert "downloaded_media/gba/covers/Missing.png" not in sources
+    assert len(intent.media_bindings) == 4
+
+
+def test_folder_cover_keeps_dots_and_unicode_and_does_not_create_extra_games(tmp_path):
+    relative = "系列.v1/合集/game.gba"
+    rom = tmp_path / relative
+    rom.parent.mkdir(parents=True)
+    rom.write_bytes(b"rom")
+    cover = tmp_path / "cover.JPEG"
+    cover.write_bytes(b"cover")
+    intent = ESDEAdapter(SystemRegistry.load()).render_library(
+        Library(format="pegasus", systems=[System(
+            id="gba", name="GBA", games=[Game(
+                name="Game", roms=[Rom(path=rom, metadata={"relative_path": relative})],
+                media=Media(box_front=cover),
+            )],
+        )]), tmp_path / "output", ExportOptions(rom_mode=RomMode.NONE),
+    )
+    assert {str(request.destination) for request in intent.files} == {
+        "downloaded_media/gba/covers/系列.v1.jpg",
+        "downloaded_media/gba/covers/系列.v1/合集.jpg",
+        "downloaded_media/gba/covers/系列.v1/合集/game.jpg",
+    }
+    xml = etree.fromstring(intent.texts[0].content.encode())
+    assert len(xml.findall("game")) == 1
+    assert xml.findtext("game/path") == "./系列.v1/合集/game.gba"
+    assert xml.find("game/image") is None
+
+
+def test_folder_cover_collision_preserves_game_media(tmp_path):
+    games = []
+    for relative, cover_name in [("Set.zip", "root.png"), ("Set/game.gba", "child.png")]:
+        rom = tmp_path / relative
+        rom.parent.mkdir(parents=True, exist_ok=True)
+        rom.write_bytes(b"rom")
+        cover = tmp_path / cover_name
+        cover.write_bytes(b"cover")
+        games.append(Game(
+            name=relative, roms=[Rom(path=rom, metadata={"relative_path": relative})],
+            media=Media(box_front=cover),
+        ))
+    intent = ESDEAdapter(SystemRegistry.load()).render_library(
+        Library(format="pegasus", systems=[System(id="gba", name="GBA", games=games)]),
+        tmp_path / "output", ExportOptions(rom_mode=RomMode.NONE),
+    )
+    assert len(intent.files) == 2
+    assert next(request.source for request in intent.files
+                if str(request.destination) == "downloaded_media/gba/covers/Set.png") == tmp_path / "root.png"
+    assert [issue.code for issue in intent.diagnostics] == ["folder-cover-collision"]
 
 
 def test_encoding_and_platform_boundaries(tmp_path: Path) -> None:

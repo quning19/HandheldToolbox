@@ -48,6 +48,7 @@ class ESDEAdapter(EmulationStationAdapter):
             directory = self.system_directory(system.id) or system.id
             entries: list[tuple[Game, str, dict[str, str]]] = []
             paths: set[str] = set()
+            folder_covers: dict[PurePosixPath, tuple[tuple[int, str, str], Path]] = {}
             for game_index, game in enumerate(system.games):
                 for rom_index, rom in enumerate(game.roms):
                     relative = PurePosixPath(rom_relative_path(rom.path, rom.metadata).as_posix())
@@ -84,6 +85,20 @@ class ESDEAdapter(EmulationStationAdapter):
                         suffix = media.suffix.lower()
                         if suffix == ".jpeg":
                             suffix = ".jpg"
+                        if role == "box_front" and rom.path.is_file():
+                            # Use existing ROMs only. Prefer a directly contained game,
+                            # then a stable ROM-path order, including ancestor folders.
+                            for parent in relative.parents:
+                                if parent == PurePosixPath("."):
+                                    break
+                                priority = (
+                                    len(relative.parts) - len(parent.parts),
+                                    relative.as_posix().casefold(),
+                                    relative.as_posix(),
+                                )
+                                previous = folder_covers.get(parent)
+                                if previous is None or priority < previous[0]:
+                                    folder_covers[parent] = (priority, media)
                         destination = (
                             PurePosixPath("downloaded_media")
                             / target_name
@@ -107,6 +122,26 @@ class ESDEAdapter(EmulationStationAdapter):
                             )
                         )
                     entries.append((display, rom_path, {}))
+            for parent, (_, cover) in sorted(folder_covers.items(), key=lambda item: str(item[0])):
+                suffix = ".jpg" if cover.suffix.lower() == ".jpeg" else cover.suffix.lower()
+                # ES-DE matches folders by their whole directory name, including dots.
+                destination = (
+                    PurePosixPath("downloaded_media") / target_name / "covers"
+                    / parent.with_name(parent.name + suffix)
+                )
+                key = destination.as_posix().casefold()
+                if key in occupied:
+                    intent.diagnostics.append(Diagnostic(
+                        severity="warning", code="folder-cover-collision",
+                        message=f"Folder cover target already used; retaining existing media: {parent}",
+                        system_id=system.id,
+                    ))
+                    continue
+                occupied.add(key)
+                # No MediaBinding: these copies decorate folders, not source game records.
+                intent.files.append(FileRequest(
+                    source=cover, destination=destination, category="media",
+                ))
             intent.texts.append(
                 TextRequest(
                     destination=PurePosixPath("gamelists") / target_name / "gamelist.xml",
