@@ -22,6 +22,7 @@ ADB 从 PATH、ANDROID_HOME、ANDROID_SDK_ROOT 或当前用户 Android SDK 安�
 ## 游戏库转换
 
 - 掌机来源先点击“刷新设备”：要求恰好一台已授权设备；识别内置存储和 SD 卡里的 rom/roms（不区分大小写），只统计候选目录直接子目录数。多设备在线或 ES-DE 位置有歧义时报错，不猜测目标。
+- Windows 下没有在线设备、也没有待授权设备时，刷新会寻找正在运行的 MuMu，通过其同目录 MuMuManager 的只读 info 命令取得已启动安卓实例的本机 ADB 端口，再连接并重新读取设备列表。不写死安装位置或端口，不启动模拟器，不扫描网络；已有在线设备时直接使用。未授权、离线及多设备分别给出提示。当前自动连接仅支持 MuMuNxMain / MuMuManager 这一安装形式。
 - ES-DE 默认识别内置存储根目录里的 ES-DE；新设备没有该目录时使用 /storage/emulated/0/ES-DE，实际转换时初始化。刷新设备不扫描平台内容。
 - 选择来源后点击“加载平台”才读取 metadata 和文件索引。工作线程逐平台追加卡片；修改来源会取消旧加载并隔离旧结果。主动取消时已完成的平台可继续选择。
 - 电脑来源按当前绝对路径自动分配 library/<来源目录名>-<路径标识>/ES-DE，避免不同来源的同名 ROM 被误认作已收录；不需要单独设置输出目录。
@@ -89,6 +90,10 @@ temp/                      目录索引、配置快照、任务、中间文件�
 - gui/assets/platforms/：既有演示的 Canvas 缩略图副本。
 
 ## 当前审阅及测试边界
+
+MuMu 自动连接是上述 29 项通过后新增的修复；已静态审阅，新增 test_desktop_discovery.py 的 10 个模拟用例尚未执行，不能沿用旧通过记录。窗口仍由用户操作验收。
+
+按用户要求已向当次连接的 MuMu 内置存储 /storage/emulated/0/ROMs 上传 23 个演示输入文件，准备前该目录没有平台子目录。GBA 预期 4 入口/3 封面，GBA hack 4/4，PS1 3/3；包含中文空格、多版本共用封面、嵌套目录、cue 多轨和三种 metadata 编码。ROM 为不可启动的占位文件，图片复用项目已有 Canvas 平台缩略图。这里只准备并上传数据，未通过新代码扫描或转换，未修改 ES-DE 配置或主题。准备资料见 workspace/temp/emulator-demo-20261015，上传记录见 jobs/emulator-demo-20261015/result.json。
 
 业务接入后先完成静态源码和 diff 审阅及依赖准备。2026-10-15 用户批准此前列明的 29 项本地测试，并指定窗口操作由用户完成。对提交 2c4a2df 执行一次，29 项全部通过，耗时 5.09 秒，无失败、跳过或修复复测。报告见 [JUnit](../jobs/desktop-business-check-20261015/initial.xml) 和 [范围记录](../jobs/desktop-business-check-20261015/result.json)。
 

@@ -5,10 +5,12 @@ from copy import deepcopy
 from datetime import datetime
 from pathlib import Path, PurePosixPath
 import hashlib
+import json
 import os
 import shlex
 import shutil
 import subprocess
+import sys
 import uuid
 
 from frontend_platforms import platform_configuration
@@ -73,14 +75,86 @@ class Device:
     roots: tuple[tuple[str, int, str], ...]
 
 
-def discover_device() -> Device:
-    adb = find_adb()
+def mumu_endpoints() -> list[str]:
+    """Ask the running MuMu installation for its active local ADB ports."""
+    if sys.platform != "win32":
+        return []
+    powershell = Path(os.environ.get("SystemRoot", r"C:\Windows")) / "System32/WindowsPowerShell/v1.0/powershell.exe"
+    command = (
+        "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); "
+        "Get-Process -Name MuMuNxMain -ErrorAction SilentlyContinue | "
+        "ForEach-Object { $_.Path }; exit 0"
+    )
+    try:
+        result = subprocess.run(
+            [str(powershell), "-NoProfile", "-NonInteractive", "-Command", command],
+            capture_output=True, check=True, timeout=10,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+        managers = {
+            Path(line.strip()).with_name("MuMuManager.exe")
+            for line in result.stdout.decode("utf-8-sig").splitlines() if line.strip()
+        }
+        endpoints = set()
+        for manager in sorted(managers):
+            if not manager.is_file():
+                continue
+            result = subprocess.run(
+                [str(manager), "info", "--vmindex", "all"],
+                capture_output=True, check=True, timeout=10,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+            instances = json.loads(result.stdout.decode("utf-8-sig"))
+            if not isinstance(instances, dict):
+                raise ValueError("MuMu 实例信息格式无效")
+            for instance in instances.values():
+                if not isinstance(instance, dict):
+                    continue
+                if instance.get("is_process_started") is not True or instance.get("is_android_started") is not True:
+                    continue
+                host, port = instance.get("adb_host_ip"), instance.get("adb_port")
+                if isinstance(host, str) and host in {"127.0.0.1", "localhost"} and type(port) is int and 1 <= port <= 65535:
+                    endpoints.add(f"127.0.0.1:{port}")
+        return sorted(endpoints)
+    except (OSError, subprocess.SubprocessError, ValueError) as exc:
+        raise ValidationError(f"无法读取 MuMu 连接信息，请确认模拟器已启动：{exc}") from exc
+
+
+def adb_device_rows(adb: Path) -> list[list[str]]:
     result = subprocess.run([str(adb), "devices", "-l"], capture_output=True, check=True, timeout=20,
                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    rows = [line.split() for line in result.stdout.decode("utf-8").splitlines()]
-    authorized = [parts for parts in rows if len(parts) > 1 and parts[1] == "device"]
-    if len(authorized) != 1:
-        raise ValidationError("请连接并授权一台 Android 设备。多台设备在线时请先断开其他设备。")
+    return [parts for line in result.stdout.decode("utf-8").splitlines()
+            if len(parts := line.split()) > 1 and parts[1] in {"device", "offline", "unauthorized"}]
+
+
+def discover_device() -> Device:
+    adb = find_adb()
+    rows = adb_device_rows(adb)
+    connection_errors = []
+    if not any(parts[1] in {"device", "unauthorized"} for parts in rows):
+        endpoints = mumu_endpoints()
+        for endpoint in endpoints:
+            try:
+                result = subprocess.run(
+                    [str(adb), "connect", endpoint], capture_output=True, check=True, timeout=5,
+                    creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+                )
+                message = result.stdout.decode("utf-8", errors="replace").strip()
+                if "connected to" not in message:
+                    connection_errors.append(message or endpoint)
+            except (OSError, subprocess.SubprocessError) as exc:
+                connection_errors.append(f"{endpoint}: {exc}")
+        if endpoints:
+            rows = adb_device_rows(adb)
+    authorized = [parts for parts in rows if parts[1] == "device"]
+    if not authorized:
+        if any(parts[1] == "unauthorized" for parts in rows):
+            raise ValidationError("设备尚未授权，请在设备上允许 USB 调试后刷新。")
+        detail = "；".join(connection_errors)
+        raise ValidationError("未找到在线设备。请连接掌机或等待 MuMu 安卓系统启动后刷新。"
+                              + (f" MuMu 连接失败：{detail}" if detail else ""))
+    if len(authorized) > 1:
+        raise ValidationError("多台设备在线，请先断开其他设备后刷新：" + "、".join(parts[0] for parts in authorized))
     parts = authorized[0]
     serial = parts[0]
     label = next((part[6:] for part in parts[2:] if part.startswith("model:")), serial)
