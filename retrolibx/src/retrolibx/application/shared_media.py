@@ -12,11 +12,12 @@ from retrolibx.core.models import Diagnostic, Library
 from retrolibx.core.operations import ExportIntent, MediaRelocation, SourceMetadataUpdate
 from retrolibx.errors import ParseError, ValidationError
 from retrolibx.utils import FileIndex, find_metadata
+from retrolibx.utils.encoding import detect_metadata_encoding
 
 
 def prepare_shared_media(
     library: Library, intent: ExportIntent, source_root: Path, media_base: str,
-    encoding: str, *, device_index: bool = False,
+    encoding: str, *, device_index: bool = False, retained_sources: set[Path] | None = None,
 ) -> None:
     """Add explicit source mutations; do not copy, patch or delete any file here."""
     if library.format != "pegasus":
@@ -52,7 +53,8 @@ def prepare_shared_media(
         raw = metadata.read_bytes()
         if hashlib.sha256(raw).hexdigest() != baselines[metadata]:
             raise ValidationError(f"Source metadata changed during planning: {metadata}")
-        patched = patch_asset_references(raw, replacements, encoding)
+        actual_encoding = detect_metadata_encoding(raw) if encoding == "auto" else encoding
+        patched = patch_asset_references(raw, replacements, actual_encoding)
         if patched != raw:
             intent.source_metadata_updates.append(SourceMetadataUpdate(
                 source=metadata, expected_sha256=baselines[metadata],
@@ -60,19 +62,15 @@ def prepare_shared_media(
             ))
 
     grouped: dict[Path, list[PurePosixPath]] = defaultdict(list)
-    already_shared = {
-        source for destination, source in by_destination.items()
-        if not device_index and source == Path(
-            base.rstrip("/") + "/" + PurePosixPath(*destination.parts[1:]).as_posix()
-        ).resolve()
-    }
     for destination, source in by_destination.items():
         if not source.is_relative_to(root) or source.is_symlink():
-            if source in already_shared and not source.is_symlink():
-                # Already migrated local assets are used in place, never deleted.
-                # All ROM variants can share the first variant's existing asset.
+            # Existing ES-DE assets remain read-only sources; all variant copies
+            # still participate in verification before changing source metadata.
+            if device_index or source.is_symlink() or not source.is_relative_to(Path(base).resolve()):
+                raise ValidationError(f"Media source escaped the selected library: {source}")
+            if not intent.source_metadata_updates:
+                # A repeat export with no source edits/cleanup needs no migration.
                 continue
-            raise ValidationError(f"Media source escaped the selected library: {source}")
         grouped[source].append(destination)
     roms = {rom.path.resolve() for system in library.systems for game in system.games for rom in game.roms}
     metadata_files = find_metadata(root, ("metadata.pegasus.txt",))
@@ -84,11 +82,15 @@ def prepare_shared_media(
         path for path in grouped
         if path.stem.casefold() in {"mini_boxfront", "mini_box_front", "mini_logo"}
     }
+    protected.update(path.resolve() for path in retained_sources or set())
+    protected.update(path for path in grouped if not path.is_relative_to(root))
     if grouped:
         index = FileIndex(root, exclude=metadata_files)
         for metadata in metadata_files:
             try:
-                records = parse_metadata(metadata.read_bytes().decode(encoding))
+                raw_metadata = metadata.read_bytes()
+                actual_encoding = detect_metadata_encoding(raw_metadata) if encoding == "auto" else encoding
+                records = parse_metadata(raw_metadata.decode(actual_encoding))
             except (OSError, UnicodeError, LookupError, ValueError, ParseError):
                 protected.update(grouped)
                 intent.diagnostics.append(Diagnostic(

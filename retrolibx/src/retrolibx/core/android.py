@@ -67,6 +67,8 @@ def render_android_script(
     source_sizes: dict[str, int] | None = None,
     media_root: str | None = None,
     config_checks: dict[str, str] | None = None,
+    media_source_overrides: dict[str, str] | None = None,
+    versioned_backups: bool = False,
 ) -> tuple[str, dict[str, str]]:
     source, target = android_path(source_root), android_path(target_root)
     media_target = android_path(media_root) if media_root else target / "downloaded_media"
@@ -94,12 +96,16 @@ def render_android_script(
     for operation in plan.operations:
         if isinstance(operation, TransferFile) and operation.category == "media":
             relative = operation.source.relative_to(plan.source_root).as_posix()
-            src = str(source / relative)
+            src = (media_source_overrides or {}).get(relative, str(source / relative))
+            if src != str(source / relative) and not android_path(src).is_relative_to(media_target):
+                raise ValidationError("Indexed shared media source escaped ES-DE MediaDirectory")
             relative_target = operation.destination.relative_to(plan.target_root)
             destination = media_target / PurePosixPath(*relative_target.parts[1:])
             directories.add(str(destination.parent))
-            # Preserve the existing skip policy with cp -n; cp failures stop the script.
-            copies.append(f"cp -n -- {shlex.quote(src)} {shlex.quote(str(destination))}")
+            # Full replacement overwrites selected media; normal copies skip existing files.
+            flag = "-f" if operation.overwrite or plan.conflict_policy == "overwrite" else "-n"
+            if src != str(destination):
+                copies.append(f"cp {flag} -- {shlex.quote(src)} {shlex.quote(str(destination))}")
             publication["media"].append({
                 "source": src, "destination": str(destination),
                 "bytes": sizes.get(relative, operation.source.stat().st_size),
@@ -115,7 +121,10 @@ def render_android_script(
                 "destination": destination, "payload": "files/" + relative, "encoding": "utf-8",
                 "expected_sha256": operation.expected_sha256 or "",
                 "sha256": hashlib.sha256(operation.content.encode("utf-8")).hexdigest(),
-                "backup": destination + ".frontendtrans.bak" if operation.backup else None,
+                "backup": destination + (
+                    ".frontendtrans." + operation.expected_sha256 + ".bak"
+                    if versioned_backups and operation.expected_sha256 else ".frontendtrans.bak"
+                ) if operation.backup else None,
             })
         elif isinstance(operation, WriteSourceMetadata):
             relative = operation.destination.relative_to(plan.source_root).as_posix()

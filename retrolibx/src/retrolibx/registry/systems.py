@@ -105,6 +105,12 @@ class SystemRegistry:
         return cls(records, document.version, platform_config_dir)
 
     def resolve(self, value: str) -> SystemRecord | None:
+        key = platform_key(value)
+        for field in ("id", "rom_directory"):
+            exact = [record for record in self.records.values()
+                     if getattr(record, field) and platform_key(getattr(record, field)) == key]
+            if len(exact) == 1:
+                return exact[0]
         matches = self._aliases.get(platform_key(value), set())
         if len(matches) > 1:
             raise MappingError(f"Ambiguous system alias {value!r}: {', '.join(sorted(matches))}")

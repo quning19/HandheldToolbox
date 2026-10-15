@@ -1,0 +1,17 @@
+{
+  "id": "iisu",
+  "metadata_dir": "_inc/systems/metadata-global",
+  "slots": {
+    "artwork": "_inc/systems/artwork",
+    "controllers": "_inc/systems/controllers"
+  },
+  "slot_ext": {},
+  "required_slots": [
+    "artwork",
+    "controllers"
+  ],
+  "badge_slots": [
+    "artwork",
+    "controllers"
+  ]
+}

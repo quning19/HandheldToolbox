@@ -24,6 +24,7 @@ frontend-trans-tool = "retrolibx.gui.app:run"
 desktop = [
   "PySide6==6.12.0; sys_platform == 'win32'",
   "PySide6-Fluent-Widgets==1.11.3; sys_platform == 'win32'",
+  "Pillow>=10; sys_platform == 'win32'",
 ]
 
 [dependency-groups]

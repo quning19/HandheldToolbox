@@ -162,7 +162,9 @@ class ConversionPlanner:
                 path = _resolved(request.source)
                 targets = [_destination(target, relative) for relative in request.destinations]
                 if (
-                    not path.is_relative_to(source) or path in updates or path in migrated or not targets
+                    (not path.is_relative_to(source) and not (
+                        not request.cleanup and path.is_relative_to(target / "downloaded_media")))
+                    or path in updates or path in migrated or not targets
                     or any((path, destination) not in transfers for destination in targets)
                 ):
                     raise ValidationError("Invalid source media relocation")

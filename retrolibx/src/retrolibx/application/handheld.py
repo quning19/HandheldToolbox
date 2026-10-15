@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 from copy import deepcopy
+from typing import Literal
 from pathlib import Path, PurePosixPath
 
 from lxml import etree
@@ -19,9 +20,11 @@ from retrolibx.core.operations import ExportIntent, TextRequest
 from retrolibx.core.options import ExportOptions, ImportOptions, RomMode
 from retrolibx.core.source_profiles import SourceProfile
 from retrolibx.errors import ValidationError
+from retrolibx.utils.encoding import detect_metadata_encoding
 
 from .service import ConversionService
 from .shared_media import prepare_shared_media
+from .selection import select_entries
 
 
 class HandheldConfig(BaseModel):
@@ -45,6 +48,11 @@ class HandheldConfig(BaseModel):
     shared_pegasus: bool = False
     gamelist_rom_roots: dict[str, list[str]] = Field(default_factory=dict)
     gamelist_sources: dict[str, str] = Field(default_factory=dict)
+    existing_entries: Literal["merge", "skip", "replace"] = "merge"
+    existing_roms_only: bool = False
+    media_path_aliases: dict[str, dict[str, Path]] = Field(default_factory=dict)
+    device_media_sources: dict[str, str] = Field(default_factory=dict)
+    versioned_backups: bool = False
 
     @classmethod
     def load(cls, path: Path) -> "HandheldConfig":
@@ -64,6 +72,9 @@ class HandheldConfig(BaseModel):
         for aliases in config.gamelist_rom_roots.values():
             for alias in aliases:
                 android_path(alias)
+        for aliases in config.media_path_aliases.values():
+            for reference, local in aliases.items():
+                aliases[reference] = (path.parent / local).resolve()
         for target, source in (*config.gamelist_sources.items(), *config.system_templates.items()):
             platform_component(target)
             platform_component(source)
@@ -76,7 +87,8 @@ def scan_handheld(config: HandheldConfig) -> Library:
     )
     return ConversionService(platform_config_dir=config.platform_config_dir).import_library(
         config.source_root, "pegasus",
-        ImportOptions(metadata_encoding=config.encoding, source_profile=profile_path),
+        ImportOptions(metadata_encoding=config.encoding, source_profile=profile_path,
+                      media_path_aliases=config.media_path_aliases),
     )[1]
 
 
@@ -294,13 +306,17 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
         "pegasus",
         ImportOptions(
             platforms=platforms, metadata_encoding=config.encoding,
+            media_path_aliases=config.media_path_aliases,
             source_profile=config.source_profile or (
                 Path(__file__).parents[1] / "profiles/pegasus-g.json"
             ),
         ),
     )
     adapter = service.adapters.resolve("es-de")
-    options = ExportOptions(rom_mode=RomMode.NONE, shared_pegasus=config.shared_pegasus)
+    options = ExportOptions(
+        rom_mode=RomMode.NONE, shared_pegasus=config.shared_pegasus,
+        conflict="overwrite" if config.existing_entries == "replace" else "skip",
+    )
     snapshot = config.target_snapshot or output.parent / ".empty-esde-snapshot"
     for system in library.systems:
         mapped = config.system_ids.get(system.id)
@@ -315,6 +331,12 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
             )
             system.metadata["target_system"] = mapped
     _reuse_systems(config, library, snapshot)
+    selection = None
+    if config.existing_entries != "merge" or config.existing_roms_only:
+        selection = select_entries(library, snapshot, {
+            _target_name(system): str(android_path(config.device_rom_root) / system.metadata["source_platform"])
+            for system in library.systems
+        }, policy=config.existing_entries, existing_only=config.existing_roms_only)
     intent = adapter.render_library(library, snapshot, options)
     errors = [d.message for d in library.diagnostics if d.severity == "error"]
     errors.extend(_launch_errors(config, library))
@@ -364,6 +386,7 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
         prepare_shared_media(
             library, intent, source_root, media_base, config.encoding,
             device_index=config.device_index is not None,
+            retained_sources={source_root / name for name in config.device_media_sources},
         )
     sizes: dict[str, int] = {}
     if config.device_index:
@@ -384,6 +407,7 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
         "issues": [d.model_dump(mode="json") for d in library.diagnostics + intent.diagnostics],
         "errors": errors,
         "executable": not errors,
+        "selection": selection,
     }
     report = (
         "# Conversion preview\n\n"
@@ -404,7 +428,9 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
     for request in intent.source_metadata_updates:
         relative = request.source.relative_to(source_root).as_posix()
         payload["files/source-metadata/" + relative + ".b64"] = request.content_base64 + "\n"
-        payload["preview/source-metadata/" + relative + ".preview.txt"] = base64.b64decode(request.content_base64).decode(config.encoding)
+        raw_metadata = base64.b64decode(request.content_base64)
+        payload["preview/source-metadata/" + relative + ".preview.txt"] = raw_metadata.decode(
+            detect_metadata_encoding(raw_metadata) if config.encoding == "auto" else config.encoding)
     if not errors:
         media_root, config_checks = _media_location(config)
         plan = service.planner.plan(
@@ -423,6 +449,8 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
             sizes,
             media_root,
             config_checks,
+            config.device_media_sources,
+            config.versioned_backups,
         )
         payload.update(publication_payload)
         payload["apply.sh"] = script

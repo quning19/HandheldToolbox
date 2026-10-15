@@ -61,7 +61,8 @@ def load_publication(task: Path, skip_platform_config: bool = False) -> tuple[di
             expected = _sha(write["expected_sha256"], allow_empty=True)
             desired = _sha(write["sha256"])
             backup = str(destination) + (".frontendtrans." + expected + ".bak" if category == "source-metadata" else ".frontendtrans.bak")
-            if write["backup"] is not None and write["backup"] != backup:
+            versioned = str(destination) + ".frontendtrans." + expected + ".bak"
+            if write["backup"] is not None and write["backup"] not in {backup, versioned}:
                 raise ValidationError("Invalid publication backup path")
             relative_payload = PurePosixPath(write["payload"])
             if relative_payload.is_absolute() or ".." in relative_payload.parts or not relative_payload.parts or relative_payload.parts[0] != "files":
@@ -87,7 +88,8 @@ def load_publication(task: Path, skip_platform_config: bool = False) -> tuple[di
         sources = {}
         media_destinations = set()
         for item in data["media"]:
-            _inside(item["source"], source)
+            source_path = android_path(item["source"])
+            _inside(item["source"], source if source_path.is_relative_to(source) else media)
             _inside(item["destination"], media)
             if item["destination"] in media_destinations or not isinstance(item["bytes"], int) or item["bytes"] < 0:
                 raise ValidationError("Invalid media publication requirement")
@@ -202,7 +204,7 @@ class AdbPublisher(AdbUploader):
             if (digest and digest != expected) or cleanup["expected_sha256"] not in {None, expected}:
                 raise ValidationError(f"Shared source changed: {cleanup['source']}")
         published = []
-        with tempfile.TemporaryDirectory(prefix="retrolibx-publish-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="retrolibx-publish-", dir=getattr(self, "temporary_root", None)) as temporary:
             for number, write in enumerate(data["writes"]):
                 current = self._baseline(write)
                 if current == write["sha256"]:

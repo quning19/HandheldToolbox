@@ -46,7 +46,7 @@ class PlanExecutor:
                 self._assert_source(plan.source_root, update.destination)
                 self._check_source_metadata(update)
             for migration in migrations:
-                self._assert_source(plan.source_root, migration.destination, allow_missing=True)
+                self._assert_source(self._migration_root(plan, migration), migration.destination, allow_missing=True)
                 if migration.expected_sha256 is None:
                     raise FileOperationError("A device-index migration must be executed on the device")
                 if migration.destination.exists() and file_digest(migration.destination) != migration.expected_sha256:
@@ -72,7 +72,8 @@ class PlanExecutor:
             destination = operation.destination
             try:
                 if isinstance(operation, (WriteSourceMetadata, MigrateSourceMedia)):
-                    self._assert_source(plan.source_root, destination, allow_missing=isinstance(operation, MigrateSourceMedia))
+                    source_scope = self._migration_root(plan, operation) if isinstance(operation, MigrateSourceMedia) else plan.source_root
+                    self._assert_source(source_scope, destination, allow_missing=isinstance(operation, MigrateSourceMedia))
                 else:
                     self._assert_contained(plan.target_root, destination)
                 if getattr(operation, "skipped", False):
@@ -139,6 +140,13 @@ class PlanExecutor:
             except (OSError, FileOperationError) as exc:
                 raise FileOperationError(f"Failed operation at {destination}: {exc}") from exc
         return report
+
+    @staticmethod
+    def _migration_root(plan: ConversionPlan, operation: MigrateSourceMedia) -> Path:
+        media = plan.target_root.resolve() / "downloaded_media"
+        if not operation.cleanup and operation.destination.resolve().is_relative_to(media):
+            return media
+        return plan.source_root
 
     @classmethod
     def _assert_source(cls, root: Path, path: Path, *, allow_missing: bool = False) -> None:

@@ -35,6 +35,8 @@ class ImportOptions(BaseModel):
     platforms: list[str] = Field(default_factory=list)
     metadata_encoding: str = "utf-8-sig"
     source_profile: Path | None = None
+    media_path_aliases: dict[str, dict[str, Path]] = Field(default_factory=dict)
+    shared_media_root: Path | None = None
 
 
 class ExportOptions(BaseModel):

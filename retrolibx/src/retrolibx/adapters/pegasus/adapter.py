@@ -23,6 +23,7 @@ from retrolibx.core.source_profiles import SourceProfile
 from retrolibx.errors import ParseError
 from retrolibx.utils import FileIndex, find_metadata
 from retrolibx.utils.discovery import rom_relative_path
+from retrolibx.utils.encoding import detect_metadata_encoding
 
 from ..base import DetectionResult, ImportResult, LibraryAdapter
 from .metadata import field, parse_metadata, render_records
@@ -71,7 +72,8 @@ class PegasusAdapter(LibraryAdapter):
             )
             try:
                 metadata_bytes = metadata_path.read_bytes()
-                text = metadata_bytes.decode(options.metadata_encoding)
+                encoding = detect_metadata_encoding(metadata_bytes) if options.metadata_encoding == "auto" else options.metadata_encoding
+                text = metadata_bytes.decode(encoding)
             except (OSError, UnicodeError, LookupError) as exc:
                 raise ParseError(f"Could not read {metadata_path}: {exc}") from exc
             records = parse_metadata(text)
@@ -175,15 +177,15 @@ class PegasusAdapter(LibraryAdapter):
                     value = values[-1]
                     if ".." in PurePosixPath(value.replace("\\", "/")).parts:
                         raise ParseError(f"Unsafe media reference: {value}")
-                    resolved_asset = resolver.resolve(
-                        value,
-                        bases=(metadata_path.parent,),
-                        preferred_parts=("media", "images", kind),
+                    aliased = options.media_path_aliases.get(system.metadata["source_platform"], {}).get(value)
+                    resolved_asset = aliased.resolve() if aliased else resolver.resolve(
+                        value, bases=(metadata_path.parent,), preferred_parts=("media", "images", kind),
                     )
                     if (
                         options.platforms
                         and resolved_asset
                         and not resolved_asset.is_relative_to(scope_root.resolve())
+                        and not (options.shared_media_root and resolved_asset.is_relative_to(options.shared_media_root.resolve()))
                     ):
                         raise ParseError(f"Media outside source platform: {value}")
                     assets[kind] = resolved_asset or (metadata_path.parent / value).resolve(

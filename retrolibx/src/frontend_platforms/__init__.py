@@ -142,6 +142,11 @@ class PlatformRegistry:
         return registry
 
     def resolve(self, value: str) -> dict[str, Any] | None:
+        key = platform_key(value)
+        for field in ("name", "rom_directory"):
+            exact = [record for record in self.records.values() if platform_key(record[field]) == key]
+            if len(exact) == 1:
+                return exact[0]
         matches = self.aliases.get(platform_key(value), set())
         if len(matches) > 1:
             raise ValueError(

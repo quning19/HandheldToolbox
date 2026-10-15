@@ -2,6 +2,7 @@
 
 import base64
 import io
+import hashlib
 import json
 import os
 import shlex
@@ -9,6 +10,7 @@ import subprocess
 import tarfile
 import tempfile
 import uuid
+import re
 from pathlib import Path, PurePosixPath
 
 from retrolibx.core.android import android_path
@@ -17,16 +19,22 @@ from retrolibx.core.operations import ExportIntent, FileRequest, TextRequest
 from retrolibx.core.options import ExportOptions
 from retrolibx.core.planner import ConversionPlanner
 from retrolibx.errors import ValidationError
+from retrolibx.adapters.esde.merge import parse_xml
+from retrolibx.adapters.pegasus.metadata import parse_metadata
+from retrolibx.adapters.pegasus.media import canonical_role
+from .selection import detect_metadata_encoding
 
 
 class AdbReader:
-    def __init__(self, adb: Path, serial: str) -> None:
+    def __init__(self, adb: Path, serial: str, *, temporary_root: Path | None = None) -> None:
         self.adb, self.serial = adb, serial
+        self.temporary_root = temporary_root
 
     def read(self, command: str, *, timeout: int = 60) -> bytes:
         try:
             devices = subprocess.run(
-                [str(self.adb), "devices", "-l"], capture_output=True, check=True, timeout=20
+                [str(self.adb), "devices", "-l"], capture_output=True, check=True, timeout=20,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             ).stdout.decode("utf-8")
             authorized = [
                 line.split()[0]
@@ -44,6 +52,7 @@ class AdbReader:
                 capture_output=True,
                 check=True,
                 timeout=timeout,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
             raw = completed.stdout
             payload, separator, status = raw.rpartition(("\n" + marker).encode("ascii"))
@@ -124,6 +133,7 @@ class AdbUploader(AdbReader):
             subprocess.run(
                 [str(self.adb), "-s", self.serial, "push", local_argument, remote_argument],
                 capture_output=True, check=True, timeout=3600,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             )
         except (OSError, subprocess.SubprocessError) as exc:
             raise ValidationError(
@@ -159,6 +169,7 @@ def capture_device(
     esde_root: str,
     output: Path,
     systems_template: Path | None = None,
+    *, include_disc_descriptors: bool = False, include_shared_media: bool = False,
 ) -> dict[str, object]:
     source, target = android_path(source_root), android_path(esde_root)
     if not platforms or (output.exists() and any(output.iterdir())):
@@ -195,10 +206,13 @@ def capture_device(
         for name, size in sizes.items()
         if not any(PurePosixPath(name).is_relative_to(path) for path in nested)
     }
+    download_names = list(metadata)
+    if include_disc_descriptors:
+        download_names.extend(name for name in sizes if PurePosixPath(name).suffix.casefold() in {".cue", ".gdi", ".m3u", ".ccd"})
     contents = _archive_files(
-        reader.read(f"tar -cf - -C {q(str(source))} " + " ".join(q(name) for name in metadata))
+        reader.read(f"tar -cf - -C {q(str(source))} " + " ".join(q(name) for name in download_names))
     )
-    if set(contents) != set(metadata):
+    if set(contents) != set(download_names):
         raise ValidationError("Incomplete metadata archive; no capture was written")
     target_exists = reader.read(f"if [ -d {q(str(target))} ]; then printf yes; fi") == b"yes"
     snapshot: dict[str, bytes] = {}
@@ -217,6 +231,46 @@ def capture_device(
                     f"tar -cf - -C {q(str(target))} " + " ".join(q(name) for name in listing)
                 )
             )
+    aliases: dict[str, dict[str, str]] = {}
+    shared_sources: dict[str, str] = {}
+    if include_shared_media:
+        media_root = target / "downloaded_media"
+        settings = snapshot.get("settings/es_settings.xml") or snapshot.get("es_settings.xml")
+        if settings:
+            fragment = re.sub(rb"^\s*(?:\xef\xbb\xbf)?<\?xml[^?]*\?>", b"", settings, count=1)
+            try:
+                settings_root = parse_xml(settings, "config")
+            except ValidationError:
+                settings_root = parse_xml(b"<config>" + fragment + b"</config>", "config")
+            node = settings_root.find("string[@name='MediaDirectory']")
+            if node is not None and node.get("value"):
+                media_root = android_path(node.get("value"))
+        references: dict[str, list[tuple[str, str]]] = {}
+        for name in metadata:
+            platform = PurePosixPath(name).parent.as_posix()
+            for record in parse_metadata(contents[name].decode(detect_metadata_encoding(contents[name]))):
+                for key, values in record.items():
+                    if not key.startswith("assets.") or canonical_role(key[7:]) not in {"box_front", "logo", "marquee", "video"}:
+                        continue
+                    for value in values:
+                        path = PurePosixPath(value)
+                        if path.is_absolute() and ".." not in path.parts and path.is_relative_to(media_root) and path != media_root:
+                            android_path(value)
+                            references.setdefault(value, []).append((platform, value))
+        paths = list(references)
+        for offset in range(0, len(paths), 48):
+            arguments = " ".join(q(value) for value in paths[offset:offset + 48])
+            raw = reader.read(f"for file in {arguments}; do if [ -f \"$file\" ]; then stat -c '%s|%n' \"$file\"; fi; done")
+            for line in raw.decode("utf-8").splitlines():
+                size, remote = line.split("|", 1)
+                if remote not in references:
+                    raise ValidationError("Unexpected shared media index path")
+                for platform, reference in references[remote]:
+                    virtual = str(PurePosixPath(platform) / ".frontendtrans-index" / (
+                        hashlib.sha256(remote.encode("utf-8")).hexdigest() + PurePosixPath(remote).suffix))
+                    sizes[virtual] = int(size)
+                    aliases.setdefault(platform, {})[reference] = "Roms/" + virtual
+                    shared_sources[virtual] = remote
     config: dict[str, object] = {
         "source_root": "Roms",
         "device_rom_root": str(source),
@@ -225,6 +279,8 @@ def capture_device(
         "target_empty": not target_exists,
         "target_snapshot": "snapshot" if target_exists else None,
         "device_index": "device-index.json",
+        "media_path_aliases": aliases,
+        "device_media_sources": shared_sources,
     }
     intent = ExportIntent(
         texts=[
@@ -242,10 +298,10 @@ def capture_device(
             ),
         ]
     )
-    with tempfile.TemporaryDirectory(prefix="retrolibx-capture-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="retrolibx-capture-", dir=getattr(reader, "temporary_root", None)) as temporary:
         staging = Path(temporary)
         for name in sizes:
-            if name not in metadata:
+            if name not in contents:
                 intent.texts.append(
                     TextRequest(destination=PurePosixPath("Roms") / name, content="")
                 )
@@ -274,7 +330,8 @@ def capture_device(
     return {
         "serial": reader.serial,
         "indexed_files": len(sizes),
-        "downloaded_metadata": len(contents),
+        "downloaded_metadata": len(metadata),
+        "downloaded_descriptors": len(contents) - len(metadata),
         "downloaded_config": len(snapshot),
         "media_downloaded": 0,
     }
