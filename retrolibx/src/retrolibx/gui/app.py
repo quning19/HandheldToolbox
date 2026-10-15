@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QApplication, QButtonGroup, QHBoxLayout, QLabel, QMainWindow, QMessageBox,
-    QSizePolicy, QStackedWidget, QToolButton, QVBoxLayout, QWidget,
+    QSizePolicy, QStackedWidget, QVBoxLayout, QWidget,
 )
 from qfluentwidgets import FluentIcon
 
@@ -16,7 +16,7 @@ from .library_page import LibraryPage
 from .settings_page import SettingsPage
 from .state import UiStore
 from .themes_page import ThemesPage
-from .widgets import caption
+from .widgets import NavigationButton, caption
 
 
 class MainWindow(QMainWindow):
@@ -65,7 +65,7 @@ class MainWindow(QMainWindow):
             self.pages.addWidget(page)
             if index == 2:
                 nav.addStretch(1)
-            button = QToolButton()
+            button = NavigationButton()
             button.setObjectName("nav")
             button.setText(text)
             button.setIcon(icon.icon())

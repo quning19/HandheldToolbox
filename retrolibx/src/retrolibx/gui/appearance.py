@@ -63,11 +63,11 @@ def stylesheet(c: dict[str, str]) -> str:
     QLabel#statusBadge[tone="muted"] {{ color: {c['muted']}; background: {c['raised']}; }}
     QFrame#surface {{ background: {c['surface']}; border: 1px solid {c['border']}; border-radius: 10px; }}
     QFrame#feedback {{ background: {c['accent_soft']}; border: 1px solid {c['border']}; border-radius: 8px; }}
-    QToolButton#nav {{ border: 0; border-left: 3px solid transparent; border-radius: 7px;
+    QToolButton#nav {{ border: 1px solid transparent; border-left: 3px solid transparent; border-radius: 7px;
         background: transparent; text-align: left; padding: 12px 11px; color: {c['muted']}; }}
     QToolButton#nav:hover {{ background: {c['hover']}; }}
     QToolButton#nav:checked {{ background: {c['accent_soft']}; border-left-color: {c['accent']}; color: {c['accent_ink']}; }}
-    QToolButton#nav:focus {{ border: 1px solid {c['accent']}; }}
+    QToolButton#nav[keyboardFocus="true"] {{ border-color: {c['accent']}; }}
     QScrollArea {{ background: transparent; border: 0; }}
     QScrollArea > QWidget > QWidget {{ background: transparent; }}
     QTableView {{ background: {c['surface']}; color: {c['ink']};

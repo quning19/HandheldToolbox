@@ -6,12 +6,44 @@ from pathlib import Path
 from PySide6.QtCore import Qt, QRectF, Signal
 from PySide6.QtGui import QColor, QFont, QPainter, QPainterPath, QPen, QPixmap
 from PySide6.QtWidgets import (
-    QFrame, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QVBoxLayout, QWidget,
+    QFrame, QHBoxLayout, QLabel, QPushButton, QSizePolicy, QToolButton, QVBoxLayout, QWidget,
 )
-from qfluentwidgets import BodyLabel, CaptionLabel, ProgressBar, PushButton
+from qfluentwidgets import CaptionLabel, ProgressBar, PushButton
 
 from .state import PlatformPreview
 from .appearance import DARK, LIGHT, colors, ui_font
+
+
+class NavigationButton(QToolButton):
+    """Show a focus outline for keyboard navigation, independently of selection."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.setProperty("keyboardFocus", False)
+
+    def _set_keyboard_focus(self, visible: bool) -> None:
+        if self.property("keyboardFocus") == visible:
+            return
+        self.setProperty("keyboardFocus", visible)
+        self.style().unpolish(self)
+        self.style().polish(self)
+        self.update()
+
+    def focusInEvent(self, event) -> None:
+        super().focusInEvent(event)
+        self._set_keyboard_focus(event.reason() in (
+            Qt.FocusReason.TabFocusReason, Qt.FocusReason.BacktabFocusReason,
+            Qt.FocusReason.ShortcutFocusReason,
+        ))
+
+    def focusOutEvent(self, event) -> None:
+        super().focusOutEvent(event)
+        self._set_keyboard_focus(False)
+
+    def mousePressEvent(self, event) -> None:
+        self._set_keyboard_focus(False)
+        super().mousePressEvent(event)
 
 
 def caption(text: str, parent: QWidget | None = None, *, tone: str = "muted") -> CaptionLabel:
@@ -82,23 +114,38 @@ def status_badge(text: str, tone: str) -> QWidget:
 
 
 class TaskFeedback(QFrame):
+    """A fixed-height footer whose reserved space survives every task state."""
+
     cancelled = Signal()
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setObjectName("feedback")
+        self.setFixedHeight(72)
+        policy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        policy.setRetainSizeWhenHidden(True)
+        self.setSizePolicy(policy)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(14, 10, 14, 10)
-        layout.setSpacing(5)
+        layout.setSpacing(8)
         row = QHBoxLayout()
-        self.message = BodyLabel()
-        self.message.setWordWrap(True)
+        self.message = ElidedCaption()
+        self.message.setFont(ui_font(14))
+        self.message.setTextColor(LIGHT["ink"], DARK["ink"])
         row.addWidget(self.message, 1)
         self.stop = PushButton("取消")
+        self.stop.setFixedHeight(32)
+        stop_policy = self.stop.sizePolicy()
+        stop_policy.setRetainSizeWhenHidden(True)
+        self.stop.setSizePolicy(stop_policy)
         self.stop.clicked.connect(self.cancelled)
         row.addWidget(self.stop)
         layout.addLayout(row)
         self.bar = ProgressBar()
+        self.bar.setFixedHeight(4)
+        bar_policy = self.bar.sizePolicy()
+        bar_policy.setRetainSizeWhenHidden(True)
+        self.bar.setSizePolicy(bar_policy)
         layout.addWidget(self.bar)
         self.hide()
 
