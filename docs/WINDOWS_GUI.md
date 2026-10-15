@@ -1,96 +1,101 @@
-# Windows 图形界面开发
+# Windows 图形界面
 
-更新日期：2026-10-15。当前分支 `feature/windows-ui`，首版为 **PySide6 / Qt Widgets / QFluentWidgets 原生界面预览**。页面布局沿用 [确认方案](WINDOWS_UI_PLAN.md)，不调用转换核心、主题工具或 ADB。
+更新日期：2026-10-15。显示方案保持用户确认的 Fluent 工作台，采用 PySide6 / Qt Widgets / QFluentWidgets。界面基线保存到标签 baseline/windows-ui-20261015，实际业务在 codex/windows-business 分支接入。
 
-## 打开界面
+## 打开
 
-本机已在 `retrolibx/.venv` 安装桌面依赖。双击项目根目录的 `启动界面.cmd`，或者在根目录执行：
+本机项目虚拟环境已准备核心依赖、PySide6 6.12.0、PySide6-Fluent-Widgets 1.11.3 和 Pillow 12.3.0。双击项目根目录的“启动界面.cmd”。源码入口：
 
-```powershell
+~~~powershell
 & '.\retrolibx\.venv\Scripts\python.exe' -B '.\launch_gui.py'
-```
+~~~
 
-其他机器需要 Python 3.12+，先建立虚拟环境并安装依赖：
+其他机器需要 Python 3.12+；在项目根目录创建虚拟环境后安装完整桌面依赖：
 
-```powershell
+~~~powershell
 python -m venv retrolibx/.venv
-& '.\retrolibx\.venv\Scripts\python.exe' -m pip install -r retrolibx/requirements-desktop.txt
-```
+& '.\retrolibx\.venv\Scripts\python.exe' -m pip install './retrolibx[desktop]'
+~~~
 
-已安装完整 Python 项目时，可安装桌面可选依赖 `pip install -e "retrolibx[desktop]"`，通过 `frontend-trans-tool` 启动。CLI 原有依赖不强制引入 Qt。
+ADB 从 PATH、ANDROID_HOME、ANDROID_SDK_ROOT 或当前用户 Android SDK 安装目录查找，未找到时报错。未打包独立 EXE。应用启动不自动连接设备或扫描 ROM；用户点击具体操作才执行对应业务。
 
-当前尚未打包独立 EXE。运行、界面自动化、截图、测试和打包验证均需单独取得用户批准；上述命令是用户运行入口，不代表已由开发者验证通过。
+## 游戏库转换
 
-## 首版范围
+- 掌机来源先点击“刷新设备”：要求恰好一台已授权设备；识别内置存储和 SD 卡里的 rom/roms（不区分大小写），只统计候选目录直接子目录数。多设备在线或 ES-DE 位置有歧义时报错，不猜测目标。
+- ES-DE 默认识别内置存储根目录里的 ES-DE；新设备没有该目录时使用 /storage/emulated/0/ES-DE，实际转换时初始化。刷新设备不扫描平台内容。
+- 选择来源后点击“加载平台”才读取 metadata 和文件索引。工作线程逐平台追加卡片；修改来源会取消旧加载并隔离旧结果。主动取消时已完成的平台可继续选择。
+- 电脑来源按当前绝对路径自动分配 library/<来源目录名>-<路径标识>/ES-DE，避免不同来源的同名 ROM 被误认作已收录；不需要单独设置输出目录。
+- ROM 数量按实际存在的独立启动入口计数；多版本分别计数，同一封面按各版本文件名复制。cue/gdi/m3u/ccd 所引用的轨道或从属文件不重复计数。只统计封面覆盖率。
+- 缺失引用、未关联资料的 ROM 和无法处理的平台显示在卡片提示中；缺失引用不转换，不改写或“修复”源 metadata。平台解析错误保留失败状态。
+- metadata 自动识别 UTF-8（含 BOM）、带 BOM 的 UTF-16 和 GB18030。不同平台编码可一并选择，不提供编码设置。
+- 默认只处理已有 gamelist 中没有的 ROM 相对路径；不比较旧素材时间、大小或内容变化。“全量替换”重新处理所选平台现存入口并覆盖对应素材，保留额外条目及已有收藏等用户字段，不清空目录。
+- 共用素材默认关闭。明确开启后复用已有的副本验证、metadata 局部发布和源素材保护流程。已迁移到 ES-DE 的素材可用于后续新增版本，ES-DE 目录里的源副本不作为清理对象。
 
-| 页面 | 已实现的界面及交互 | 当前数据/操作 |
-|---|---|---|
-| 游戏库转换 | 掌机/电脑来源切换、候选目录、手动加载、逐平台异步追加、取消、网格多选、共用素材、全量替换、进度/结果 | 示例平台和数量，转换只更新内存中的示例收录状态 |
-| 主题适配 | 七套主题、本地原版/转换结果/设备状态、同步/转换/上传/刷新、批量选择、取消 | 示例状态和进度，不执行下载、转换或上传 |
-| 设置 | 亮色/暗色切换、唯一工作目录、自动创建功能子目录、程序同级基础设置 | 外观切换即时保存，工作目录点击保存后写入 |
-| 平台管理 | 搜索、添加、编辑、删除、母体引用保护、重复目录校验 | 实际写入工作目录的平台配置；暂未用于真实转换 |
+掌机一次批量捕获文件名/大小索引、metadata、光盘描述文件和已有 ES-DE 文本配置，不下载 ROM、图片或视频。已共用素材的绝对引用在实际 MediaDirectory 内批量读取存在信息，使用本地空文件表示路径；设备内复制仍使用真实路径。扫描到的空文件不能当作真实资源导出。
 
-窗口默认 1140 × 750，最小 1000 × 650，使用 Windows 原生标题栏和边缘缩放。侧栏宽 184px。页面切换只切换内容，不重新设定窗口尺寸；平台网格按当前宽度重排，固定 12px 行列间距，列表区域内部滚动。加载时修改来源会中止旧任务，旧信号通过代次标识丢弃；窗口关闭时等待短任务退出，防止线程被提前销毁。
+转换复用 Adapter → Library → ExportIntent → Planner → Executor。掌机一次 build 生成所选多平台任务，复用 deploy/upload/publish 执行媒体复制及配置发布；遵守 C2/C4 上传约定。设备 MediaDirectory 遵循 ES-DE 设置，缺失系统配置初始化完整四文件；已有配置保留节点、启动参数和伴随规则，补齐缺失内容。GBA vib 沿用既定 metadata 启动转换，不套用普通 GBA 核心。
 
-平台卡片使用已确认 HTML 原型里的 14 张 Canvas capsule WebP 显示副本，不依赖设备或外部主题路径。上部图片铺满、名称居中描边，下部显示 ROM、封面和新增数量。PSP Minis 暂沿用 PSP 卡图。
+完成转换后必须重新加载平台再执行下一次，以取得新的发布基线。设备 XML 备份采用基线摘要区分版本，避免后续增量转换与旧备份冲突。电脑目录模式生成本地媒体、列表及平台配置，不配置 Windows 模拟器或宣称可以直接在 Windows ES-DE 中启动游戏。
 
-## 外观调整
+## 主题适配
 
-设置页的“外观”开关在亮色与暗色之间即时切换，更新导航、弹窗、表格、平台卡片和 Fluent 控件，不重置当前选择或正在进行的示例任务。默认亮色，重开沿用上次选择。
+列表按七套已支持的主题显示本地原版、转换结果、设备主题状态：Canvas、Aura、Alekfull NX、Elementerial、Iconic、iiSU Interpreted、PlayStation-X。
 
-侧栏的选中底色与左侧强调线只对应当前页面；完整焦点框仅在 Tab 等键盘导航时显示，鼠标操作不留下其他页面的焦点外框。游戏库和主题页的进度反馈均位于底部，固定 72px 高度，隐藏时仍保留布局空间；取消按钮和进度条隐藏后也保留各自空间，避免执行、完成或取消时列表和进度文字跳动。长进度文字单行省略，悬停可查看全文。
+1. “同步原版”从当前设备的 ES-DE/themes 读取真正的原版主题，按 capabilities.xml 识别，下载到 themes/original/<主题标识>；已适配的“_天马G”主题不会被当作原版。设备不存在原版时报告缺失。也可手动将已有原版主题目录放入 themes/original，然后刷新列表。
+2. “转换主题”使用本地原版和统一平台定义，生成完整主题到 themes/exported/<原主题名>_天马G。七套槽位规则、目录素材、专用图优先、母体回退、角标和 androidgames 比例处理从原主题工程整理进本项目，不依赖相邻工程路径。
+3. “上传主题”只接受具有成功生成记录、原版标记和当前平台定义摘要的完整结果，使用 C2 上传到自动识别的 ES-DE/themes；上传后自动刷新状态。
+4. “刷新设备主题”只读取主题目录和 capabilities.xml，不下载素材或计算整套主题哈希。读取失败保持“未检查”，“已存在”仅表示对应主题存在。
 
-| 颜色角色 | 亮色 | 暗色 |
-|---|---|---|
-| 页面背景 | 雾蓝 `#F2F5FB` | 深蓝灰 `#111827` |
-| 卡片表面 | 白色 `#FFFFFF` | 蓝灰 `#1B2437` |
-| 强调色 | 蓝紫 `#4F63D8` | 浅蓝紫 `#9AA8FF` |
-| 完成状态 | 青绿 `#008B7A` | 浅青绿 `#63D5C4` |
-| 主文字 | `#1F2A44` | `#E8EDF8` |
-| 辅助文字 | `#60718A` | `#A5B2C9` |
+原有主题批次对现有分类的处理范围保持；新增独立分类按该主题的全套槽位从母体生成，沿用母体模式直接复用母体主题名。缺少必需素材会阻止本次结果进入可上传状态，不承诺任意主题或平台均可适配。
 
-缺失封面、待转换和错误分别使用独立的提示色，同时保留文字说明。字体优先使用微软雅黑 UI，回退到微软雅黑和 Segoe UI；页面标题 24px、区块标题 17px、正文 14px、辅助文字 13px，采用 Qt 逻辑像素随系统 DPI 缩放。主题表格改用文字状态标签，路径在空间不足时省略中段，悬停可查看完整路径；卡片保留既有图片和名称描边。
+转换先在工作目录临时区生成完整结果，成功后再替换管理的导出目录；先前版本保留在对应 temp 任务下，失败不会用不完整主题覆盖旧版本。平台定义变更会使旧结果过期，需要重新转换。
 
-## 保存位置
+## 平台管理与保存位置
 
-源码模式的 `settings.json` 位于项目根目录，与 `launch_gui.py` 同级；冻结为 EXE 时位于 EXE 同级。不使用 AppData。首次打开只读取配置，不自动写入。
+默认平台列表来自维护的完整 XML，另包含已讨论的 PSP Minis。已有界面阶段保存的平台定义继续读取，不擅自覆盖。平台管理中的添加、编辑、删除供游戏库及主题两边使用；新分类需选择母体以继承完整启动模板。添加的平台可自动参与识别和对应主题资源生成。沿用母体主题名不应使母体平台识别变为歧义。
 
-基础设置中的 `theme` 保存 `light` 或 `dark`，与唯一工作目录一同维护。旧配置未提供 `theme` 时按亮色打开，不自动改写文件；保存外观失败时保留原主题和开关状态。
+执行文件同级 settings.json 保存唯一工作目录及 light/dark 外观，不使用 AppData。工作目录：
 
-默认工作目录为程序同级的 `workspace/`，也可在设置页选择其他绝对路径。保存工作目录后自动创建 `config/`、`themes/original/`、`themes/exported/`、`library/`、`devices/`、`logs/`、`temp/`。切换目录使用新位置的平台定义，不搬移旧数据。
+~~~text
+config/platforms.json       用户平台定义
+config/theme-results.json   成功的主题生成记录
+themes/original/            本地原版主题
+themes/exported/            完整适配主题
+library/                   按电脑来源隔离的转换结果
+devices/                   预留的设备资料目录
+logs/desktop.log           后台任务失败明细
+temp/                      目录索引、配置快照、任务、中间文件及先前主题副本
+~~~
 
-平台定义保存在 `<workspace>/config/platforms.json`，包含版本、显示名称、目录、内部标识、母体、主题表现和角标。这是界面层配置，**尚未替代** Python 核心的 `frontend_platforms` 平台定义；接入时需统一映射，并保留已有 GBA vib 启动规则。示例转换、主题结果与示例设备状态不保存为真实产物或部署记录。
+每个业务任务在 temp 下保存独立目录。捕获、发布使用的临时文件也放在该工作目录。当前保留这些任务便于失败后定位和恢复，不自动删除用户产物。生成的运行时平台四文件来自维护基线与用户覆盖，属于产物；不另建一套手工维护的平台 XML。
 
-## 源码拆分
+## 界面与线程
 
-```text
-retrolibx/src/retrolibx/gui/
-├─ app.py              主窗口、导航、状态栏、启动入口
-├─ appearance.py       亮暗配色、字体层级与统一样式
-├─ library_page.py     来源、后台示例加载、游戏库交互
-├─ themes_page.py      主题状态和示例操作
-├─ settings_page.py    外观、工作目录及平台管理
-├─ widgets.py          平台卡片、网格、页内反馈控件
-├─ state.py            示例数据、界面平台模型、便携配置
-└─ assets/platforms/   既有原型的 Canvas 缩略图
-```
+窗口默认 1140 × 750，最小 1000 × 650；Windows 原生标题栏与边缘缩放，切页保持窗口尺寸。固定侧栏 184px，平台网格行列间距 12px。卡片沿用 Canvas 方形素材，上部图片铺满、名称居中描边，下部显示实际计数。
 
-业务接入应继续使用原有 Adapter → Library → ExportIntent → Planner → Executor 流程；页面不自行拷贝媒体、修改 gamelist 或通过临时脚本部署。当前没有新增扫描业务、数据库、更新器、任务历史页面或设备写入。
+设置提供即时亮暗切换并保存。亮色雾蓝/白色，暗色深蓝灰，蓝紫为强调色、青绿为完成状态；微软雅黑 UI 优先，页面标题 24px、区块标题 17px、正文 14px、辅助文字 13px。选中样式和键盘焦点区分，鼠标操作不留下其他页面的焦点框。
 
-## 依赖与检查边界
+两个主页面的底部反馈区均固定 72px 并保留隐藏空间，不因进度显示、完成或取消挤动列表。长消息省略，悬停可看全文。
 
-安装版本为 PySide6 6.12.0、PySide6-Fluent-Widgets 1.11.3。版本在可选依赖、桌面依赖清单和项目锁文件维护。[Qt for Python](https://doc.qt.io/qtforpython-6/) 与 [QFluentWidgets 安装说明](https://qfluentwidgets.com/pages/install/) 为 API 依据。
+一个后台任务入口协调设备识别、扫描、转换与主题操作；忙碌时锁定冲突操作及平台/工作目录修改。可取消阶段在阶段边界响应；设备复制、发布或一次完整主题上传开始后不强行终止，界面暂时隐藏取消按钮。关闭窗口时先等待安全结束，不销毁仍在工作的线程。后台错误写入日志，并在原页面显示。
 
-核心原有 MIT 许可保持；QFluentWidgets 开源版使用 GPLv3，桌面发行须遵循其许可，不能将整个桌面发行物直接视为 MIT。[QFluentWidgets 包与许可](https://pypi.org/project/PySide6-Fluent-Widgets/)。Canvas 缩略图沿用既有设计演示资源，独立软件发行前需确认主题原素材的分发授权。
+## 源码
 
-2026-10-14 完成静态 review，随后按用户要求打开界面预览。2026-10-15 用户批准开始功能测试，使用 Computer Use 直接操作原生窗口，完成八组范围内的页面与交互检查：启动、窗口/导航、异步加载、取消/切来源、游戏库示例、主题示例、平台编辑、设置保存恢复。另有 6 个配置层单元用例通过，覆盖中文目录与重开、切换工作目录、移除定义保留文件、无效引用/配置及保存失败。
+- gui/app.py：窗口、导航、设备状态；gui/appearance.py：亮暗主题；gui/tasks.py：线程生命周期与任务互斥。
+- gui/library_page.py、themes_page.py：界面事件与结果展示；settings_page.py、state.py：设置及平台管理。
+- application/desktop.py：来源识别、平台检测、桌面转换编排；selection.py：实际入口与增量筛选。
+- application/platform_catalog.py：完整配置基线与平台覆盖；themes.py、theme_badges.py、theme_data/：主题业务与既有规则。
+- application/device.py、handheld.py、deployment.py、publication.py：复用的捕获、任务生成和设备发布。
+- gui/assets/platforms/：既有演示的 Canvas 缩略图副本。
 
-测试发现并修复 Windows 深色系统配色下弹窗标题不易读、平台搜索提示截断两个显示问题，重开后复看确认。窗口边缘鼠标拖动没有得到有效结果，改用原生“大小”菜单键盘操作验证调整；不将该结果称为拖拽手势通过。平台编辑实测了添加、编辑、搜索、必填校验及母体引用保护；无引用定义的删除在配置层验证，没有通过界面实际点击删除。
+## 当前审阅及测试边界
 
-测试入口 `retrolibx/tests/gui_preview_session.py` 将基础设置重定向到指定隔离目录，且将示例平台加载临时放慢五倍，方便检查取消和旧结果隔离；正常入口不受影响。记录见 [本地测试结果](../jobs/gui-check-20261015/result.json) 与 [配置层用例输出](../jobs/gui-check-20261015/state-tests.log)。截图由 Computer Use 在对话中展示，未另存本地截图副本。真实用户配置和模拟器内容未修改。
+此次业务接入仅完成静态源码和 diff 审阅、依赖准备，没有启动 GUI、运行测试、lint、类型检查、构建或连接设备。不能据此视为业务已验证。用户继续负责界面操作和截图反馈；设备写入测试须另行授权。
 
-安卓模拟器 `emulator-5554` 已确认 ADB 在线，但当前 GUI 仍未接入实际设备/转换服务。本轮未运行转换核心回归、设备文件测试、lint、类型检查或打包验证。实际 ROM 启动、主题显示和 VIB 震动继续由用户验收。
+新增 test_desktop_business.py 的 19 个本地用例未执行，覆盖真实计数、增量/全量、共用迁移后新增、多轨、混合编码、平台继承、Android 媒体来源边界/备份、主题生成/过期/失败保留及模拟设备捕获。建议单独批准这 19 项、此前未执行的 3 项主题配置用例，以及 7 项受影响的既有局部回归，共 29 项；范围只用临时数据和模拟 ADB，不启动窗口、不连接设备、不打包。
 
-上述通过记录属于外观调整前的基线。2026-10-15 新增亮暗外观、排版和主题保存逻辑后仅进行了静态 review；新增的 3 个主题配置用例尚未执行，未重跑既有用例、构建或打开窗口。用户已接手界面手动测试，后续按截图反馈调整。
+该建议的既有用例精确范围：test_gui_state.py 中 theme_persists_across_reopen_and_workspace_change、theme_save_failure_keeps_previous_mode_and_file、older_settings_without_theme_default_to_light；test_shared_esde_media.py 中 shared_migration_updates_in_place_after_all_rom_copies_and_keeps_mini、changed_metadata_or_differing_target_stops_before_source_mutations、failed_copy_never_publishes_source_metadata_or_cleans_sources，以及 android_shared_migration_is_opt_in_and_build_does_not_change_source 的关闭/开启两项；test_handheld.py 中 build_uses_ir_and_plan_without_copying_media；test_platforms.py 中 platform_registry_rejects_ambiguous_aliases_and_invalid_bases。上述名称均以 test_ 开头，此处为便于阅读省略前缀。
 
-按用户截图反馈进一步修正了侧栏焦点外框与选中高亮混淆、两个主页面进度反馈出现时挤动列表的问题。此次仍仅做静态 review，未启动程序或运行测试，等待用户复看。
+历史界面阶段曾完成获批的八组交互检查及 6 个配置用例；窗口边缘拖拽、无引用平台的界面删除存在已记录的检查边界。这些通过记录保留在基线标签及 jobs/gui-check-20261015，不覆盖之后的外观调整及此次业务接入。
+
+核心上游 MIT 许可保留；QFluentWidgets 开源版 GPLv3 的发行约束和 Canvas/原主题素材的授权记录仍需随独立软件发行维护。此轮未打包或发布软件。

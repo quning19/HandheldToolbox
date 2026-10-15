@@ -1,6 +1,6 @@
-"""Portable UI settings and explicit example data, separate from conversion models."""
+"""Portable settings and user platform overrides over the shared XML catalog."""
 
-from dataclasses import asdict, dataclass, replace
+from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
 import sys
@@ -16,79 +16,21 @@ class PlatformDefinition:
     badge: str = ""
 
 
-@dataclass
-class PlatformPreview:
-    id: str
-    name: str
-    art: str
-    roms: int
-    covers: int
-    existing: int
-    missing_references: int = 0
-
-
-@dataclass
-class ThemePreview:
-    name: str
-    original: bool
-    converted: bool
-    device: bool | None = None
-
-
-PLATFORM_PREVIEWS = [
-    PlatformPreview("gb", "GB", "gb", 128, 128, 128),
-    PlatformPreview("gba", "GBA", "gba", 20, 18, 18, 80),
-    PlatformPreview("gba-hack", "GBA hack", "GBA hack", 86, 86, 86),
-    PlatformPreview("gba-vib", "GBA vib", "GBA vib", 24, 24, 24),
-    PlatformPreview("nes", "FC", "nes", 186, 184, 186),
-    PlatformPreview("gbc", "GBC", "gbc", 75, 75, 75),
-    PlatformPreview("megadrive", "MD", "megadrive", 112, 112, 112),
-    PlatformPreview("gc", "NGC", "gc", 32, 32, 32),
-    PlatformPreview("n64", "N64", "n64", 70, 70, 70),
-    PlatformPreview("psx", "PS1", "psx", 64, 64, 64),
-    PlatformPreview("psp", "PSP", "psp", 88, 88, 88),
-    PlatformPreview("pspminis", "PSP Minis", "psp", 30, 30, 0),
-    PlatformPreview("sfc", "SFC", "sfc", 167, 167, 167),
-    PlatformPreview("saturn", "SS", "saturn", 41, 41, 41),
-    PlatformPreview("wsc", "WSC", "wonderswan", 48, 47, 48),
-]
-
-
 def default_definitions() -> list[PlatformDefinition]:
-    parents = {"gba-hack": "gba", "gba-vib": "gba", "pspminis": "psp"}
-    badges = {"gba-hack": "HACK", "gba-vib": "VIB"}
+    from retrolibx.application.platform_catalog import bundled_registry
+    registry = bundled_registry()
     definitions = [
         PlatformDefinition(
-            item.id, item.name, item.name, parents.get(item.id, ""),
-            "separate" if item.id in badges else "inherit", badges.get(item.id, ""),
+            record["name"], record.get("theme_label") or record["rom_directory"],
+            record["rom_directory"], record.get("base_platform") or "",
+            "separate" if record.get("base_platform") else "inherit",
+            record.get("badge_text") or "",
         )
-        for item in PLATFORM_PREVIEWS
+        for record in registry.records.values()
     ]
-    definitions.extend([
-        PlatformDefinition("sfc-hack", "SFC hack", "SFC hack", "sfc", "separate", "HACK"),
-        PlatformDefinition("sfc-msu1", "SFC-MSU1", "SFC-MSU1", "sfc", "separate", "MSU1"),
-    ])
+    if not any(item.id == "pspminis" for item in definitions):
+        definitions.append(PlatformDefinition("pspminis", "PSP Minis", "PSP Minis", "psp"))
     return definitions
-
-
-def example_platforms(definitions: list[PlatformDefinition], source: str) -> list[PlatformPreview]:
-    """Example counts only; never inspects the selected filesystem or ADB device."""
-    samples = {item.id: item for item in PLATFORM_PREVIEWS}
-    # Internal storage intentionally contains fewer example platforms than SD.
-    allowed = {"gb", "gba", "nes", "psp"} if source == "internal" else samples.keys()
-    return [replace(samples[item.id], name=item.name) for item in definitions if item.id in allowed]
-
-
-def example_themes() -> list[ThemePreview]:
-    return [
-        ThemePreview("Canvas", True, True),
-        ThemePreview("Aura", True, False),
-        ThemePreview("Alekfull NX", True, True),
-        ThemePreview("Elementerial", False, False),
-        ThemePreview("Iconic", True, False),
-        ThemePreview("iiSU Interpreted", False, False),
-        ThemePreview("PlayStation-X", True, True),
-    ]
 
 
 def app_directory() -> Path:
@@ -108,7 +50,7 @@ def write_json(path: Path, content: dict) -> None:
 
 
 class UiStore:
-    """Only GUI settings/platform definitions persist. Preview task results do not."""
+    """Portable settings and the platform definitions consumed by both workflows."""
 
     def __init__(self) -> None:
         self.settings_file = app_directory() / "settings.json"

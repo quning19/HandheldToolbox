@@ -1,47 +1,25 @@
-"""Library workspace with cancellable example loading and native platform cards."""
+"""Library workspace backed by real local/ADB services."""
 
-from dataclasses import replace
-
-from PySide6.QtCore import QThread, QTimer, Qt, Signal, Slot
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QHBoxLayout, QScrollArea, QStackedWidget, QVBoxLayout, QWidget
 from qfluentwidgets import CheckBox, ComboBox, LineEdit, PrimaryPushButton, PushButton
 
-from .state import PlatformPreview, UiStore, example_platforms
+from retrolibx.application.desktop import convert_library, discover_device, local_target, scan_library
 from .appearance import ui_font
+from .state import UiStore
+from .tasks import TaskHub
 from .widgets import ElidedCaption, PlatformGrid, TaskFeedback, caption, heading, panel
 
 
-class ExamplePlatformLoader(QThread):
-    platform_ready = Signal(int, object)
-    loaded = Signal(int)
-
-    def __init__(self, token: int, items: list[PlatformPreview], parent: QWidget) -> None:
-        super().__init__(parent)
-        self.token, self.items = token, items
-
-    def run(self) -> None:
-        for item in self.items:
-            if self.isInterruptionRequested():
-                break
-            self.msleep(150)
-            if self.isInterruptionRequested():
-                break
-            self.platform_ready.emit(self.token, item)
-        self.loaded.emit(self.token)
-
-
 class LibraryPage(QWidget):
-    def __init__(self, store: UiStore, parent: QWidget | None = None) -> None:
+    def __init__(self, store: UiStore, hub: TaskHub, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.store = store
-        self._token = 0
-        self._workers: set[ExamplePlatformLoader] = set()
-        self.loading = False
-        self.running = False
-        self._history: dict[tuple[str, str], int] = {}
-        self._queue: list[PlatformPreview] = []
-        self._processed = 0
-        self._planned = 0
+        self.hub = hub
+        self.device = None
+        self.session = None
+        self.generation = 0
+        self.scanning = False
         self.setObjectName("libraryPage")
         layout = QVBoxLayout(self)
         layout.setContentsMargins(24, 19, 24, 16)
@@ -58,9 +36,8 @@ class LibraryPage(QWidget):
         self.paths = QStackedWidget()
         self.paths.setFixedHeight(36)
         self.device_root = ComboBox()
-        self.device_root.addItem("SD 卡 · /storage/示例SD/Roms · 15 个子目录", userData="sd")
-        self.device_root.addItem("内置存储 · /storage/emulated/0/roms · 4 个子目录", userData="internal")
-        self.device_root.setAccessibleName("天马 G 目录（示例）")
+        self.device_root.addItem("点击刷新设备，识别天马 G 目录", userData=None)
+        self.device_root.setAccessibleName("天马 G 目录")
         self.paths.addWidget(self.device_root)
         computer = QWidget()
         computer_layout = QHBoxLayout(computer)
@@ -74,6 +51,8 @@ class LibraryPage(QWidget):
         computer_layout.addWidget(self.browse)
         self.paths.addWidget(computer)
         first.addWidget(self.paths, 1)
+        self.refresh_device = PushButton("刷新设备")
+        first.addWidget(self.refresh_device)
         self.load = PushButton("加载平台")
         first.addWidget(self.load)
         controls.addLayout(first)
@@ -83,7 +62,7 @@ class LibraryPage(QWidget):
         self.target.setMinimumWidth(0)
         second.addWidget(self.target, 1)
         self.shared = CheckBox("共用素材")
-        self.shared.setToolTip("正式接入后：共用转换后的封面、Logo 和视频。默认关闭。")
+        self.shared.setToolTip("核对转换后的副本后更新天马 G 素材引用，并清理不再使用的源素材。默认关闭。")
         self.full = CheckBox("全量替换")
         self.full.setToolTip("重新处理已识别入口和对应素材；不清空目标或删除额外条目。")
         second.addWidget(self.shared)
@@ -104,7 +83,7 @@ class LibraryPage(QWidget):
         layout.addLayout(row)
         self.list_stack = QStackedWidget()
         self.list_stack.setMinimumHeight(170)
-        self.empty = caption("请选择天马 G 目录，再点击“加载平台”。\n此版使用示例数据，不读取实际目录或设备。")
+        self.empty = caption("请选择天马 G 目录，再点击“加载平台”。\n仅点击加载后读取所选来源。")
         self.empty.setFont(ui_font(14))
         self.empty.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.list_stack.addWidget(self.empty)
@@ -117,17 +96,16 @@ class LibraryPage(QWidget):
         self.list_stack.addWidget(self.scroll)
         layout.addWidget(self.list_stack, 1)
         self.feedback = TaskFeedback()
-        self.feedback.cancelled.connect(self.cancel_operation)
+        self.feedback.cancelled.connect(self.hub.cancel)
         layout.addWidget(self.feedback)
-        self.timer = QTimer(self)
-        self.timer.setInterval(260)
-        self.timer.timeout.connect(self._convert_next)
         self.source.currentIndexChanged.connect(self._source_changed)
         self.device_root.currentIndexChanged.connect(self.clear_source)
         self.computer_root.textChanged.connect(self.clear_source)
         self.browse.clicked.connect(self._browse)
         self.load.clicked.connect(self.load_platforms)
         self.start.clicked.connect(self.begin_conversion)
+        self.refresh_device.clicked.connect(self.discover)
+        self.hub.busy_changed.connect(self._busy_changed)
         self.grid.selection_changed.connect(self.update_counts)
         self.full.stateChanged.connect(self.update_counts)
         self.select_all.clicked.connect(lambda: self.grid.select_all(True))
@@ -135,138 +113,160 @@ class LibraryPage(QWidget):
         self.update_target()
         self.update_counts()
 
-    def source_key(self) -> str:
-        return str(self.device_root.currentData()) if self.source.currentIndex() == 0 else "computer:" + self.computer_root.text().strip()
 
-    def update_target(self) -> None:
-        target = "内置存储 · ES-DE（示例）" if self.source.currentIndex() == 0 else str(self.store.workspace / "library")
+    device_changed = Signal(object)
+
+    def source_key(self):
+        return self.device_root.currentData() if self.source.currentIndex() == 0 else self.computer_root.text().strip()
+
+    def update_target(self):
+        target = self.device.esde_root if self.source.currentIndex() == 0 and self.device else (
+            "等待设备识别" if self.source.currentIndex() == 0 else str(
+                local_target(self.store.workspace, self.computer_root.text().strip())
+                if self.computer_root.text().strip() else self.store.workspace / "library"))
         self.target.setText("输出：" + target)
-        self.target.setToolTip(target)
+        self.refresh_device.setVisible(self.source.currentIndex() == 0)
 
-    def _source_changed(self, index: int) -> None:
+    def _source_changed(self, index):
         self.paths.setCurrentIndex(index)
         self.clear_source()
 
-    def _browse(self) -> None:
+    def _browse(self):
         from PySide6.QtWidgets import QFileDialog
         path = QFileDialog.getExistingDirectory(self, "选择天马 G ROM 目录", self.computer_root.text())
         if path:
             self.computer_root.setText(path)
 
-    def clear_source(self, *_args) -> None:
-        self.cancel_operation()
+    def clear_source(self, *_args):
+        self.generation += 1
+        self.session = None
+        if self.scanning:
+            self.hub.cancel()
         self.grid.clear()
         self.list_stack.setCurrentIndex(0)
-        self.empty.setText("来源已更新，请点击“加载平台”。\n只在点击后加载，当前使用示例数据。")
-        self.feedback.hide()
+        self.empty.setText("请选择天马 G 目录，再点击“加载平台”。")
+        if not self.hub.busy:
+            self.feedback.hide()
         self.update_target()
         self.update_counts()
 
-    def reset_workspace(self) -> None:
-        self._history.clear()
+    def reset_workspace(self):
         self.clear_source()
 
-    def cancel_operation(self) -> None:
-        self._token += 1
-        for worker in self._workers:
-            worker.requestInterruption()
-        if self.loading:
-            self.feedback.finish("已取消加载，已显示的平台可继续选择。")
-        if self.running:
-            self.feedback.finish(f"已取消示例转换，已完成 {self._processed}/{self._planned} 个入口。未操作实际文件。")
-        self.timer.stop()
-        self.loading = self.running = False
-        self._lock_inputs(False)
-        self.update_counts()
-
-    def load_platforms(self) -> None:
-        if self.source.currentIndex() == 1 and not self.computer_root.text().strip():
-            self.feedback.finish("请先选择电脑上的天马 G 目录。")
+    def discover(self):
+        if self.hub.busy:
             return
-        self.cancel_operation()
-        self.grid.clear()
-        self.list_stack.setCurrentIndex(0)
-        self.empty.setText("正在加载平台…")
-        self.loading = True
-        items = example_platforms(self.store.definitions, self.source_key())
-        self._total = len(items)
-        self.feedback.update_progress("正在加载示例平台…", 0)
-        worker = ExamplePlatformLoader(self._token, items, self)
-        self._workers.add(worker)
-        worker.platform_ready.connect(self._platform_ready)
-        worker.loaded.connect(self._loaded)
-        worker.finished.connect(lambda w=worker: self._workers.discard(w))
-        worker.finished.connect(worker.deleteLater)
-        worker.start()
-        self.load.setText("重新加载")
-        self.update_counts()
+        self.clear_source()
+        self.device = None
+        self.device_changed.emit(None)
 
-    @Slot(int, object)
-    def _platform_ready(self, token: int, item: PlatformPreview) -> None:
-        if token != self._token:
+        def complete(device):
+            self.device = device
+            self.device_root.blockSignals(True)
+            self.device_root.clear()
+            for path, count, storage in device.roots:
+                self.device_root.addItem(f"{storage} · {path} · {count} 个子目录", userData=path)
+            if not device.roots:
+                self.device_root.addItem("未发现 rom 或 roms 目录", userData=None)
+            self.device_root.blockSignals(False)
+            self.device_changed.emit(device)
+            self.update_target()
+            self.feedback.finish("设备已识别，请选择天马 G 目录后点击“加载平台”。")
+            self.update_counts()
+
+        def failed(_message):
+            self.device_root.clear()
+            self.device_root.addItem("设备未就绪，请刷新", userData=None)
+            self.device_changed.emit(None)
+            self.update_target()
+
+        self.hub.start(lambda worker: discover_device(), self.feedback, complete, on_error=failed)
+
+    def load_platforms(self):
+        if self.hub.busy:
             return
-        item = replace(item, existing=self._history.get((self.source_key(), item.id), item.existing))
-        self.grid.append(item)
-        self.list_stack.setCurrentIndex(1)
-        self.feedback.update_progress(f"已加载 {len(self.grid.cards)}/{self._total} 个示例平台", int(100 * len(self.grid.cards) / max(1, self._total)))
-        self.update_counts()
-
-    @Slot(int)
-    def _loaded(self, token: int) -> None:
-        if token != self._token:
+        source = self.source_key()
+        device = self.device if self.source.currentIndex() == 0 else None
+        if not source or (self.source.currentIndex() == 0 and device is None):
+            self.feedback.finish("请先刷新设备并选择目录。" if self.source.currentIndex() == 0 else "请先选择电脑目录。")
             return
-        self.loading = False
-        self.load.setText("加载平台")
-        if not self.grid.cards:
-            self.empty.setText("该来源暂无示例平台。新增平台的真实扫描将在业务接入后实现。")
-        self.feedback.hide()
-        self.update_counts()
+        self.clear_source()
+        token = self.generation
+        self.scanning = True
+        self.empty.setText("正在检测平台…")
+        workspace, definitions = self.store.workspace, list(self.store.definitions)
 
-    def update_counts(self, *_args) -> None:
+        def item_ready(info):
+            if token == self.generation:
+                self.grid.append(info)
+                self.list_stack.setCurrentIndex(1)
+                self.update_counts()
+
+        def complete(session):
+            self.scanning = False
+            if token != self.generation:
+                self.feedback.hide()
+                return
+            self.session = session
+            failures = sum(bool(info.error) for info in session.platforms.values())
+            missing = sum(info.missing_references for info in session.platforms.values())
+            unlinked = sum(info.unlinked for info in session.platforms.values())
+            self.feedback.finish(f"{'已取消加载，保留' if session.cancelled else '检测完成：'}{len(session.platforms)} 个平台，{failures} 个平台有问题，"
+                                 f"{missing} 个缺失引用，{unlinked} 个 ROM 未关联资料。详情见平台卡片。")
+            self.update_counts()
+
+        def failed(_message):
+            self.scanning = False
+            self.session = None
+            self.update_counts()
+
+        started = self.hub.start(
+            lambda worker: scan_library(workspace, definitions, source, device,
+                                        worker.isInterruptionRequested, worker.progress.emit, worker.item.emit),
+            self.feedback, complete, item_ready, failed)
+        if not started:
+            self.scanning = False
+
+    def update_counts(self, *_args):
         selected = self.grid.selected()
         roms = sum(item.roms for item in selected)
         pending = sum(item.roms if self.full.isChecked() else max(0, item.roms - item.existing) for item in selected)
-        self.counts.setText(f"平台 {len(self.grid.cards)} · 已选 {len(selected)} · ROM {roms} · {'处理' if self.full.isChecked() else '新增'} {pending}")
-        self.start.setEnabled(bool(selected) and not self.loading and not self.running)
-        self.select_all.setEnabled(bool(self.grid.cards) and not self.running)
-        self.select_none.setEnabled(bool(self.grid.cards) and not self.running)
+        self.counts.setText(f"平台 {len(self.grid.cards)} · 已选 {len(selected)} · ROM {roms} · "
+                            f"{'处理' if self.full.isChecked() else '新增'} {pending}")
+        self.start.setEnabled(bool(selected) and self.session is not None and not self.hub.busy
+                              and not any(item.error for item in selected))
+        self.select_all.setEnabled(bool(self.grid.cards) and not self.hub.busy)
+        self.select_none.setEnabled(bool(self.grid.cards) and not self.hub.busy)
 
-    def _lock_inputs(self, locked: bool) -> None:
-        for widget in (self.source, self.device_root, self.computer_root, self.browse, self.load, self.shared, self.full, self.grid):
-            widget.setEnabled(not locked)
-        self.load.setText("加载平台")
+    def _busy_changed(self, busy):
+        for widget in (self.load, self.refresh_device, self.shared, self.full, self.grid):
+            widget.setEnabled(not busy)
+        # Changing a source can cancel this page's scan; writing locks the source.
+        for widget in (self.source, self.device_root, self.computer_root, self.browse):
+            widget.setEnabled(not busy or self.scanning)
+        self.update_counts()
 
-    def begin_conversion(self) -> None:
-        self._queue = list(self.grid.selected())
-        self._planned = sum(item.roms if self.full.isChecked() else max(0, item.roms - item.existing) for item in self._queue)
-        self._processed = 0
-        if not self._planned:
-            self.feedback.finish("所选平台暂无新增入口（示例）。需要重新处理时，可启用“全量替换”。")
+    def begin_conversion(self):
+        if self.hub.busy or self.session is None:
             return
-        self.running = True
-        self._lock_inputs(True)
-        self.feedback.update_progress("正在进行示例转换…", 0)
-        self.update_counts()
-        self.timer.start()
+        selected = [item.id for item in self.grid.selected()]
+        if not selected:
+            return
+        session = self.session
+        full, shared, workspace = self.full.isChecked(), self.shared.isChecked(), self.store.workspace
 
-    def _convert_next(self) -> None:
-        item = self._queue.pop(0)
-        count = item.roms if self.full.isChecked() else max(0, item.roms - item.existing)
-        self._processed += count
-        item.existing = item.roms
-        self._history[(self.source_key(), item.id)] = item.existing
-        for card in self.grid.cards:
-            if card.item.id == item.id:
-                card.update_details()
-        self.feedback.update_progress(f"示例转换：{item.name} · 已完成 {self._processed}/{self._planned} 个入口", int(100 * self._processed / self._planned))
-        if not self._queue:
-            self.timer.stop()
-            self.running = False
-            self._lock_inputs(False)
-            self.feedback.finish(f"示例转换完成：处理 {self._processed} 个入口。未生成文件、修改 metadata 或连接设备。")
-        self.update_counts()
+        def complete(result):
+            for card in self.grid.cards:
+                if card.item.id in selected:
+                    card.item.existing = card.item.roms
+                    card.update_details()
+            self.session = None
+            self.feedback.finish(f"转换完成：处理 {result['roms']} 个入口。输出：{result['output']}。再次转换前请重新加载平台。")
+            self.update_counts()
 
-    def shutdown(self) -> None:
-        self.cancel_operation()
-        for worker in tuple(self._workers):
-            worker.wait()
+        self.hub.start(lambda worker: convert_library(session, selected, shared, full, workspace,
+                                                      worker.isInterruptionRequested, worker.progress.emit),
+                       self.feedback, complete)
+
+    def shutdown(self):
+        self.hub.cancel()

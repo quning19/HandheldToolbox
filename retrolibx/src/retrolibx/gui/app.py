@@ -1,4 +1,4 @@
-"""Windows-native Fluent workspace; the first delivery is a business-free preview."""
+"""Native Windows Fluent workspace backed by application services."""
 
 import sys
 import traceback
@@ -10,22 +10,25 @@ from PySide6.QtWidgets import (
     QSizePolicy, QStackedWidget, QVBoxLayout, QWidget,
 )
 from qfluentwidgets import FluentIcon
+from retrolibx.errors import RetroLibXError
 
 from .appearance import apply_appearance, colors, ui_font
 from .library_page import LibraryPage
 from .settings_page import SettingsPage
 from .state import UiStore
 from .themes_page import ThemesPage
+from .tasks import TaskHub
 from .widgets import NavigationButton, caption
 
 
 class MainWindow(QMainWindow):
     def __init__(self, store: UiStore) -> None:
         super().__init__()
-        self.setWindowTitle("FrontendTransTool · 界面预览")
+        self.setWindowTitle("FrontendTransTool")
         self.resize(1140, 750)
         self.setMinimumSize(1000, 650)
         self.store = store
+        self.tasks = TaskHub(store)
         central = QWidget()
         self.setCentralWidget(central)
         layout = QHBoxLayout(central)
@@ -49,14 +52,14 @@ class MainWindow(QMainWindow):
         brand_row.addWidget(brand, 1)
         nav.addLayout(brand_row)
         nav.addSpacing(3)
-        badge = QLabel("界面预览 · 示例数据")
+        badge = QLabel("天马 G → ES-DE")
         badge.setObjectName("previewBadge")
         nav.addWidget(badge)
         nav.addSpacing(15)
         self.pages = QStackedWidget()
         self.pages.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
-        self.library = LibraryPage(store)
-        self.themes = ThemesPage(store)
+        self.library = LibraryPage(store, self.tasks)
+        self.themes = ThemesPage(store, self.tasks)
         self.settings = SettingsPage(store)
         self.navigation = QButtonGroup(self)
         self.navigation.setExclusive(True)
@@ -83,15 +86,18 @@ class MainWindow(QMainWindow):
         self.navigation.idClicked.connect(lambda _index: self._refresh_icons())
         layout.addWidget(sidebar)
         layout.addWidget(self.pages, 1)
-        device = QLabel("● 示例 GT78 · USB   |   内置存储 + SD 卡")
+        device = QLabel("● 未连接设备 · 点击“刷新设备”识别")
+        self.device_status = device
         device.setObjectName("deviceStatus")
         device.setFont(ui_font(12))
         self.statusBar().addWidget(device, 1)
-        self.statusBar().addPermanentWidget(caption("预览模式 · 不连接设备"))
+        self.statusBar().addPermanentWidget(caption("本地 / Android ES-DE"))
         self.statusBar().setSizeGripEnabled(True)
         self.settings.workspace_changed.connect(self._workspace_changed)
         self.settings.definitions_changed.connect(self._definitions_changed)
         self.settings.theme_changed.connect(self._apply_theme)
+        self.library.device_changed.connect(self._device_changed)
+        self.tasks.busy_changed.connect(lambda busy: self.settings.setEnabled(not busy))
         self._refresh_icons()
 
     def _refresh_icons(self) -> None:
@@ -112,16 +118,21 @@ class MainWindow(QMainWindow):
 
     def _definitions_changed(self) -> None:
         self.library.clear_source()
-        self.themes.cancel_operation()
-        for theme in self.themes.themes:
-            theme.converted = False
-        self.themes.update_paths()
-        self.themes.render()
-        self.themes.feedback.finish("平台定义已改变，请重新转换所需主题（示例）。")
+        self.themes.reset_workspace()
+        self.themes.feedback.finish("平台定义已改变，请重新加载游戏库，并重新转换所需主题。")
+
+    def _device_changed(self, device) -> None:
+        self.themes.set_device(device)
+        storage = "、".join(dict.fromkeys(root[2] for root in device.roots)) if device else ""
+        self.device_status.setText(f"● {device.label} · {device.serial}   |   {storage or '未发现 ROM 目录'}"
+                                  if device else "● 未连接设备 · 点击“刷新设备”识别")
 
     def closeEvent(self, event) -> None:
-        self.library.shutdown()
-        self.themes.cancel_operation()
+        if self.tasks.busy:
+            self.tasks.cancel()
+            self.statusBar().showMessage("正在等待当前操作安全结束，完成后可关闭窗口。")
+            event.ignore()
+            return
         super().closeEvent(event)
 
 
@@ -138,12 +149,12 @@ def run() -> None:
     sys.excepthook = report_error
     try:
         store = UiStore()
-    except (OSError, ValueError, TypeError, KeyError) as exc:
+        apply_appearance(app, store.theme)
+        window = MainWindow(store)
+    except (OSError, ValueError, TypeError, KeyError, RetroLibXError) as exc:
         apply_appearance(app, "light")
-        QMessageBox.critical(None, "无法读取界面设置", str(exc) + "\n原配置已保留，请修正后重新打开。")
+        QMessageBox.critical(None, "无法打开工作台", str(exc) + "\n原配置已保留，请修正后重新打开。")
         return
-    apply_appearance(app, store.theme)
-    window = MainWindow(store)
     window.show()
     sys.exit(app.exec())
 

@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
 )
 from qfluentwidgets import CaptionLabel, ProgressBar, PushButton
 
-from .state import PlatformPreview
+from retrolibx.application.desktop import PlatformInfo
 from .appearance import DARK, LIGHT, colors, ui_font
 
 
@@ -164,7 +164,7 @@ class TaskFeedback(QFrame):
 
 
 class PlatformCard(QPushButton):
-    def __init__(self, item: PlatformPreview, parent: QWidget) -> None:
+    def __init__(self, item: PlatformInfo, parent: QWidget) -> None:
         super().__init__(parent)
         self.item = item
         self.setCheckable(True)
@@ -179,8 +179,10 @@ class PlatformCard(QPushButton):
         self.setAccessibleName(f"{item.name}，{item.roms} 个 ROM，{item.covers} 个封面")
         self.setToolTip(
             f"{item.name}\nROM：{item.roms}，封面：{item.covers}\n"
-            f"新增：{max(0, item.roms - item.existing)}（示例）"
+            f"新增：{max(0, item.roms - item.existing)}"
             + (f"\nmetadata 中另有 {item.missing_references} 个缺失引用，未计入 ROM" if item.missing_references else "")
+            + (f"\n{item.unlinked} 个 ROM 未关联资料，不会自动生成游戏信息" if item.unlinked else "")
+            + ("\n无法转换：" + item.error if item.error else "")
         )
         self.update()
 
@@ -236,7 +238,10 @@ class PlatformCard(QPushButton):
         painter.setPen(QColor(c["warning"] if self.item.covers < self.item.roms else c["muted"]))
         painter.drawText(self.width() - painter.fontMetrics().horizontalAdvance(text) - 11, art_height + 22, text)
         added = max(0, self.item.roms - self.item.existing)
-        if added:
+        if self.item.error:
+            painter.setPen(QColor(c["danger"]))
+            painter.drawText(11, art_height + 44, "需要处理 · 悬停查看")
+        elif added:
             text = f"新增 {added}"
             badge = QRectF(10, art_height + 31, painter.fontMetrics().horizontalAdvance(text) + 14, 18)
             painter.setPen(Qt.PenStyle.NoPen)
@@ -279,14 +284,14 @@ class PlatformGrid(QWidget):
         self.cards.clear()
         self.setMinimumHeight(1)
 
-    def append(self, item: PlatformPreview) -> None:
+    def append(self, item: PlatformInfo) -> None:
         card = PlatformCard(item, self)
         card.toggled.connect(self.selection_changed)
         self.cards.append(card)
         card.show()
         self.reflow()
 
-    def selected(self) -> list[PlatformPreview]:
+    def selected(self) -> list[PlatformInfo]:
         return [card.item for card in self.cards if card.isChecked()]
 
     def select_all(self, checked: bool) -> None:

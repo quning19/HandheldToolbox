@@ -15,7 +15,9 @@
 - [结果与快照索引](jobs/README.md)、[历史实现记录入口](docs/IMPLEMENTATION.md)。
 - [方案](docs/PLAN.md)、[开源评估](docs/OPEN_SOURCE.md)、[资源说明](docs/RESOURCES.md)。
 
-本地Git仓库位于本项目根目录，统一管理retrolibx源码和项目文档。`main`保存当前开发基线，`feature/web-app`用于后续Web应用开发；分支、提交和合并约定见[Git工作流](docs/GIT_WORKFLOW.md)。保留RetroLibX上游历史及MIT许可，上游基于提交`f1a73c126ba450ae7d01a856e17ed7aad83eeff9`；当前改动已在本地提交，尚未创建线上fork或推送。`upstream`保留原项目地址，尚未配置`origin`。
+Windows 应用入口为根目录的“启动界面.cmd”，使用说明见 [Windows 图形界面](docs/WINDOWS_GUI.md)。原生页面已开始接入游戏库、平台配置及七套主题业务；这次接入尚未运行测试或设备操作，未打包独立 EXE。
+
+本地Git仓库位于本项目根目录，统一管理retrolibx源码和项目文档。main保存开发基线，feature/windows-ui及baseline/windows-ui-20261015保留界面阶段，codex/windows-business接入实际业务；分支、提交和合并约定见[Git工作流](docs/GIT_WORKFLOW.md)。保留RetroLibX上游历史及MIT许可，上游基于提交f1a73c126ba450ae7d01a856e17ed7aad83eeff9；尚未创建线上fork或推送。upstream保留原项目地址，尚未配置origin。
 
 真实ROM/媒体、设备快照、第三方参考和任务包位于test_data、references与jobs，由Git忽略；源码、当前文档和docs/archive历史文档纳入版本管理。旧superpowers及上游任务表不驱动当前实施，详见[资源清单](docs/RESOURCES.md)。
 

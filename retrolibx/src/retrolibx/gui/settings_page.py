@@ -51,7 +51,7 @@ class PlatformDialog(QDialog):
             form.addRow(title, widget)
             widget.setAccessibleName(title)
         layout.addLayout(form)
-        self.internal_id = caption("内部标识会自动生成；此版只保存界面平台配置。")
+        self.internal_id = caption("内部标识自动生成；新分类选择母体以继承启动配置。")
         self.internal_id.setWordWrap(True)
         layout.addWidget(self.internal_id)
         self.error = caption("")
@@ -89,6 +89,9 @@ class PlatformDialog(QDialog):
         name, directory = self.name.text().strip(), self.directory.text().strip()
         if not name or not valid_component(directory):
             self.error.setText("请填写显示名称和单个 ROM 目录名，不使用路径或 Windows 非法字符。")
+            return
+        if self.original is None and not self.parent_platform.currentData():
+            self.error.setText("请选择母体平台，新分类将继承其启动配置。")
             return
         others = [entry for entry in self.definitions if self.original is None or entry.id != self.original.id]
         if any(entry.name.casefold() == name.casefold() or entry.directory.casefold() == directory.casefold() for entry in others):
@@ -152,7 +155,7 @@ class PlatformsPage(QWidget):
         for column, width in ((2, 110), (3, 135), (4, 150)):
             self.table.setColumnWidth(column, width)
         layout.addWidget(self.table, 1)
-        self.note = caption("删除只移除平台定义，保留 ROM、设备配置和已生成主题。此版尚未接入转换业务。")
+        self.note = caption("删除只移除平台定义，保留 ROM、设备配置和已生成主题。完整系统配置基线始终保留。")
         self.note.setWordWrap(True)
         layout.addWidget(self.note)
         self.render()

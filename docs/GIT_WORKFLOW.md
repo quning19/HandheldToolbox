@@ -8,7 +8,7 @@
 |---|---|
 | `main` | 当前已提交的开发基线；功能完成并review后合入。基线提交不代表测试通过或可发布 |
 | `feature/web-app` | 从当前main创建的Web开发分支，本次结束时所在分支 |
-| `feature/<功能名>`、`fix/<问题名>` | 后续按具体任务从main创建，保持提交范围清楚 |
+| `codex/<功能名>` | 新任务默认分支前缀；已有 feature/fix 分支保留，保持提交范围清楚 |
 | `archive/frontend-trans-tool` | 仓库提升前的代码快照，仅供追溯；该分支采用旧的源码根目录布局 |
 | `baseline/pre-web-20261014` | 仓库提升后的带注释标签，记录Web改造前基线 |
 
@@ -47,7 +47,7 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 
 ## 跟踪范围与远程
 
-2026-10-14后续需求已转为Windows应用，页面方案见[界面记录](WINDOWS_UI_PLAN.md)。`feature/web-app`保留原始名称与基线；`fix/esde-folder-covers`保存方案记录和子目录封面修复的独立本地提交，10个获批局部用例通过，设备已补齐 GBA hack 8 个与 PS1 4 个文件夹封面。当前 `feature/windows-ui` 从该修复分支继续，保留已提交修复和设计方案，实现原生窗口和模拟交互；尚未合入main或推送。
+2026-10-14后续需求已转为Windows应用，页面方案见[界面记录](WINDOWS_UI_PLAN.md)。feature/web-app保留原始名称与基线；fix/esde-folder-covers保存方案记录和子目录封面修复，10个获批局部用例通过，设备补齐 GBA hack 8 个与 PS1 4 个文件夹封面。feature/windows-ui从该修复分支继续，保存原生界面与模拟交互阶段；实际业务继续在codex/windows-business开发，未合入main或推送。
 
 - 纳入：项目README、docs及历史文档、retrolibx源码、测试源码、配置、锁文件及许可。
 - 忽略：test_data、references、jobs、.deps、虚拟环境、缓存、构建产物、node_modules及本地.env文件。被忽略的本地数据不由Git保存。
@@ -58,3 +58,5 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 仓库初始化时仅静态查看Git状态、文件清单及文档diff，未执行测试、lint、类型检查、构建或设备操作。后续文件夹封面修复的获批测试范围见上述记录。
 
 2026-10-15 用户确认暂时保留当前显示效果。`feature/windows-ui` 保存原生界面、亮暗主题及侧栏/固定进度区修复；该节点标记为 `baseline/windows-ui-20261015`，作为接入业务前的可回退版本。此基线仅表示界面阶段归档，不表示最新改动已经通过测试。实际业务在从此节点创建的 `codex/windows-business` 分支继续，后续新分支默认使用 `codex/` 前缀。没有合入 main 或推送远程。
+
+实际业务提交将应用服务、主题规则和相关局部用例与界面调用分开记录。Python 依赖及锁文件已包含 Pillow，主题运行不依赖相邻工程路径；测试与设备操作尚未执行。详细范围见 [Windows 图形界面](WINDOWS_GUI.md)。
