@@ -93,7 +93,17 @@ temp/                      目录索引、配置快照、任务、中间文件�
 
 MuMu 自动连接是此前 29 项通过后新增的修复。用户单独批准后，对 d48f9fd 执行 test_desktop_discovery.py 的 10 个模拟用例及原有设备识别用例，共 11 项，一次全部通过（0.26 秒），无失败或复测。仅模拟进程和 ADB，没有连接设备、启动窗口或执行其他测试。报告见 [JUnit](../jobs/mumu-discovery-check-20261015/initial.xml) 和 [范围记录](../jobs/mumu-discovery-check-20261015/result.json)。窗口与实际自动连接仍由用户操作验收。
 
-按用户要求已向当次连接的 MuMu 内置存储 /storage/emulated/0/ROMs 上传 23 个演示输入文件，准备前该目录没有平台子目录。GBA 预期 4 入口/3 封面，GBA hack 4/4，PS1 3/3；包含中文空格、多版本共用封面、嵌套目录、cue 多轨和三种 metadata 编码。ROM 为不可启动的占位文件，图片复用项目已有 Canvas 平台缩略图。这里只准备并上传数据，未通过新代码扫描或转换，未修改 ES-DE 配置或主题。准备资料见 workspace/temp/emulator-demo-20261015，上传记录见 jobs/emulator-demo-20261015/result.json。
+此前准备的 23 个占位输入不符合用户要求，已从当前 ROMs 移至模拟器内置存储 FrontendTransTool-placeholder-backup-20261015 保留，后续手动验收使用真实整合包样本。
+
+当前样本来自用户先前指定的 D:\Game Tools\HandheldRes\PegasusG 精简包\PG_天马G_2026新GBA整合包_20260901_Roms.zip。向当次 MuMu（127.0.0.1:5555）的 /storage/emulated/0/ROMs 按 C2 上传 78 个文件（249,976,740 字节），保留原版 ROM、素材、文件名和完整 metadata 字节。预期 GBA 8 个现存 ROM、GBA hack 8 个、GBA vib 4 个；完整 metadata 分别有 484、80、38 条游戏记录，计数应以现存启动入口为准。此次仅准备并上传输入，没有运行扫描、转换、自动化测试或操作窗口，也没有修改 ES-DE。
+
+- 多版本共用素材：GBA 的细胞分裂 3 个版本、口袋妖怪绿宝石 2 个版本；GBA hack 的世界传说换装迷宫2 2 个版本。
+- 子目录：GBA hack 的口袋妖怪奥德赛汉化版 4 个 ROM、仙剑奇侠传1卷 2 个 ROM，沿用真实目录层级与共享封面。
+- GBA vib：龙珠大冒险、螺旋破坏者、双截龙及其打飞版，保留原版启动配置；本批不承诺模拟器已有对应核心，启动和震动由用户验收。
+- 增量：黄金太阳2、CT特种部队1及原素材共 12 个文件（22,471,468 字节）暂存 workspace/temp/real-gba-demo-20261015/add-later，未上传。可在首批转换后按用户安排添加，metadata 已包含它们。
+- 原 metadata 中既有的素材引用写法保持不变，没有为凑覆盖场景改写资料或捏造文件。GBA 包没有光盘游戏，本批不覆盖多轨光盘。
+
+选取明细见 workspace/temp/real-gba-demo-20261015/manifest.json；上传记录见 jobs/real-gba-demo-20261015/result.json。GUI 中刷新设备、选择内置 ROMs 后加载平台；实际计数和显示由用户操作确认。
 
 业务接入后先完成静态源码和 diff 审阅及依赖准备。2026-10-15 用户批准此前列明的 29 项本地测试，并指定窗口操作由用户完成。对提交 2c4a2df 执行一次，29 项全部通过，耗时 5.09 秒，无失败、跳过或修复复测。报告见 [JUnit](../jobs/desktop-business-check-20261015/initial.xml) 和 [范围记录](../jobs/desktop-business-check-20261015/result.json)。
 

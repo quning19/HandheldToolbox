@@ -9,7 +9,7 @@
 ## 当前实现
 
 - 后续设备刷新修复：无在线/待授权设备时，Windows 从正在运行的 MuMu 安装查询真实本机 ADB 端口并连接；已有设备不额外连接，未授权/离线/多设备分别提示。用户单独批准后，对 d48f9fd 执行新增 10 个模拟用例及原有设备识别用例，共 11 项一次全部通过（0.26 秒），无失败或复测。只模拟进程和 ADB，没有连接设备或操作窗口；实际界面自动连接仍由用户验收。见 [测试记录](../../jobs/mumu-discovery-check-20261015/result.json)。
-- 按用户要求向当前 MuMu 内置 ROMs 准备并 C2 上传 23 个演示文件，预期 GBA 4/3、GBA hack 4/4、PS1 3/3（入口/封面）。只有占位 ROM，不能启动；未执行扫描转换或窗口测试。记录见 jobs/emulator-demo-20261015/result.json，具体用法见 Windows 图形界面文档。
+- 用户要求使用之前指定的真实 GBA 整合包，原 23 个占位输入已移至模拟器内置 FrontendTransTool-placeholder-backup-20261015 保留。当前 /storage/emulated/0/ROMs 已 C2 上传 78 个真实文件（249,976,740 字节），预期 GBA/GBA hack/GBA vib 为 8/8/4 个现存 ROM；保留原完整 metadata（484/80/38 条游戏记录）和原素材，覆盖多版本、子目录、部分 ROM 与 VIB。另预留 2 个真实 ROM 及素材在本地，尚未上传。本轮只准备输入，没有执行扫描转换、窗口或自动化测试，没有修改 ES-DE；GBA 包无光盘，本批不覆盖多轨。见 [准备记录](../../jobs/real-gba-demo-20261015/result.json) 及 Windows 图形界面说明。
 
 - 保留Adapter→Library→ExportIntent→Planner→Executor架构，多前端及一游戏多ROM能力保持。
 - ES-DE只导出封面、Logo、视频，保留子目录，不处理mini、缩放或转码。ROM留原处。
