@@ -56,3 +56,5 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 - 原GitHub Actions文件仍在`retrolibx/.github/workflows/`，作为原项目配置保留。当前没有启用根目录CI或线上发布；后续接入远程时再按项目结构处理。
 
 仓库初始化时仅静态查看Git状态、文件清单及文档diff，未执行测试、lint、类型检查、构建或设备操作。后续文件夹封面修复的获批测试范围见上述记录。
+
+2026-10-15 用户确认暂时保留当前显示效果。`feature/windows-ui` 保存原生界面、亮暗主题及侧栏/固定进度区修复；该节点标记为 `baseline/windows-ui-20261015`，作为接入业务前的可回退版本。此基线仅表示界面阶段归档，不表示最新改动已经通过测试。实际业务在从此节点创建的 `codex/windows-business` 分支继续，后续新分支默认使用 `codex/` 前缀。没有合入 main 或推送远程。
