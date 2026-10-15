@@ -91,7 +91,7 @@ temp/                      目录索引、配置快照、任务、中间文件�
 
 ## 当前审阅及测试边界
 
-MuMu 自动连接是上述 29 项通过后新增的修复；已静态审阅，新增 test_desktop_discovery.py 的 10 个模拟用例尚未执行，不能沿用旧通过记录。窗口仍由用户操作验收。
+MuMu 自动连接是此前 29 项通过后新增的修复。用户单独批准后，对 d48f9fd 执行 test_desktop_discovery.py 的 10 个模拟用例及原有设备识别用例，共 11 项，一次全部通过（0.26 秒），无失败或复测。仅模拟进程和 ADB，没有连接设备、启动窗口或执行其他测试。报告见 [JUnit](../jobs/mumu-discovery-check-20261015/initial.xml) 和 [范围记录](../jobs/mumu-discovery-check-20261015/result.json)。窗口与实际自动连接仍由用户操作验收。
 
 按用户要求已向当次连接的 MuMu 内置存储 /storage/emulated/0/ROMs 上传 23 个演示输入文件，准备前该目录没有平台子目录。GBA 预期 4 入口/3 封面，GBA hack 4/4，PS1 3/3；包含中文空格、多版本共用封面、嵌套目录、cue 多轨和三种 metadata 编码。ROM 为不可启动的占位文件，图片复用项目已有 Canvas 平台缩略图。这里只准备并上传数据，未通过新代码扫描或转换，未修改 ES-DE 配置或主题。准备资料见 workspace/temp/emulator-demo-20261015，上传记录见 jobs/emulator-demo-20261015/result.json。
 
