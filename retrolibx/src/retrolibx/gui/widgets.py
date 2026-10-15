@@ -11,24 +11,52 @@ from PySide6.QtWidgets import (
 from qfluentwidgets import BodyLabel, CaptionLabel, ProgressBar, PushButton
 
 from .state import PlatformPreview
+from .appearance import DARK, LIGHT, colors, ui_font
 
 
-def caption(text: str, parent: QWidget | None = None) -> CaptionLabel:
+def caption(text: str, parent: QWidget | None = None, *, tone: str = "muted") -> CaptionLabel:
     label = CaptionLabel(text, parent)
-    label.setTextColor("#647083", "#adb7c6")
+    label.setFont(ui_font(13))
+    label.setTextColor(LIGHT[tone], DARK[tone])
     label.setObjectName("muted")
     return label
 
 
-def heading(title: str, subtitle: str) -> QWidget:
+class ElidedCaption(CaptionLabel):
+    """A single-line path hint that never forces its toolbar wider."""
+
+    def __init__(self) -> None:
+        self._full_text = ""
+        super().__init__()
+        self.setFont(ui_font(13))
+        self.setTextColor(LIGHT["muted"], DARK["muted"])
+        self.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred)
+        self.setMinimumWidth(0)
+
+    def setText(self, text: str) -> None:
+        self._full_text = text
+        self.setToolTip(text)
+        self._fit()
+
+    def _fit(self) -> None:
+        super().setText(self.fontMetrics().elidedText(self._full_text, Qt.TextElideMode.ElideMiddle, max(0, self.contentsRect().width())))
+
+    def resizeEvent(self, event) -> None:
+        super().resizeEvent(event)
+        self._fit()
+
+
+def heading(title: str, subtitle: str, *, section: bool = False) -> QWidget:
     widget = QWidget()
     layout = QVBoxLayout(widget)
     layout.setContentsMargins(0, 0, 0, 0)
-    layout.setSpacing(3)
+    layout.setSpacing(5)
     label = QLabel(title)
-    label.setObjectName("pageTitle")
+    label.setObjectName("sectionTitle" if section else "pageTitle")
     layout.addWidget(label)
-    layout.addWidget(caption(subtitle))
+    description = caption(subtitle)
+    description.setWordWrap(True)
+    layout.addWidget(description)
     return widget
 
 
@@ -36,9 +64,21 @@ def panel() -> tuple[QFrame, QVBoxLayout]:
     frame = QFrame()
     frame.setObjectName("surface")
     layout = QVBoxLayout(frame)
-    layout.setContentsMargins(14, 12, 14, 12)
-    layout.setSpacing(10)
+    layout.setContentsMargins(16, 14, 16, 14)
+    layout.setSpacing(12)
     return frame, layout
+
+
+def status_badge(text: str, tone: str) -> QWidget:
+    widget = QWidget()
+    layout = QHBoxLayout(widget)
+    layout.setContentsMargins(7, 0, 7, 0)
+    label = QLabel(text)
+    label.setObjectName("statusBadge")
+    label.setProperty("tone", tone)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    layout.addWidget(label, 0, Qt.AlignmentFlag.AlignCenter)
+    return widget
 
 
 class TaskFeedback(QFrame):
@@ -48,7 +88,7 @@ class TaskFeedback(QFrame):
         super().__init__(parent)
         self.setObjectName("feedback")
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 8, 12, 8)
+        layout.setContentsMargins(14, 10, 14, 10)
         layout.setSpacing(5)
         row = QHBoxLayout()
         self.message = BodyLabel()
@@ -98,14 +138,15 @@ class PlatformCard(QPushButton):
         self.update()
 
     def paintEvent(self, event) -> None:
+        c = colors()
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         bounds = QRectF(1, 1, self.width() - 2, self.height() - 2)
         shape = QPainterPath()
-        shape.addRoundedRect(bounds, 8, 8)
+        shape.addRoundedRect(bounds, 10, 10)
         painter.setClipPath(shape)
-        painter.fillRect(self.rect(), QColor("#ffffff"))
-        art_height = self.height() - 49
+        painter.fillRect(self.rect(), QColor(c["accent_soft"] if self.isChecked() else c["surface"]))
+        art_height = self.height() - 56
         painter.save()
         painter.setClipRect(0, 0, self.width(), art_height, Qt.ClipOperation.IntersectClip)
         if self.art.isNull():
@@ -118,12 +159,12 @@ class PlatformCard(QPushButton):
             painter.drawPixmap((self.width() - scaled.width()) // 2, (art_height - scaled.height()) // 2, scaled)
         painter.restore()
         painter.fillRect(0, 0, self.width(), art_height, QColor(0, 0, 0, 28))
-        font = QFont("Segoe UI", 20, QFont.Weight.Bold)
+        font = ui_font(24, QFont.Weight.Bold)
         painter.setFont(font)
         metrics = painter.fontMetrics()
         text = self.item.name
-        while metrics.horizontalAdvance(text) > self.width() - 24 and font.pointSize() > 12:
-            font.setPointSize(font.pointSize() - 1)
+        while metrics.horizontalAdvance(text) > self.width() - 24 and font.pixelSize() > 15:
+            font.setPixelSize(font.pixelSize() - 1)
             painter.setFont(font)
             metrics = painter.fontMetrics()
         path = QPainterPath()
@@ -134,25 +175,45 @@ class PlatformCard(QPushButton):
         painter.fillPath(path, QColor("white"))
         tick = QRectF(self.width() - 29, 10, 18, 18)
         painter.setPen(QPen(QColor("#ffffff"), 1))
-        painter.setBrush(QColor("#0968bb") if self.isChecked() else QColor(0, 0, 0, 95))
+        painter.setBrush(QColor(c["accent"]) if self.isChecked() else QColor(0, 0, 0, 95))
         painter.drawRoundedRect(tick, 4, 4)
         if self.isChecked():
-            painter.setPen(QPen(QColor("white"), 2))
+            painter.setPen(QPen(QColor(DARK["canvas"] if c is DARK else "#FFFFFF"), 2))
             painter.drawLine(int(tick.left() + 4), int(tick.top() + 9), int(tick.left() + 8), int(tick.top() + 13))
             painter.drawLine(int(tick.left() + 8), int(tick.top() + 13), int(tick.left() + 14), int(tick.top() + 5))
-        painter.setFont(QFont("Segoe UI", 9))
-        painter.setPen(QColor("#242a32"))
-        painter.drawText(11, art_height + 20, f"{self.item.roms} ROM")
+        painter.setFont(ui_font(13, QFont.Weight.DemiBold))
+        painter.setPen(QColor(c["ink"]))
+        painter.drawText(11, art_height + 22, f"{self.item.roms} ROM")
         text = f"封面 {self.item.covers}/{self.item.roms}"
-        painter.setPen(QColor("#647083"))
-        painter.drawText(self.width() - painter.fontMetrics().horizontalAdvance(text) - 11, art_height + 20, text)
-        text = f"新增 {max(0, self.item.roms - self.item.existing)}" if self.item.roms > self.item.existing else "已收录"
-        painter.drawText(11, art_height + 39, text)
+        painter.setFont(ui_font(12))
+        painter.setPen(QColor(c["warning"] if self.item.covers < self.item.roms else c["muted"]))
+        painter.drawText(self.width() - painter.fontMetrics().horizontalAdvance(text) - 11, art_height + 22, text)
+        added = max(0, self.item.roms - self.item.existing)
+        if added:
+            text = f"新增 {added}"
+            badge = QRectF(10, art_height + 31, painter.fontMetrics().horizontalAdvance(text) + 14, 18)
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.setBrush(QColor(c["success_soft"]))
+            painter.drawRoundedRect(badge, 4, 4)
+            painter.setPen(QColor(c["success"]))
+            painter.drawText(badge, Qt.AlignmentFlag.AlignCenter, text)
+        else:
+            painter.setPen(QColor(c["muted"]))
+            painter.drawText(11, art_height + 44, "已收录")
         painter.setClipping(False)
-        painter.setPen(QPen(QColor("#0968bb") if self.isChecked() or self.hasFocus() else QColor("#dce1e8"), 2 if self.isChecked() else 1))
+        active = self.isChecked() or self.hasFocus() or self.underMouse()
+        painter.setPen(QPen(QColor(c["accent"] if active else c["border"]), 2 if active else 1))
         painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawRoundedRect(bounds, 8, 8)
+        painter.drawRoundedRect(bounds, 10, 10)
         painter.end()
+
+    def enterEvent(self, event) -> None:
+        super().enterEvent(event)
+        self.update()
+
+    def leaveEvent(self, event) -> None:
+        super().leaveEvent(event)
+        self.update()
 
 
 class PlatformGrid(QWidget):
@@ -190,10 +251,10 @@ class PlatformGrid(QWidget):
         self.reflow()
 
     def reflow(self) -> None:
-        gap = 10
+        gap = 12
         columns = max(1, (self.width() + gap) // 180)
         width = max(1, (self.width() - (columns - 1) * gap) // columns)
-        height = int(width * .84) + 49
+        height = int(width * .84) + 56
         for index, card in enumerate(self.cards):
             card.setGeometry((index % columns) * (width + gap), (index // columns) * (height + gap), width, height)
         self.setMinimumHeight(max(1, math.ceil(len(self.cards) / columns) * (height + gap) - gap))

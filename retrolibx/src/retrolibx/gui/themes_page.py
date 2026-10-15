@@ -1,11 +1,13 @@
 """Original/converted/device theme states with explicitly simulated operations."""
 
 from PySide6.QtCore import QTimer, Qt
+from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QAbstractItemView, QHBoxLayout, QHeaderView, QTableWidgetItem, QVBoxLayout, QWidget
 from qfluentwidgets import PrimaryPushButton, PushButton, TableWidget
 
 from .state import UiStore, example_themes
-from .widgets import TaskFeedback, caption, heading, panel
+from .appearance import ui_font
+from .widgets import ElidedCaption, TaskFeedback, caption, heading, panel, status_badge
 
 
 class ThemesPage(QWidget):
@@ -23,14 +25,15 @@ class ThemesPage(QWidget):
         layout.setSpacing(12)
         layout.addWidget(heading("主题适配", "同步原版 → 转换主题 → 上传到设备"))
         toolbar, controls = panel()
-        self.paths = caption("")
-        self.paths.setWordWrap(True)
+        self.paths = ElidedCaption()
         controls.addWidget(self.paths)
         row = QHBoxLayout()
         self.sync = PushButton("同步原版")
         self.convert = PrimaryPushButton("转换主题")
         self.upload = PushButton("上传主题")
         self.refresh = PushButton("刷新设备主题")
+        for button in (self.sync, self.convert, self.upload, self.refresh):
+            button.setMinimumHeight(36)
         for button in (self.sync, self.convert, self.upload):
             row.addWidget(button)
         row.addStretch(1)
@@ -38,7 +41,7 @@ class ThemesPage(QWidget):
         controls.addLayout(row)
         layout.addWidget(toolbar)
         selection = QHBoxLayout()
-        self.counts = caption("")
+        self.counts = caption("", tone="accent_ink")
         selection.addWidget(self.counts, 1)
         all_button = PushButton("全选")
         none_button = PushButton("清空选择")
@@ -55,9 +58,13 @@ class ThemesPage(QWidget):
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.table.setAlternatingRowColors(False)
-        self.table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
-        for column, width in ((0, 54), (2, 118), (3, 130), (4, 118)):
-            self.table.setColumnWidth(column, width)
+        self.table.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        self.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
+        self.table.setColumnWidth(0, 52)
+        for column in range(1, 5):
+            self.table.horizontalHeader().setSectionResizeMode(column, QHeaderView.ResizeMode.Stretch)
+            if column > 1:
+                self.table.horizontalHeaderItem(column).setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         self.table.itemChanged.connect(self._selection_changed)
         layout.addWidget(self.table, 1)
         note = caption("设备“已存在”仅表示主题目录存在，不代表与本地最新结果一致。此页状态与操作均为示例。")
@@ -77,8 +84,8 @@ class ThemesPage(QWidget):
         self.render()
 
     def update_paths(self) -> None:
-        self.paths.setText(f"工作目录：{self.store.workspace}  ·  原版 /themes/original  ·  导出 /themes/exported")
-        self.paths.setToolTip(f"上传目标：内置存储 ES-DE/themes（示例）\n平台分类：{len(self.store.definitions)} 个")
+        self.paths.setText(f"本地工作区 · {self.store.workspace.name}     上传到 ES-DE/themes（自动识别）")
+        self.paths.setToolTip(f"工作目录：{self.store.workspace}\n原版：themes/original\n导出：themes/exported\n上传目标：内置存储 ES-DE/themes（示例）\n平台分类：{len(self.store.definitions)} 个")
 
     def render(self) -> None:
         self.table.blockSignals(True)
@@ -92,8 +99,16 @@ class ThemesPage(QWidget):
             self.table.setItem(row, 0, check)
             values = (theme.name, "已同步" if theme.original else "未同步", "可上传" if theme.converted else "未转换", "未检查" if theme.device is None else ("已存在" if theme.device else "未发现"))
             for column, value in enumerate(values, 1):
-                self.table.setItem(row, column, QTableWidgetItem(value))
-            self.table.setRowHeight(row, 53)
+                item = QTableWidgetItem(value if column == 1 else "")
+                item.setToolTip(value)
+                item.setData(Qt.ItemDataRole.AccessibleTextRole, value)
+                if column == 1:
+                    item.setFont(ui_font(14, QFont.Weight.DemiBold))
+                self.table.setItem(row, column, item)
+                if column > 1:
+                    tone = {"已同步": "success", "可上传": "accent", "未转换": "warning", "已存在": "success"}.get(value, "muted")
+                    self.table.setCellWidget(row, column, status_badge(value, tone))
+            self.table.setRowHeight(row, 56)
         self.table.blockSignals(False)
         self.update_actions()
 

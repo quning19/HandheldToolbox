@@ -9,8 +9,9 @@ from PySide6.QtWidgets import (
     QAbstractItemView, QDialog, QFileDialog, QFormLayout, QHBoxLayout, QHeaderView,
     QMessageBox, QScrollArea, QStackedWidget, QTableWidgetItem, QVBoxLayout, QWidget,
 )
-from qfluentwidgets import ComboBox, LineEdit, PrimaryPushButton, PushButton, SearchLineEdit, TableWidget
+from qfluentwidgets import ComboBox, LineEdit, PrimaryPushButton, PushButton, SearchLineEdit, SwitchButton, TableWidget
 
+from .appearance import DARK, LIGHT
 from .state import PlatformDefinition, UiStore, valid_component
 from .widgets import caption, heading, panel
 
@@ -55,7 +56,7 @@ class PlatformDialog(QDialog):
         layout.addWidget(self.internal_id)
         self.error = caption("")
         self.error.setObjectName("error")
-        self.error.setTextColor("#ab3442", "#ffacb6")
+        self.error.setTextColor(LIGHT["danger"], DARK["danger"])
         self.error.setWordWrap(True)
         layout.addWidget(self.error)
         buttons = QHBoxLayout()
@@ -142,6 +143,8 @@ class PlatformsPage(QWidget):
         self.table.setColumnCount(5)
         self.table.setHorizontalHeaderLabels(["名称", "ROM 目录", "母体", "主题表现", "操作"])
         self.table.verticalHeader().hide()
+        self.table.setAlternatingRowColors(False)
+        self.table.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         for column in (0, 1):
@@ -218,6 +221,7 @@ class PlatformsPage(QWidget):
 class SettingsPage(QWidget):
     workspace_changed = Signal()
     definitions_changed = Signal()
+    theme_changed = Signal(str)
 
     def __init__(self, store: UiStore) -> None:
         super().__init__()
@@ -232,8 +236,19 @@ class SettingsPage(QWidget):
         content.setContentsMargins(24, 19, 24, 16)
         content.setSpacing(14)
         content.addWidget(heading("设置", "整个软件共用一个工作目录"))
+        appearance, appearance_layout = panel()
+        appearance_row = QHBoxLayout()
+        appearance_row.addWidget(heading("外观", "亮色与暗色即时切换，自动记住你的选择", section=True), 1)
+        self.theme_switch = SwitchButton()
+        self.theme_switch.setOnText("暗色")
+        self.theme_switch.setOffText("亮色")
+        self.theme_switch.setChecked(store.theme == "dark")
+        self.theme_switch.setAccessibleName("暗色模式")
+        appearance_row.addWidget(self.theme_switch)
+        appearance_layout.addLayout(appearance_row)
+        content.addWidget(appearance)
         frame, controls = panel()
-        controls.addWidget(heading("工作目录", "原版主题、导出结果、配置、记录和临时文件由工具分目录管理"))
+        controls.addWidget(heading("工作目录", "原版主题、导出结果、配置和临时文件统一管理", section=True))
         row = QHBoxLayout()
         self.workspace = LineEdit()
         self.workspace.setText(str(store.workspace))
@@ -253,7 +268,7 @@ class SettingsPage(QWidget):
         content.addWidget(frame)
         frame, controls = panel()
         row = QHBoxLayout()
-        row.addWidget(heading("平台定义", "统一管理 GBA hack、GBA vib、PSP Minis 等分类"), 1)
+        row.addWidget(heading("平台定义", "统一管理 GBA hack、GBA vib、PSP Minis 等分类", section=True), 1)
         manage = PushButton("管理平台 →")
         row.addWidget(manage)
         controls.addLayout(row)
@@ -274,6 +289,19 @@ class SettingsPage(QWidget):
         manage.clicked.connect(lambda: self.stack.setCurrentIndex(1))
         browse.clicked.connect(self._browse)
         save.clicked.connect(self._save)
+        self.theme_switch.checkedChanged.connect(self._change_theme)
+
+    def _change_theme(self, checked: bool) -> None:
+        mode = "dark" if checked else "light"
+        try:
+            self.store.save_theme(mode)
+        except (OSError, ValueError) as exc:
+            self.theme_switch.blockSignals(True)
+            self.theme_switch.setChecked(self.store.theme == "dark")
+            self.theme_switch.blockSignals(False)
+            self.feedback.setText("外观设置保存失败：" + str(exc))
+            return
+        self.theme_changed.emit(mode)
 
     def _browse(self) -> None:
         path = QFileDialog.getExistingDirectory(self, "选择软件工作目录", str(self.store.workspace))

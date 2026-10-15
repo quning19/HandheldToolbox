@@ -113,6 +113,7 @@ class UiStore:
     def __init__(self) -> None:
         self.settings_file = app_directory() / "settings.json"
         self.workspace = app_directory() / "workspace"
+        self.theme = "light"
         if self.settings_file.is_file():
             content = json.loads(self.settings_file.read_text(encoding="utf-8"))
             if not isinstance(content, dict) or content.get("version") != 1 or not isinstance(content.get("workspace"), str):
@@ -120,6 +121,9 @@ class UiStore:
             self.workspace = Path(content["workspace"])
             if not self.workspace.is_absolute():
                 raise ValueError("settings.json 中的工作目录必须是绝对路径。")
+            self.theme = content.get("theme", "light")
+            if self.theme not in {"light", "dark"}:
+                raise ValueError("settings.json 中的 theme 必须为 light 或 dark。")
         self.definitions = self.read_definitions(self.workspace)
 
     @staticmethod
@@ -159,8 +163,14 @@ class UiStore:
         definitions = self.read_definitions(directory)
         for name in ("config", "themes/original", "themes/exported", "library", "devices", "logs", "temp"):
             (directory / name).mkdir(parents=True, exist_ok=True)
-        write_json(self.settings_file, {"version": 1, "workspace": str(directory)})
+        write_json(self.settings_file, {"version": 1, "workspace": str(directory), "theme": self.theme})
         self.workspace, self.definitions = directory, definitions
+
+    def save_theme(self, mode: str) -> None:
+        if mode not in {"light", "dark"}:
+            raise ValueError("无效的界面主题。")
+        write_json(self.settings_file, {"version": 1, "workspace": str(self.workspace), "theme": mode})
+        self.theme = mode
 
     def save_definitions(self, definitions: list[PlatformDefinition]) -> None:
         write_json(self.workspace / "config" / "platforms.json", {

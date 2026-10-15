@@ -7,7 +7,8 @@ from PySide6.QtWidgets import QHBoxLayout, QScrollArea, QStackedWidget, QVBoxLay
 from qfluentwidgets import CheckBox, ComboBox, LineEdit, PrimaryPushButton, PushButton
 
 from .state import PlatformPreview, UiStore, example_platforms
-from .widgets import PlatformGrid, TaskFeedback, caption, heading, panel
+from .appearance import ui_font
+from .widgets import ElidedCaption, PlatformGrid, TaskFeedback, caption, heading, panel
 
 
 class ExamplePlatformLoader(QThread):
@@ -55,7 +56,7 @@ class LibraryPage(QWidget):
         self.source.setAccessibleName("游戏库来源类型")
         first.addWidget(self.source)
         self.paths = QStackedWidget()
-        self.paths.setFixedHeight(34)
+        self.paths.setFixedHeight(36)
         self.device_root = ComboBox()
         self.device_root.addItem("SD 卡 · /storage/示例SD/Roms · 15 个子目录", userData="sd")
         self.device_root.addItem("内置存储 · /storage/emulated/0/roms · 4 个子目录", userData="internal")
@@ -78,7 +79,7 @@ class LibraryPage(QWidget):
         controls.addLayout(first)
         second = QHBoxLayout()
         second.setSpacing(14)
-        self.target = caption("")
+        self.target = ElidedCaption()
         self.target.setMinimumWidth(0)
         second.addWidget(self.target, 1)
         self.shared = CheckBox("共用素材")
@@ -88,11 +89,13 @@ class LibraryPage(QWidget):
         second.addWidget(self.shared)
         second.addWidget(self.full)
         self.start = PrimaryPushButton("开始转换")
+        for control in (self.source, self.device_root, self.computer_root, self.browse, self.load, self.start):
+            control.setMinimumHeight(36)
         second.addWidget(self.start)
         controls.addLayout(second)
         layout.addWidget(toolbar)
         row = QHBoxLayout()
-        self.counts = caption("平台列表 · 尚未加载")
+        self.counts = caption("平台列表 · 尚未加载", tone="accent_ink")
         row.addWidget(self.counts, 1)
         self.select_all = PushButton("全选")
         self.select_none = PushButton("清空选择")
@@ -102,6 +105,7 @@ class LibraryPage(QWidget):
         self.list_stack = QStackedWidget()
         self.list_stack.setMinimumHeight(170)
         self.empty = caption("请选择天马 G 目录，再点击“加载平台”。\n此版使用示例数据，不读取实际目录或设备。")
+        self.empty.setFont(ui_font(14))
         self.empty.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.list_stack.addWidget(self.empty)
         self.scroll = QScrollArea()

@@ -105,6 +105,37 @@ class GuiStateTests(unittest.TestCase):
                     UiStore()
                 self.assertEqual(path.read_bytes(), before)
 
+    def test_theme_persists_across_reopen_and_workspace_change(self) -> None:
+        store = UiStore()
+        workspace = self.base / "workspace"
+        store.change_workspace(workspace)
+        store.save_definitions(store.definitions)
+        before = (workspace / "config/platforms.json").read_bytes()
+        store.save_theme("dark")
+        reopened = UiStore()
+        self.assertEqual(reopened.theme, "dark")
+        self.assertEqual(reopened.workspace, workspace)
+        self.assertEqual((workspace / "config/platforms.json").read_bytes(), before)
+        reopened.change_workspace(self.base / "other")
+        self.assertEqual(UiStore().theme, "dark")
+
+    def test_theme_save_failure_keeps_previous_mode_and_file(self) -> None:
+        store = UiStore()
+        store.save_theme("dark")
+        before = store.settings_file.read_bytes()
+        with patch("retrolibx.gui.state.write_json", side_effect=PermissionError("read-only")):
+            with self.assertRaises(PermissionError):
+                store.save_theme("light")
+        self.assertEqual(store.theme, "dark")
+        self.assertEqual(store.settings_file.read_bytes(), before)
+
+    def test_older_settings_without_theme_default_to_light(self) -> None:
+        path = self.application / "settings.json"
+        write_json(path, {"version": 1, "workspace": str(self.base / "workspace")})
+        before = path.read_bytes()
+        self.assertEqual(UiStore().theme, "light")
+        self.assertEqual(path.read_bytes(), before)
+
 
 if __name__ == "__main__":
     unittest.main()
