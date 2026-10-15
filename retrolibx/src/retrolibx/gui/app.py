@@ -20,6 +20,8 @@ from .widgets import caption
 
 STYLE = """
 QMainWindow { background: #f5f6f8; }
+QDialog { background: #f5f6f8; color: #242a32; }
+QDialog QLabel { color: #242a32; }
 QWidget#sidebar { background: #eef0f4; border-right: 1px solid #e1e5ec; }
 QWidget#libraryPage, QWidget#themesPage, QWidget#settingsPage { background: #f5f6f8; }
 QLabel#pageTitle { font-size: 23px; font-weight: 600; color: #242a32; }

@@ -129,6 +129,7 @@ class PlatformsPage(QWidget):
         search_row = QHBoxLayout()
         self.search = SearchLineEdit()
         self.search.setPlaceholderText("搜索名称或 ROM 目录")
+        self.search.setMinimumWidth(260)
         self.search.setMaximumWidth(310)
         self.search.setAccessibleName("搜索平台")
         self.search.textChanged.connect(self.render)
