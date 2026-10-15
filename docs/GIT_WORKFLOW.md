@@ -59,4 +59,4 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 
 2026-10-15 用户确认暂时保留当前显示效果。`feature/windows-ui` 保存原生界面、亮暗主题及侧栏/固定进度区修复；该节点标记为 `baseline/windows-ui-20261015`，作为接入业务前的可回退版本。此基线仅表示界面阶段归档，不表示最新改动已经通过测试。实际业务在从此节点创建的 `codex/windows-business` 分支继续，后续新分支默认使用 `codex/` 前缀。没有合入 main 或推送远程。
 
-实际业务提交将应用服务、主题规则和相关局部用例与界面调用分开记录。Python 依赖及锁文件已包含 Pillow，主题运行不依赖相邻工程路径；测试与设备操作尚未执行。详细范围见 [Windows 图形界面](WINDOWS_GUI.md)。
+实际业务通过 44cf2e9（应用服务、主题规则、局部用例）及 2c4a2df（界面调用）分开记录。Python 依赖及锁文件已包含 Pillow，主题运行不依赖相邻工程路径。用户批准的 29 项本地测试已对 2c4a2df 执行一次并全部通过（5.09 秒），未改动业务源码，无修复复测；本轮没有窗口或设备操作。详细范围见 [Windows 图形界面](WINDOWS_GUI.md)。

@@ -6,7 +6,7 @@
 
 ## 使用当前源码
 
-Windows 原生应用可从外层项目根目录双击“启动界面.cmd”打开。已接入实际游戏库和主题服务，使用及测试边界见 [Windows 图形界面](../docs/WINDOWS_GUI.md)；此轮业务改动仅静态审阅，尚未测试或打包。
+Windows 原生应用可从外层项目根目录双击“启动界面.cmd”打开。已接入实际游戏库和主题服务，使用及测试边界见 [Windows 图形界面](../docs/WINDOWS_GUI.md)；获批的 29 项本地测试通过，界面与真实设备联调待用户操作，尚未打包。
 
 需要Python 3.12+，依赖由[pyproject.toml](pyproject.toml)声明、[uv.lock](uv.lock)固定。在本仓库目录使用现有`.venv`运行：
 

@@ -5,7 +5,7 @@
 **当前状态：平台来源、列表合并及来源规则已统一。ES-DE 转换只导出封面、Logo、视频三类素材；共用素材默认关闭，开启时核对复制结果、局部更新原metadata，再清理对应源素材。获批的15个共用素材本地用例已分别取得通过结果，首轮失败项修复后定向复测；未做全量回归或设备执行。设备显示、启动和VIB震动由用户验收。**
 
 - [代码运行入口](retrolibx/README.md)、[当前状态](retrolibx/docs/STATUS.md)：Python 3.12+，功能及验收边界。
-- [Windows 图形界面](docs/WINDOWS_GUI.md)：PySide6 / QFluentWidgets 原生 Fluent 工作台预览，根目录双击 `启动界面.cmd`；游戏库和主题业务尚未接入。
+- [Windows 图形界面](docs/WINDOWS_GUI.md)：PySide6 / QFluentWidgets 原生 Fluent 工作台，根目录双击 `启动界面.cmd`；已接入游戏库和主题业务，29 项局部测试通过，界面与设备联调待用户确认。
 - [Android使用说明](retrolibx/docs/ANDROID.md)：scan/capture、多平台build及分步deploy入口；正常执行与专项检查/修复分别授权。
 - [ES-DE 素材与天马G共用](retrolibx/docs/SHARED_MEDIA.md)：三类素材、默认关闭的迁移模式及原metadata局部更新。
 - [共用平台配置](retrolibx/docs/PLATFORMS.md)：沿用主题转换工具验证过的名称、目录及系统定义。
@@ -15,7 +15,7 @@
 - [结果与快照索引](jobs/README.md)、[历史实现记录入口](docs/IMPLEMENTATION.md)。
 - [方案](docs/PLAN.md)、[开源评估](docs/OPEN_SOURCE.md)、[资源说明](docs/RESOURCES.md)。
 
-Windows 应用入口为根目录的“启动界面.cmd”，使用说明见 [Windows 图形界面](docs/WINDOWS_GUI.md)。原生页面已开始接入游戏库、平台配置及七套主题业务；这次接入尚未运行测试或设备操作，未打包独立 EXE。
+Windows 应用入口为根目录的“启动界面.cmd”，使用说明见 [Windows 图形界面](docs/WINDOWS_GUI.md)。原生页面已接入游戏库、平台配置及七套主题业务；获批的 29 项本地测试全部通过，本轮未操作窗口或设备，未打包独立 EXE。
 
 本地Git仓库位于本项目根目录，统一管理retrolibx源码和项目文档。main保存开发基线，feature/windows-ui及baseline/windows-ui-20261015保留界面阶段，codex/windows-business接入实际业务；分支、提交和合并约定见[Git工作流](docs/GIT_WORKFLOW.md)。保留RetroLibX上游历史及MIT许可，上游基于提交f1a73c126ba450ae7d01a856e17ed7aad83eeff9；尚未创建线上fork或推送。upstream保留原项目地址，尚未配置origin。
 

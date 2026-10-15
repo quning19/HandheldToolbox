@@ -90,12 +90,12 @@ temp/                      目录索引、配置快照、任务、中间文件�
 
 ## 当前审阅及测试边界
 
-此次业务接入仅完成静态源码和 diff 审阅、依赖准备，没有启动 GUI、运行测试、lint、类型检查、构建或连接设备。不能据此视为业务已验证。用户继续负责界面操作和截图反馈；设备写入测试须另行授权。
+业务接入后先完成静态源码和 diff 审阅及依赖准备。2026-10-15 用户批准此前列明的 29 项本地测试，并指定窗口操作由用户完成。对提交 2c4a2df 执行一次，29 项全部通过，耗时 5.09 秒，无失败、跳过或修复复测。报告见 [JUnit](../jobs/desktop-business-check-20261015/initial.xml) 和 [范围记录](../jobs/desktop-business-check-20261015/result.json)。
 
-新增 test_desktop_business.py 的 19 个本地用例未执行，覆盖真实计数、增量/全量、共用迁移后新增、多轨、混合编码、平台继承、Android 媒体来源边界/备份、主题生成/过期/失败保留及模拟设备捕获。建议单独批准这 19 项、此前未执行的 3 项主题配置用例，以及 7 项受影响的既有局部回归，共 29 项；范围只用临时数据和模拟 ADB，不启动窗口、不连接设备、不打包。
+通过范围为 test_desktop_business.py 的 19 个业务用例、test_gui_state.py 的 3 个主题配置用例，以及 7 项受影响的既有局部回归。业务用例覆盖真实计数、增量/全量、共用迁移后新增、多轨、混合编码、平台继承、Android 媒体来源边界/备份、主题生成/过期/失败保留及模拟设备捕获。全部只使用临时数据和模拟 ADB，没有启动窗口、连接真实设备或模拟器，也没有更改真实资源。
 
 该建议的既有用例精确范围：test_gui_state.py 中 theme_persists_across_reopen_and_workspace_change、theme_save_failure_keeps_previous_mode_and_file、older_settings_without_theme_default_to_light；test_shared_esde_media.py 中 shared_migration_updates_in_place_after_all_rom_copies_and_keeps_mini、changed_metadata_or_differing_target_stops_before_source_mutations、failed_copy_never_publishes_source_metadata_or_cleans_sources，以及 android_shared_migration_is_opt_in_and_build_does_not_change_source 的关闭/开启两项；test_handheld.py 中 build_uses_ir_and_plan_without_copying_media；test_platforms.py 中 platform_registry_rejects_ambiguous_aliases_and_invalid_bases。上述名称均以 test_ 开头，此处为便于阅读省略前缀。
 
-历史界面阶段曾完成获批的八组交互检查及 6 个配置用例；窗口边缘拖拽、无引用平台的界面删除存在已记录的检查边界。这些通过记录保留在基线标签及 jobs/gui-check-20261015，不覆盖之后的外观调整及此次业务接入。
+本次没有执行 lint、类型检查、覆盖率、全量回归、构建或打包。后台服务用例通过不等于原生界面线程、真实设备读写和七套真实主题资源均已验收；这些仍需分别完成。历史界面阶段曾完成获批的八组交互检查及 6 个配置用例，窗口边缘拖拽、无引用平台的界面删除存在已记录边界；记录保留在基线标签及 jobs/gui-check-20261015。
 
 核心上游 MIT 许可保留；QFluentWidgets 开源版 GPLv3 的发行约束和 Canvas/原主题素材的授权记录仍需随独立软件发行维护。此轮未打包或发布软件。
