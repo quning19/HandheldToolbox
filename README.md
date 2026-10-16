@@ -33,4 +33,4 @@ python -m retrolibx.cli --help
 
 基础设置保存在程序同级 settings.json；全部运行资料由唯一 workspace 管理。真实 ROM、完整第三方主题、历史产物和旧项目归档保留在本地，均不进入 Git 或应用包。平台卡片资源保留来源/许可记录，独立软件分发仍需按各主题素材许可处理；当前没有打包或发布 EXE。
 
-本轮在 `codex/independent-tools` 实施。测试、窗口、设备与发布分别授权；历史的 29 项或 11 项通过记录不代表本轮重构已通过。
+本轮在 `codex/independent-tools` 实施。[获批的 72 项本地测试](docs/TESTS_INDEPENDENT_TOOLS_20261016.md)已分别取得通过结果，含七套真实主题资源图解析；失败项修复后定向复测，没有在最后修复后全量重跑。窗口、完整主题导出、设备与发布仍分别验收。

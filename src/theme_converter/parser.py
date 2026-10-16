@@ -14,8 +14,8 @@ from retrolibx.adapters.esde.merge import parse_xml
 from retrolibx.errors import ValidationError
 from frontend_common.jobs import checkpoint
 
-PARSER_VERSION = "esde-graph-1"
-POLICY_VERSION = "resource-policy-1"
+PARSER_VERSION = "esde-graph-2"
+POLICY_VERSION = "resource-policy-3"
 DIMENSIONS = ("colorScheme", "fontSize", "language", "variant", "aspectRatio")
 TOKEN = re.compile(r"\$\{([^{}]+)\}")
 PATH_PROPERTIES = {
@@ -24,8 +24,8 @@ PATH_PROPERTIES = {
     "customButtonIcon", "customBadgeIcon", "customControllerIcon", "customIcon",
     "scrollSound", "navigationSound", "selectSound", "launchSound",
 }
-COPY_ONLY = re.compile(r"overlay|mask|shadow|gradient|vignette|selector|button|font|spacer|logo", re.I)
-ART = re.compile(r"art|background|controller|screenshot|capsule|wallpaper|cover|fanart|physicalmedia", re.I)
+COPY_ONLY = re.compile(r"overlay|mask|shadow|gradient|vignette|selector|button|font|spacer|logo|(?:^|[/ _-])icons?(?:[/ _-]|$)", re.I)
+ART = re.compile(r"art|background|controller|console|hardware|screenshot|capsule|wallpaper|cover|fanart|physicalmedia|system[-_]image", re.I)
 
 
 @dataclass
@@ -102,19 +102,30 @@ class ThemeParser:
                 declared |= names(node.get("name") or node.text)
             # Language branches have a declared <language> list in modern ES-DE.
             self.domains[key] = frozenset(declared or {"__default__"})
-        # Branch names in includes can add nonselectable compatibility aliases.
-        for relative in self.files:
-            if relative.endswith(".xml") and relative != "capabilities.xml":
-                root = self.read_xml(PurePosixPath(relative))
-                for key in DIMENSIONS:
-                    for node in root.iter(key):
-                        if node.get("name"):
-                            self.domains[key] |= frozenset(names(node.get("name")))
+        # Read only referenced XML. Themes may ship unused templates, examples,
+        # or draft fragments which ES-DE never loads. Branch domains come from
+        # capabilities, rather than from an audit of every XML in the directory.
 
     def read_xml(self, relative, expected="theme"):
         key = str(relative)
         if key not in self.xml:
-            self.xml[key] = parse_xml(self.files[key].read_bytes(), expected)
+            raw = self.files[key].read_bytes()
+            try:
+                self.xml[key] = parse_xml(raw, expected)
+            except ValidationError as original:
+                if expected != "theme":
+                    raise ValidationError(f"{relative}: {original}") from original
+                # pugixml permits multiple document elements; ES-DE loads the
+                # first direct <theme>. Keep configuration XML strictly parsed.
+                content = re.sub(br"^\s*<\?xml\s[^?]*\?>", b"", raw.removeprefix(b"\xef\xbb\xbf"), count=1)
+                try:
+                    wrapper = parse_xml(b"<themeDocument>" + content + b"</themeDocument>", "themeDocument")
+                    theme = wrapper.find("theme")
+                    if theme is None:
+                        raise original
+                    self.xml[key] = theme
+                except ValidationError as exc:
+                    raise ValidationError(f"{relative}: {exc}") from exc
         return self.xml[key]
 
     def relative(self, document, path):
@@ -297,13 +308,32 @@ class ThemeParser:
                 fallback = component.find("default")
                 if fallback is None:
                     fallback = component.find("defaultImage")
-                if fallback is not None or prop.tag in {"default", "defaultImage", "defaultVideo"}:
-                    self.result.warnings.append(f"沿用主题默认回退：{target}")
+                text_fallback = component.tag in {"carousel", "grid"} and prop.tag == "staticImage"
+                component_name = component.get("name", "")
+                base_name = re.sub(r"[_-]custom$", "", component_name, flags=re.I)
+                layered_fallback = component.tag == "image" and base_name != component_name and any(
+                    sibling.tag == "image" and sibling.get("name") == base_name and any(
+                        sibling.find(key) is not None for key in ("path", "default", "imageType")
+                    ) for sibling in component.getparent()
+                )
+                # If the original also has no decorative layer, preserve that
+                # empty layer instead of inventing required art for the target.
+                empty_decoration = component.tag == "image" and re.search(
+                    r"overlay|mask|shadow|gradient|vignette", component_name + " " + str(origin), re.I
+                ) is not None
+                if fallback is not None or prop.tag in {"default", "defaultImage", "defaultVideo"} or text_fallback or layered_fallback or empty_decoration:
+                    mechanism = "原版空装饰层" if empty_decoration else "下层素材" if layered_fallback else "列表文字" if text_fallback and fallback is None else "主题默认"
+                    self.result.warnings.append(f"沿用{mechanism}回退：{target}")
+                    self.result.edges.append({"type": "fallback", "target": str(target), "mechanism": mechanism})
                 else:
                     self.result.errors.append(f"平台素材及母体素材均缺失：{target} ← {origin}")
                 continue
             context = " ".join((component.tag, component.get("name", ""), str(origin)))
-            role = "copy" if COPY_ONLY.search(context) else "art" if ART.search(context) else "unknown"
+            # Specific illustration roles win over a generic folder name such
+            # as carousel-icons-art/capsule/controller. Plain icons remain copies.
+            semantic_context = component.get("name", "") + " " + str(origin)
+            decorative = re.search(r"overlay|mask|shadow|gradient|vignette|selector|button|font|spacer|logo", semantic_context, re.I)
+            role = "copy" if decorative else "art" if ART.search(semantic_context) else "copy" if COPY_ONLY.search(context) else "unknown"
             if role == "unknown" and origin.suffix.lower() in {".png", ".webp", ".jpg", ".jpeg"}:
                 self.result.errors.append(f"素材用途不明确，已保留原样，需确认规则：{origin}")
             resource = Resource(self.files[str(origin)], target, role, str(relative),
