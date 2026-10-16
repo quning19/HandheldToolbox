@@ -1,13 +1,13 @@
-# FrontendTransTool
+# 掌机工具箱
 
-Windows Fluent 工作台，汇总独立的游戏库转换和 ES-DE 主题适配工具。
+Windows Fluent 工作台，汇总独立的游戏库转换和 ES-DE 主题适配工具。工程目录保留 FrontendTransTool，Python 模块入口沿用原名。
 
 - `library_converter`：天马 G → ES-DE，自动平台配置、增量/全量、可选共用素材、文件夹封面及 Android 发布。
 - `theme_converter`：本地导入/设备同步原版，通用 ES-DE 资源解析、适配、保留结果及上传。
 - `frontend_gui`：页面、参数和结果展示；两个业务工具均可脱离 GUI 独立执行。
 - `retrolibx`：保留上游历史、MIT 许可及多前端能力的修改版引擎。
 
-本机双击“启动界面.cmd”。Python 3.12+ 环境也可在项目根目录安装：
+本机双击“掌机工具箱.cmd”（原“启动界面.cmd”仍可使用）。Python 3.12+ 环境也可在项目根目录安装：
 
 ```powershell
 python -m pip install -e '.[desktop]'
@@ -18,6 +18,8 @@ python -m retrolibx.cli --help
 ```
 
 源码入口：`python run_tool.py library|theme|gui|engine ...`。原有本机环境保留在 retrolibx/.venv，不复制或重建。
+
+应用图标选用竖版掌机 1，窗口和侧栏统一使用；四张保留原稿及说明见 [图标资源](docs/design/assets/app-icons/README.md)。同名 Python GUI 入口安装后在 Windows 生成“掌机工具箱.exe”；独立 EXE 尚未打包。
 
 | 说明 | 内容 |
 |---|---|

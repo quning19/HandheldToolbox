@@ -4,7 +4,7 @@ import sys
 import traceback
 
 from PySide6.QtCore import Qt, QSize
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QColor, QIcon
 from PySide6.QtWidgets import (
     QApplication, QButtonGroup, QHBoxLayout, QLabel, QMainWindow, QMessageBox,
     QSizePolicy, QStackedWidget, QVBoxLayout, QWidget,
@@ -13,6 +13,7 @@ from qfluentwidgets import FluentIcon
 from retrolibx.errors import RetroLibXError
 
 from .appearance import apply_appearance, colors, ui_font
+from .branding import APP_ICON, APP_NAME, WINDOWS_APP_ID
 from .library_page import LibraryPage
 from .settings_page import SettingsPage
 from .state import UiStore
@@ -24,7 +25,8 @@ from .widgets import NavigationButton, caption
 class MainWindow(QMainWindow):
     def __init__(self, store: UiStore) -> None:
         super().__init__()
-        self.setWindowTitle("FrontendTransTool")
+        self.setWindowTitle(APP_NAME)
+        self.setWindowIcon(QIcon(str(APP_ICON)))
         self.resize(1140, 750)
         self.setMinimumSize(1000, 650)
         self.store = store
@@ -42,12 +44,13 @@ class MainWindow(QMainWindow):
         nav.setSpacing(8)
         brand_row = QHBoxLayout()
         brand_row.setSpacing(10)
-        mark = QLabel("FT")
+        mark = QLabel()
         mark.setObjectName("brandMark")
         mark.setAlignment(Qt.AlignmentFlag.AlignCenter)
         mark.setFixedSize(40, 40)
+        mark.setPixmap(self.windowIcon().pixmap(QSize(40, 40)))
         brand_row.addWidget(mark)
-        brand = QLabel("Frontend\nTrans Tool")
+        brand = QLabel(APP_NAME)
         brand.setObjectName("brand")
         brand_row.addWidget(brand, 1)
         nav.addLayout(brand_row)
@@ -139,14 +142,19 @@ class MainWindow(QMainWindow):
 
 
 def run() -> None:
+    if sys.platform == "win32":
+        from ctypes import c_wchar_p, windll
+        windll.shell32.SetCurrentProcessExplicitAppUserModelID(c_wchar_p(WINDOWS_APP_ID))
     app = QApplication(sys.argv)
-    app.setApplicationName("FrontendTransTool")
+    app.setApplicationName(APP_NAME)
+    app.setApplicationDisplayName(APP_NAME)
+    app.setWindowIcon(QIcon(str(APP_ICON)))
     # Fusion avoids Windows QStyle differences across newer Qt versions.
     app.setStyle("Fusion")
 
     def report_error(error_type, value, tb) -> None:
         traceback.print_exception(error_type, value, tb)
-        QMessageBox.critical(None, "FrontendTransTool", f"界面操作失败：\n{value}")
+        QMessageBox.critical(None, APP_NAME, f"界面操作失败：\n{value}")
 
     sys.excepthook = report_error
     try:

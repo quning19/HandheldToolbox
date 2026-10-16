@@ -49,8 +49,7 @@ def stylesheet(c: dict[str, str]) -> str:
     QLabel#sectionTitle {{ font-size: 17px; font-weight: 600; color: {c['ink']}; }}
     QDialog QLabel#pageTitle {{ font-size: 21px; }}
     QLabel#brand {{ font-size: 16px; font-weight: 600; color: {c['ink']}; }}
-    QLabel#brandMark {{ background: {c['accent']}; color: {c['surface']}; border-radius: 10px;
-        font-size: 17px; font-weight: 700; }}
+    QLabel#brandMark {{ background: transparent; }}
     QLabel#muted {{ color: {c['muted']}; }}
     QLabel#error {{ color: {c['danger']}; }}
     QLabel#previewBadge {{ color: {c['accent_ink']}; background: {c['accent_soft']};

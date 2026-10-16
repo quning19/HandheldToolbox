@@ -2,13 +2,15 @@
 
 2026-10-16。显示布局沿用已确认的 Fluent 工作台，窗口尺寸和固定进度区不变。源码已拆为独立工具和汇总 GUI，见 [结构](ARCHITECTURE.md)。
 
-本机双击根目录“启动界面.cmd”，或：
+本机双击根目录“掌机工具箱.cmd”（旧“启动界面.cmd”保留），或：
 
 ```powershell
 & '.\retrolibx\.venv\Scripts\python.exe' '.\launch_gui.py'
 ```
 
 其他机器安装 `pip install -e '.[desktop]'` 后运行 `python -m frontend_gui`。当前开发环境不等于独立 EXE 发布。目录迁移后应关闭旧进程，再重新打开。
+
+软件显示名为“掌机工具箱”，采用竖版掌机 1 作为应用、窗口和侧栏图标。原稿同时保留横版 1、翻盖 1 和橙色手柄，见 [图标资源](design/assets/app-icons/README.md)。新增同名 Python GUI 入口，安装后的 Windows 入口文件名为“掌机工具箱.exe”，依赖 Python 环境；没有在此轮重新安装或独立打包。
 
 游戏库页面保持手动刷新设备、选择来源后手动加载、后台逐平台追加卡片。ROM 计数、多版本、多轨、封面、增量跳过与全量替换、共用素材及完整四文件初始化规则保持。电脑目标自动放在 workspace/library；设备目标自动识别 ES-DE。MuMu 连接在用户点击刷新后发现运行实例端口，不启动模拟器。
 
