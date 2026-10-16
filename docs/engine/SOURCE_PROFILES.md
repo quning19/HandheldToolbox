@@ -8,9 +8,9 @@
 - [pegasus-g.json](../../src/retrolibx/profiles/pegasus-g.json)：当前天马G资源包，启用原有媒体约定、版本说明处理及 VIB 确认。
 - [加载与规范化代码](../../src/retrolibx/core/source_profiles.py)。
 
-Android `scan --config` 和 `build --config` 默认使用天马G配置；普通 `scan/inspect/validate/convert` 默认使用 generic。普通命令处理天马包时应明确指定 `--source-profile src/retrolibx/profiles/pegasus-g.json`。该选项为文件路径，相对命令工作目录解析。
+原引擎 `retrolibx.cli` 的 Android `scan --config` 和 `build --config` 默认使用天马G配置，普通 `scan/inspect/validate/convert` 默认使用 generic。其普通命令处理天马包时应明确指定 `--source-profile src/retrolibx/profiles/pegasus-g.json`。该选项为文件路径，相对命令工作目录解析。独立 `library_converter` 的 Windows 业务使用天马G规则，不需在页面手工选择 profile。
 
-HandheldConfig 可指定 `source_profile` 文件，相对配置文件所在目录解析。例如 [profile.local.json](../examples/profile.local.json) 显式指向内置天马G配置。使用 `scan --config` 时从配置文件指定规则，不再同时传 `--source-profile`。可将配置复制到自己的目录进行定制；显式文件缺失、字段拼写错误或路径越界会报错，不自动寻找替代文件。
+HandheldConfig 可指定 `source_profile` 文件，相对配置文件所在目录解析。示例见 [profile.local.json](../../examples/retrolibx/profile.local.json)，复制时需按新位置调整相对路径。使用 `scan --config` 时从配置文件指定规则，不再同时传 `--source-profile`。可将配置复制到自己的目录进行定制；显式文件缺失、字段拼写错误或路径越界会报错，不自动寻找替代文件。
 
 ## 当前天马配置
 

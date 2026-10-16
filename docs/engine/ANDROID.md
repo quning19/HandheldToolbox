@@ -1,27 +1,27 @@
 # 天马G与Android ES-DE
 
-模型、全部输入输出目录及合并/排序边界见 [项目说明](PROJECT_GUIDE.md)。普通 convert 与本文 Android build 已共用列表合并和基线保护，普通 convert 不生成本文的完整 Android 配置及任务脚本。
+模型、输入输出目录及合并/排序边界见 [业务说明](PROJECT_GUIDE.md)。本文介绍保留的 retrolibx.cli Android 命令；其普通 convert 与 Android build 共用列表合并和基线保护，但不生成完整 Android 配置及任务脚本。独立 library_converter 的 Windows 业务会自动处理完整平台配置，不能混用这两个入口的说明。
 
 基于RetroLibX 0.1.0上游提交f1a73c126ba450ae7d01a856e17ed7aad83eeff9，保留MIT许可及现有架构。使用Python 3.12+，依赖由uv.lock固定。ROM留在原目录，只原样复制封面、Logo、视频三类素材（JPEG 使用 .jpg 后缀），不导出mini、不缩放、不转码。
 
 ## 本地输入
 
-在仓库目录运行，先按实际目录修改examples/profile.local.json：
+在仓库根目录运行，先按实际目录准备 examples/retrolibx/profile.local.json 的工作副本：
 
 ```powershell
-& '.\.venv\Scripts\python.exe' -m retrolibx.cli scan --config examples/profile.local.json
-& '.\.venv\Scripts\python.exe' -m retrolibx.cli build --config examples/profile.local.json --platform GBA --out jobs/gba
+& '.\retrolibx\.venv\Scripts\python.exe' -m retrolibx.cli scan --config examples/retrolibx/profile.local.json
+& '.\retrolibx\.venv\Scripts\python.exe' -m retrolibx.cli build --config examples/retrolibx/profile.local.json --platform GBA --out jobs/gba
 ```
 
 --platform可重复，不填写则拒绝生成；平台名是源metadata所在的相对目录，子平台独立选择。build只写新的任务目录，不写源资源或正式ES-DE。已有任务目录不自动覆盖。上游detect/scan/convert/inspect/validate继续保留。
 
 多个平台直接放入同一个`build`命令，输出一个`apply.sh`、一份完整平台配置及各平台gamelist，不再逐平台生成后拼接。例如`--platform GBA --platform GB`。没有专门的“全平台自动发现并修复”步骤，所选范围仍由调用方明确给出。
 
---platform只限定游戏列表和媒体范围，files/custom_systems始终输出完整平台配置：es_systems.xml以76个平台为基础，连同es_find_rules.xml、es_import_rules.xml、es_systems_sorting.xml完整保留。最终基线为本项目src/frontend_platforms/custom_systems-PG，当前四文件与RP6完全一致。有启动阻塞时仍输出完整配置预览，只不生成apply.sh。
+--platform只限定游戏列表和媒体范围，files/custom_systems始终输出完整平台配置：es_systems.xml连同es_find_rules.xml、es_import_rules.xml、es_systems_sorting.xml完整保留。基线为本项目src/frontend_platforms/custom_systems-PG；旧RP6对照是历史记录，不表示当前用户配置与其逐字相同。有启动阻塞时仍输出完整配置预览，只不生成apply.sh。
 
-source_root是电脑目录或设备索引目录；device_rom_root是掌机实际源ROM根目录；esde_root是掌机ES-DE目录。路径字段相对配置文件定位。source_profile可指定来源规则JSON，默认使用天马G规则；普通convert默认generic，处理天马包时明确使用--source-profile，详见[来源规则](SOURCE_PROFILES.md)。target_snapshot是现有ES-DE配置副本；首次目标确实为空才能显式使用target_empty。platform_config_dir可指定完整四文件XML目录，识别和配置生成共用该来源，缺失时报错。默认本地读取主题工具基线，独立安装时读取声明的发布副本。media_root可选，必须与捕获的ES-DE MediaDirectory一致；首版支持绝对媒体目录，未解析的变量/相对路径报错。
+source_root是电脑目录或设备索引目录；device_rom_root是掌机实际源ROM根目录；esde_root是掌机ES-DE目录。路径字段相对配置文件定位。source_profile可指定来源规则JSON，默认使用天马G规则；原引擎普通convert默认generic，处理天马包时明确使用--source-profile，详见[来源规则](SOURCE_PROFILES.md)。target_snapshot是现有ES-DE配置副本；首次目标确实为空才能显式使用target_empty。platform_config_dir可指定完整四文件XML目录，识别和配置生成共用该来源，缺失时报错。默认读取frontend_platforms包内的完整基线，不再读取相邻主题工程。media_root可选，必须与捕获的ES-DE MediaDirectory一致；首版支持绝对媒体目录，未解析的变量/相对路径报错。
 
-默认使用FrontendThemeConverter已验证的[共用平台配置](PLATFORMS.md)：内部平台与系统名使用GBA HACK，ROM目录和主题使用GBA hack，VIB使用GBA vib；Wii保留系统名wii与目录WII。systems_template现在可省略，也可明确指定外部模板。system_ids只指定输出系统名，不改变内部平台；现有系统ROM路径唯一匹配时优先复用现有标识、主题与启动命令，有重叠或多个匹配则停止。支持ES-DE原生settings/es_settings.xml及旧根目录设置布局；读取并核对原始字节哈希，不改写设置。
+默认使用从旧主题工程迁入本项目的[共用平台配置](PLATFORMS.md)：内部平台与系统名使用GBA HACK，ROM目录和主题使用GBA hack，VIB使用GBA vib；Wii保留系统名wii与目录WII。systems_template可省略，也可明确指定外部模板。system_ids只指定输出系统名，不改变内部平台；现有系统ROM路径唯一匹配时优先复用现有标识、主题与启动命令，有重叠或多个匹配则停止。支持ES-DE原生settings/es_settings.xml及旧根目录设置布局；读取并核对原始字节哈希，不改写设置。
 
 ## 游戏子目录封面
 
@@ -35,7 +35,7 @@ ES-DE 按文件或文件夹在平台内的相对路径查找媒体，不读取 `
 
 ## 设备输入
 
-旧列表的绝对 ROM 根目录与当前来源目录不同时，配置 `gamelist_rom_roots`，按输出系统名明确列出允许的旧根。例如 `{"psx": ["/storage/实际卡号/Roms/psx"]}` 可将旧绝对路径归一成当前 PS1 系统的相对路径；未声明的其他根仍拒绝合并。旧列表系统目录名与当前配置不同，可用 `gamelist_sources` 明确指定来源，例如 `{"nes": "famicom", "megadrive": "genesis", "sfc": "snes"}`。仅在当前目标列表不存在时读取该旧列表，保留收藏、统计和额外记录；发布基线仍以当前目标文件是否存在为准，旧列表不删除。这些选项只改变本地转换，需按实际捕获资料填写，不采用任意根或模糊匹配。新增的两个局部用例尚未运行。
+旧列表的绝对 ROM 根目录与当前来源目录不同时，配置 `gamelist_rom_roots`，按输出系统名明确列出允许的旧根。例如 `{"psx": ["/storage/实际卡号/Roms/psx"]}` 可将旧绝对路径归一成当前 PS1 系统的相对路径；未声明的其他根仍拒绝合并。旧列表系统目录名与当前配置不同，可用 `gamelist_sources` 明确指定来源，例如 `{"nes": "famicom", "megadrive": "genesis", "sfc": "snes"}`。仅在当前目标列表不存在时读取该旧列表，保留收藏、统计和额外记录；发布基线仍以当前目标文件是否存在为准，旧列表不删除。这些选项只改变本地转换，需按实际捕获资料填写，不采用任意根或模糊匹配。这些选项的测试范围以 STATUS 中具体批次为准，不据历史说明推断已全量回归。
 
 明确需要沿用另一平台的启动与主题时，用`system_templates`指定内部平台/输出ID到模板ID的映射。例如PSP Minis使用`"system_ids": {"psp-minis": "pspminis"}`和`"system_templates": {"psp-minis": "psp"}`；优先读取快照中的PSP节点，缺失时读取完整基线。不再为这一映射临时复制并修改一份XML模板。已有所选节点保持位置及ROM路径写法，未选择的节点保留。
 
@@ -101,7 +101,7 @@ retrolibx deploy jobs/task --adb <adb.exe> --serial <授权序列号> --remote /
 
 ## 检查与交付状态
 
-当前实现、获批检查范围和待验收事项集中在[STATUS.md](STATUS.md)。最近获批8个相关用例通过；此前真实节选和MuMu复制、哈希及中断恢复记录保存在外层[历史实现记录](../../docs/archive/implementation/2026-10-12-before-cleanup.md)。
+当前实现、各批获批检查范围和待验收事项集中在[STATUS.md](STATUS.md)。此前真实节选和MuMu复制、哈希及中断恢复记录保存在[历史实现记录](../archive/implementation/2026-10-12-before-cleanup.md)，不代表拆分后的新版已完成设备验收。
 
 设备界面、实际启动、VIB震动和终端权限由用户验收。同文件多个collection、变量或相对媒体根当前明确报错；通用Pegasus回导不保证原文注释、编码或排版。默认不原地修改源资源，可选共用迁移使用原metadata局部字节补丁。
 
@@ -109,4 +109,4 @@ retrolibx deploy jobs/task --adb <adb.exe> --serial <授权序列号> --remote /
 
 ## 可选共用素材迁移
 
-`shared_pegasus` 默认 false。明确配置 `"shared_pegasus": true` 后，媒体脚本仍只复制封面、Logo、视频。随后电脑端 `publish` 通过普通 ADB 命令核对所有源素材和副本 SHA-256，通过后才备份并局部更新掌机原 `Roms/<平台>/metadata.pegasus.txt`；全部 metadata 发布且目标再次核对成功后才清理计划内、未被其他字段引用的源素材。摘要保存在电脑任务目录 `shared-media-hashes.json`，用于同任务发布/清理重试，不上传设备。原ROM引用、启动、排序、描述、注释、编码及换行保持；mini不移动。build本身只生成任务和预览，不修改电脑输入或设备。任务中的 `preview/source-metadata/` 提供可读预览，`files/source-metadata/` 的Base64文件由电脑端解码后上传，保留原字节。详见 [SHARED_MEDIA.md](SHARED_MEDIA.md)。这次阶段拆分仅静态 review，相关新增/调整用例尚未运行。
+`shared_pegasus` 默认 false。明确配置 `"shared_pegasus": true` 后，媒体脚本仍只复制封面、Logo、视频。随后电脑端 `publish` 通过普通 ADB 命令核对所有源素材和副本 SHA-256，通过后才备份并局部更新掌机原 `Roms/<平台>/metadata.pegasus.txt`；全部 metadata 发布且目标再次核对成功后才清理计划内、未被其他字段引用的源素材。摘要保存在电脑任务目录 `shared-media-hashes.json`，用于同任务发布/清理重试，不上传设备。原ROM引用、启动、排序、描述、注释、编码及换行保持；mini不移动。build本身只生成任务和预览，不修改电脑输入或设备。任务中的 `preview/source-metadata/` 提供可读预览，`files/source-metadata/` 的Base64文件由电脑端解码后上传，保留原字节。详见 [SHARED_MEDIA.md](SHARED_MEDIA.md)。新版设备发布尚未联调验收，本地测试范围见 [STATUS](STATUS.md)。

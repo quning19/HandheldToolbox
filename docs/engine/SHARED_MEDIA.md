@@ -36,10 +36,10 @@ mini、背面、截图、标题画面、背景、卡带/光盘、manual、music�
 
 ## 普通转换
 
-在retrolibx仓库使用本地真实资源，先替换路径。下面只是示例，本次未执行：
+在本项目根目录使用本地真实资源，先替换路径。下面只是原引擎命令示例，本次未执行：
 
 ```powershell
-& '.\.venv\Scripts\python.exe' -m retrolibx.cli convert 'D:/实际ROM根目录' --from pegasus --to es-de --output 'D:/实际ES-DE目录' --source-profile src/retrolibx/profiles/pegasus-g.json --rom-mode none --shared-pegasus --dry-run
+& '.\retrolibx\.venv\Scripts\python.exe' -m retrolibx.cli convert 'D:/实际ROM根目录' --from pegasus --to es-de --output 'D:/实际ES-DE目录' --source-profile src/retrolibx/profiles/pegasus-g.json --rom-mode none --shared-pegasus --dry-run
 ```
 
 `--dry-run`只生成可审阅的计划，包括 `write_source_metadata` 和 `migrate_source_media`，不写目标、不改来源。实际执行此开关会更新电脑上的原metadata并清理对应原媒体；来源和输出目录不能重叠，ROM必须为none，媒体必须为copy，拒绝rename。
