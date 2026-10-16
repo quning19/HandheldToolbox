@@ -1,0 +1,126 @@
+"""Repository-layout-independent metadata and referenced-file discovery."""
+
+from __future__ import annotations
+
+from collections import defaultdict
+from collections.abc import Iterable
+from pathlib import Path, PureWindowsPath
+
+_IGNORED_DIRECTORIES = {".git", ".retrolibx", ".venv", "__pycache__"}
+
+
+def find_metadata(path: Path, patterns: Iterable[str]) -> list[Path]:
+    """Find metadata recursively, while accepting a metadata file directly."""
+    pattern_set = tuple(patterns)
+    if path.is_file():
+        return [path] if any(path.match(pattern) for pattern in pattern_set) else []
+    if not path.is_dir():
+        return []
+    found: set[Path] = set()
+    for pattern in pattern_set:
+        for candidate in path.rglob(pattern):
+            if candidate.is_file() and not _ignored(candidate, path):
+                found.add(candidate)
+    return sorted(found)
+
+
+def _ignored(path: Path, root: Path) -> bool:
+    try:
+        relative = path.relative_to(root)
+    except ValueError:
+        return False
+    return any(part in _IGNORED_DIRECTORIES for part in relative.parts)
+
+
+def _normalized_parts(path: str | Path) -> tuple[str, ...]:
+    value = str(path).replace("\\", "/")
+    return tuple(part.casefold() for part in value.split("/") if part not in {"", "."})
+
+
+class FileIndex:
+    """Index files once and resolve stale absolute or differently rooted references safely."""
+
+    def __init__(
+        self, root: Path, *, exclude: Iterable[Path] = (), platform_boundary: bool = False
+    ) -> None:
+        self.root = root.resolve(strict=False)
+        root = self.root
+        excluded = {item.resolve(strict=False) for item in exclude}
+        self._by_name: dict[str, list[Path]] = defaultdict(list)
+        self._files: list[tuple[Path, tuple[str, ...]]] = []
+        if not root.is_dir():
+            return
+        for candidate in root.rglob("*"):
+            if not candidate.is_file() or _ignored(candidate, root):
+                continue
+            if platform_boundary and any(
+                (parent / "metadata.pegasus.txt").is_file()
+                for parent in candidate.parents
+                if parent != root and parent.is_relative_to(root)
+            ):
+                continue
+            resolved = candidate.resolve(strict=False)
+            if resolved in excluded:
+                continue
+            self._by_name[candidate.name.casefold()].append(resolved)
+            self._files.append((resolved, _normalized_parts(candidate.relative_to(root))))
+
+    def resolve(
+        self,
+        raw_path: str | Path,
+        *,
+        bases: Iterable[Path] = (),
+        preferred_parts: Iterable[str] = (),
+        strict_relative: bool = False,
+    ) -> Path | None:
+        """Resolve references, optionally treating relative paths as authoritative.
+
+        ROM references opt in so a missing version cannot borrow another folder's
+        identically named ROM. Rooted references retain device-root relocation.
+        """
+        source = Path(str(raw_path).replace("\\", "/")).expanduser()
+        bases = tuple(bases)
+        relative = not (source.anchor or PureWindowsPath(str(raw_path)).drive)
+        direct = [source] if source.is_absolute() else []
+        direct.extend(base / source for base in bases)
+        if not (strict_relative and relative and bases):
+            direct.append(self.root / source)
+        for candidate in direct:
+            if candidate.is_file():
+                return candidate.resolve()
+
+        if strict_relative and relative:
+            return None
+
+        raw_parts = _normalized_parts(raw_path)
+        # Stale device roots are common. Match the longest available trailing path first.
+        for length in range(min(len(raw_parts), 6), 1, -1):
+            suffix = raw_parts[-length:]
+            matches = [path for path, parts in self._files if parts[-length:] == suffix]
+            if len(matches) == 1:
+                return matches[0]
+
+        matches = list(self._by_name.get(source.name.casefold(), []))
+        preferences = {item.casefold() for item in preferred_parts}
+        if len(matches) > 1 and preferences:
+            preferred = [
+                match
+                for match in matches
+                if preferences.intersection(_normalized_parts(match.relative_to(self.root)))
+            ]
+            if len(preferred) == 1:
+                return preferred[0]
+        return matches[0] if len(matches) == 1 else None
+
+
+def rom_relative_path(path: Path, metadata: dict[str, object]) -> Path:
+    """Keep platform-local hierarchy without trusting absolute source references."""
+    value = metadata.get("relative_path") or metadata.get("source_path") or path.name
+    relative = Path(str(value).replace("\\", "/"))
+    if relative.is_absolute() or str(value).startswith("/") or relative.drive:
+        relative = Path(path.name)
+    if ".." in relative.parts or any(c in str(relative) for c in "\r\n\t\x00"):
+        from retrolibx.errors import ValidationError
+
+        raise ValidationError(f"Unsafe ROM relative path: {value!r}")
+    return relative

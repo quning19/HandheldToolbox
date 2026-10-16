@@ -1,0 +1,618 @@
+[
+  {
+    "id": "3do",
+    "name": "3do",
+    "directory": "3do",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "n3ds",
+    "name": "3DS",
+    "directory": "3DS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "arcade",
+    "name": "ArcadeES",
+    "directory": "ArcadeES",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "atari2600",
+    "name": "ATARI2600",
+    "directory": "ATARI2600",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "atari5200",
+    "name": "ATARI5200",
+    "directory": "ATARI5200",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "atari7800",
+    "name": "ATARI7800",
+    "directory": "ATARI7800",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "dreamcast",
+    "name": "DC",
+    "directory": "DC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "DC hack",
+    "name": "DC hack",
+    "directory": "DC hack",
+    "parent": "dreamcast",
+    "mode": "separate",
+    "badge": ""
+  },
+  {
+    "id": "dos",
+    "name": "DOS",
+    "directory": "DOS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "nes",
+    "name": "FC",
+    "directory": "FC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "nesh",
+    "name": "FC hack",
+    "directory": "FC hack",
+    "parent": "nes",
+    "mode": "separate",
+    "badge": "HACK"
+  },
+  {
+    "id": "FC-HD",
+    "name": "FC-HD",
+    "directory": "FC-HD",
+    "parent": "nes",
+    "mode": "separate",
+    "badge": "HD"
+  },
+  {
+    "id": "gameandwatch",
+    "name": "GAME WATCH",
+    "directory": "GAME WATCH",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "gb",
+    "name": "GB",
+    "directory": "GB",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "gba",
+    "name": "GBA",
+    "directory": "GBA",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "GBA HACK",
+    "name": "GBA HACK",
+    "directory": "GBA hack",
+    "parent": "gba",
+    "mode": "separate",
+    "badge": "HACK"
+  },
+  {
+    "id": "GBA vib",
+    "name": "GBA vib",
+    "directory": "GBA vib",
+    "parent": "gba",
+    "mode": "separate",
+    "badge": "VIB"
+  },
+  {
+    "id": "gbc",
+    "name": "GBC",
+    "directory": "GBC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "gamegear",
+    "name": "GG",
+    "directory": "GG",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "j2me",
+    "name": "JAVA",
+    "directory": "JAVA",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "atarilynx",
+    "name": "LYNX",
+    "directory": "LYNX",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "megadrive",
+    "name": "MD",
+    "directory": "MD",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "MD hack",
+    "name": "MD hack",
+    "directory": "MD hack",
+    "parent": "megadrive",
+    "mode": "separate",
+    "badge": ""
+  },
+  {
+    "id": "MD hack(picodrive)",
+    "name": "MD hack(picodrive)",
+    "directory": "MD hack(picodrive)",
+    "parent": "megadrive",
+    "mode": "separate",
+    "badge": ""
+  },
+  {
+    "id": "MD-32X",
+    "name": "MD-32X",
+    "directory": "MD-32X",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "megacd",
+    "name": "MD-CD",
+    "directory": "MD-CD",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "n64",
+    "name": "N64",
+    "directory": "N64",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "naomi",
+    "name": "NAOMI",
+    "directory": "NAOMI",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "nds",
+    "name": "NDS",
+    "directory": "NDS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "neogeocd",
+    "name": "NEOGEO-CD",
+    "directory": "NEOGEO-CD",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "gc",
+    "name": "NGC",
+    "directory": "NGC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "ngpc",
+    "name": "NGPC",
+    "directory": "NGPC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pcengine",
+    "name": "PCE",
+    "directory": "PCE",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pcenginecd",
+    "name": "PCE-CD",
+    "directory": "PCE-CD",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pcfx",
+    "name": "PC-FX",
+    "directory": "PC-FX",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pokemini",
+    "name": "POKE MINI",
+    "directory": "POKE MINI",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "psx",
+    "name": "PS1",
+    "directory": "PS1",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "PS1 hack",
+    "name": "PS1 hack",
+    "directory": "PS1 hack",
+    "parent": "psx",
+    "mode": "separate",
+    "badge": "HACK"
+  },
+  {
+    "id": "ps2",
+    "name": "PS2",
+    "directory": "PS2",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "PS2 hack",
+    "name": "PS2 hack",
+    "directory": "PS2 hack",
+    "parent": "ps2",
+    "mode": "separate",
+    "badge": "HACK"
+  },
+  {
+    "id": "psp",
+    "name": "PSP",
+    "directory": "PSP",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "psvita",
+    "name": "PSVITA",
+    "directory": "PSVITA",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "sfc",
+    "name": "SFC",
+    "directory": "SFC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "SFC hack",
+    "name": "SFC hack",
+    "directory": "SFC hack",
+    "parent": "sfc",
+    "mode": "separate",
+    "badge": "HACK"
+  },
+  {
+    "id": "SFC-MSU1",
+    "name": "SFC-MSU1",
+    "directory": "SFC-MSU1",
+    "parent": "sfc",
+    "mode": "separate",
+    "badge": "MSU1"
+  },
+  {
+    "id": "mastersystem",
+    "name": "SMS",
+    "directory": "SMS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "saturn",
+    "name": "SS",
+    "directory": "SS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "SS plus",
+    "name": "SS plus",
+    "directory": "SS plus",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "switch",
+    "name": "SWITCH",
+    "directory": "SWITCH",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "virtualboy",
+    "name": "Virtual Boy",
+    "directory": "Virtual Boy",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "wii",
+    "name": "WII",
+    "directory": "WII",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "WII Ware",
+    "name": "Wii Ware",
+    "directory": "WII Ware",
+    "parent": "wii",
+    "mode": "separate",
+    "badge": "WARE"
+  },
+  {
+    "id": "wiiu",
+    "name": "WIIU",
+    "directory": "WIIU",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "windows",
+    "name": "WIN",
+    "directory": "WIN",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "wonderswan",
+    "name": "WS",
+    "directory": "WS",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "wonderswancolor",
+    "name": "WSC",
+    "directory": "WSC",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "easyrpg",
+    "name": "easyrpg",
+    "directory": "easyrpg",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "flash",
+    "name": "flash",
+    "directory": "flash",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "openbor",
+    "name": "openbor",
+    "directory": "openbor",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pico8",
+    "name": "pico8",
+    "directory": "pico8",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "ps3",
+    "name": "ps3",
+    "directory": "ps3",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "steam",
+    "name": "steam",
+    "directory": "steam",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "symbian",
+    "name": "symbian",
+    "directory": "symbian",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "bbk",
+    "name": "bbk",
+    "directory": "bbk",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "solarus",
+    "name": "solarus",
+    "directory": "solarus",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "love2d",
+    "name": "love2d",
+    "directory": "love2d",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "mononcol",
+    "name": "mononcol",
+    "directory": "mononcol",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "psm",
+    "name": "psm",
+    "directory": "psm",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "ons",
+    "name": "ons",
+    "directory": "ons",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "krkr",
+    "name": "krkr",
+    "directory": "krkr",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "tyranor",
+    "name": "tyranor",
+    "directory": "tyranor",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "rpgmaker",
+    "name": "rpgmaker",
+    "directory": "rpgmaker",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "android",
+    "name": "android",
+    "directory": "android",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "androidapps",
+    "name": "androidapps",
+    "directory": "androidapps",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "androidgames",
+    "name": "androidgames",
+    "directory": "androidgames",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "xbox360",
+    "name": "XBOX",
+    "directory": "XBOX",
+    "parent": "",
+    "mode": "inherit",
+    "badge": ""
+  },
+  {
+    "id": "pspminis",
+    "name": "PSP Minis",
+    "directory": "PSP Minis",
+    "parent": "psp",
+    "mode": "inherit",
+    "badge": ""
+  }
+]

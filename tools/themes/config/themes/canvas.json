@@ -1,0 +1,54 @@
+{
+  "id": "canvas",
+  "source_theme": "test_data/themes/original/canvas-es-de",
+  "reference_theme": "test_data/themes/reference/canvas-PG",
+  "staged": "artifacts/themes/staged/canvas",
+  "metadata_dir": "_inc/systems/metadata-global",
+  "slots": {
+    "art-dark": "_inc/carousel-icons-art/dark",
+    "art-light": "_inc/carousel-icons-art/light",
+    "art-medium": "_inc/carousel-icons-art/medium",
+    "capsule": "_inc/carousel-icons-capsule",
+    "ctrl-clear": "_inc/carousel-icons-controller/clear",
+    "ctrl-dark": "_inc/carousel-icons-controller/dark",
+    "ctrl-medium": "_inc/carousel-icons-controller/medium",
+    "logo-clear": "_inc/carousel-icons-logo/clear",
+    "logo-color": "_inc/carousel-icons-logo/color",
+    "logo-dark": "_inc/carousel-icons-logo/dark",
+    "logo-light": "_inc/carousel-icons-logo/light",
+    "screenshot": "_inc/carousel-icons-screenshot",
+    "svglogo": "_inc/system-logo"
+  },
+  "slot_ext": {
+    "svglogo": ".svg"
+  },
+  "required_slots": [
+    "art-dark",
+    "art-light",
+    "art-medium",
+    "capsule",
+    "ctrl-clear",
+    "ctrl-dark",
+    "ctrl-medium",
+    "logo-clear",
+    "logo-color",
+    "logo-dark",
+    "logo-light",
+    "screenshot",
+    "svglogo"
+  ],
+  "badge_slots": [
+    "art-dark",
+    "art-light",
+    "art-medium",
+    "capsule",
+    "ctrl-clear",
+    "ctrl-dark",
+    "ctrl-medium",
+    "logo-clear",
+    "logo-color",
+    "logo-dark",
+    "logo-light",
+    "screenshot"
+  ]
+}

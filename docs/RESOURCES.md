@@ -1,34 +1,29 @@
-# 资源与目录清单
+# 发布数据与资源边界
 
-更新于2026-10-14。Git仓库位于FrontendTransTool根目录，产品代码仍位于retrolibx；项目文档统一纳入版本管理，真实资源、运行环境和产物由Git忽略。分支约定见[Git工作流](GIT_WORKFLOW.md)。
+更新日期：2026-10-16。本表区分计划随 Windows 独立版发布的数据、运行时动态资料和仅开发使用的资料；当前尚未生成独立 EXE。目录职责见 [结构](ARCHITECTURE.md)，清理规则见 [工作目录](WORKSPACE_DATA.md)。
 
-| 位置 | 用途及保留规则 |
-|---|---|
-| retrolibx/src、tests、examples、docs | 产品代码、测试源码、本地配置与当前说明 |
-| retrolibx/.venv | 当前运行环境，保留、不提交 |
-| test_data/original_excerpt/Roms | 当前真实输入：3个平台、15个ROM，保持原字节 |
-| original_excerpt/manifest.json、expected.json | 来源清单及逐ROM预期，保留 |
-| original_excerpt/output | 旧导出证据，不当作当前配置基线 |
-| test_data/research、test_data/archive | 评估/样本结果、历史24-ROM派生包及设备成功对照 |
-| jobs | 导出、任务、索引、设备快照及报告，见[索引](../jobs/README.md) |
-| references/tools、references/apks | 原第三方工具、说明和APK，保留，不作为运行依赖 |
-| docs/archive | 旧方案、评估和详细过程，不驱动实施 |
-| retrolibx/docs/archive | 上游设计、原review、旧模板及许可 |
-| .deps/tooling | 本地uv工具保留，uv-cache可清理 |
-| .deps/theme-tests-py39 | 已准备的主题项目Python 3.9依赖，保留 |
+| 资源编号 | 数据或文件 | 是否随独立版发布 | 作用与更新方式 |
+|---|---|---|---|
+| R01 | Python 业务/GUI、运行环境与所需依赖 | 需要；具体打包方式待定 | 提供扫描、转换、设备通信和界面；随软件版本更新，当前开发虚拟环境不直接作为发布包 |
+| R02 | frontend_platforms/custom_systems-PG 四个 XML | 需要 | 新设备完整初始化、已有配置补齐及启动模板来源；随软件维护基线，保留用户现有节点和启动参数 |
+| R03 | platforms.json、baseline-v1.json | 需要 | 默认别名、母体、主题表现及旧配置迁移依据；新版默认与用户新增/覆盖/禁用合并，不覆盖用户整表 |
+| R04 | retrolibx/profiles 与 registry 数据 | 需要 | 天马来源约定、媒体补找、版本说明、确认名单和其他前端映射；随软件版本更新 |
+| R05 | theme_converter 通用解析、素材策略与角标参数 | 需要 | 解析实际主题并生成资源；无完整主题和逐主题运行配置，规则变化参与结果过期判断 |
+| R06 | 四套平台卡片图与来源/许可记录 | 计划附带，独立分发前确认条件 | 832 张、40,732,940 字节（约 38.8 MiB）；随版本更新，设置切换仅改变本地展示 |
+| R07 | frontend_gui/assets/app/app.ico | 需要 | 选定的竖版 1，多尺寸应用图标；随软件版本更新，改版前保留原稿 |
+| R08 | settings.json | 不预置用户文件；运行后生成于程序同级 | 记录唯一工作目录、亮暗模式、卡片风格；用户操作动态更新，不放 Windows 用户数据目录 |
+| R09 | 工作目录 config | 动态生成 | 平台用户覆盖、主题生成记录、缓存、锁等；保留，不按临时文件清理 |
+| R10 | themes/original、themes/exported | 动态导入/同步/生成，不附带七套完整主题 | 原版和转换结果分开管理；更新前备份，过期结果保留并禁止上传 |
+| R11 | library、devices | 动态生成 | 正式本地输出及设备相关资料；使用当次来源和设备状态，默认清理保留 |
+| R12 | backups | 动态生成 | 配置迁移前副本、旧主题、扫描/计划/发布及共用素材恢复资料；按批次保留，用户手动选择清理 |
+| R13 | temp、logs | 动态生成 | 标记明确的可重建暂存和日志；手动清理，未知资料/当前日志/使用中文件保留 |
+| R14 | test_data、references、jobs、artifacts、archive、research/themes/legacy-lab | 不发布；大型本地资料不进 Git | 真实 ROM/主题、设备快照、原包来源、测试报告、实验、旧工程及历史输出；不作为运行时依赖，不随本次文档清理删除 |
+| R15 | docs/design/assets/app-icons 四张 PNG 与原 HTML 原型 | 不放运行包；在 Git 保留设计记录 | 当前竖版、横版、翻盖第一款及橙色手柄；ICO 可由工具从竖版原稿重新导出 |
+| R16 | tests、tools/themes、tools/migrations、开发虚拟环境 | 不作为正常应用运行资料发布 | 测试、旧逐主题对照、迁移和开发工具；迁移脚本不作为每次启动步骤，不反复执行 |
+| R17 | LICENSE 与各依赖/素材要求的声明 | 需要保留适用的许可和来源 | 本项目保留上游 MIT 历史；第三方素材不因进入本项目而自动获得重新许可 |
 
-## 本轮清理
+R01–R17 是本页资源编号，不替代此前讨论的需求编号：第 6 项为通用主题解析，第 7 项为卡片素材，第 11 项为平台升级合并，第 15 项为结果过期，第 17/18 项为清理与恢复资料。原需求清单见 [归档](archive/plans/2026-10-16-windows-approved-scope.md)。
 
-2026-10-14将过期候选任务、临时部署/检查脚本、测试temp和字节码缓存移出工作目录；通过报告、最新部署产出、原始快照、真实样本及环境保留。自动审批拒绝直接永久删除后，改为先保存并核对恢复归档，再移除工作目录副本。清单见[jobs/cleanup-20261014.json](../jobs/cleanup-20261014.json)，归档见[jobs/archive/cleanup-20261014.zip](../jobs/archive/cleanup-20261014.zip)。历史配置仍引用的PSP Minis模板保留，未来任务用代码中的system_templates配置。不运行测试、lint、构建或设备操作。
+七套完整主题只作为本地真实覆盖样本，原版由用户导入或同步。列表不以“内置七套规则”为由创建空主题，也不要求将开发样本随软件发布。
 
-以下是2026-10-12的旧清理记录：
-
-删除候选源码及研究依赖副本.deps/research、uv缓存、pytest/mypy/ruff缓存、工作代码与样本脚本的字节码、旧覆盖率数据及不包含最新修改的dist包。
-
-GT78原APK作为提取缓存，在记录来源与SHA-256后清理；Android XML、排序模板、设置及差异资料全部保留。原第三方工具和references中的APK不属于本次删除范围。
-
-明细见[jobs/cleanup-20261012.json](../jobs/cleanup-20261012.json)。本次没有运行测试、lint、类型检查、构建或操作设备，没有删除运行环境、真实ROM/媒体、来源清单或导出证据。
-
-研究缓存清理后，历史报告仍保留；重现时按[开源评估](OPEN_SOURCE.md)的来源及版本重新获取，不将旧绝对路径当成当前配置。
-
-必读入口为[代码README](../retrolibx/README.md)、[STATUS](../retrolibx/docs/STATUS.md)及所需功能说明。测试数据和历史检查器见[test_data说明](../test_data/README.md)，执行这些检查仍需用户批准。
+开发素材目录索引：原版主题 `test_data/themes/original/`、参考主题 `test_data/themes/reference/`、真实 GBA 样本 `test_data/library/real-gba-demo-20261015/`、旧输出 `artifacts/themes/legacy/`、旧主题工程 `archive/FrontendThemeConverter-20261016/`。旧资源位置和清理回执保存在 [历史资源清单](archive/inventories/2026-10-16-resources-before-cleanup.md)。

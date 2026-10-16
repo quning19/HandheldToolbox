@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-16T11:30:53.138439",
+  "archived_project": "D:\\Game Tools\\HandheldTools\\FrontendTransTool\\archive\\FrontendThemeConverter-20261016",
+  "mappings": {
+    "source/themes": "test_data/themes/original",
+    "source/sample": "test_data/themes/reference",
+    "source/configs": "test_data/themes/legacy-configs",
+    "dist": "artifacts/themes/legacy",
+    "lab": "research/themes/legacy-lab",
+    "config": "tools/themes/config",
+    "tools": "tools/themes",
+    "docs": "docs/archive/frontend-theme-converter"
+  },
+  "real_gba_sample": "test_data\\library\\real-gba-demo-20261015",
+  "note": "Archive retained intact. No validation scripts, tests or device operations executed."
+}

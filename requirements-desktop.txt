@@ -1,0 +1,5 @@
+# Desktop dependency versions installed for this UI delivery.
+# Core dependencies are maintained in pyproject.toml; install with the desktop extra.
+PySide6==6.12.0
+PySide6-Fluent-Widgets==1.11.3
+Pillow>=10

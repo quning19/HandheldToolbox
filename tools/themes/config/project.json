@@ -1,0 +1,37 @@
+{
+  "_comment": "工程级约定：共享路径、主题 profile 和产出命名。",
+  "paths": {
+    "_comment": "全部相对工程根目录。主题输入和 staged 路径由 theme_profiles 定义。",
+    "system_config": "src/frontend_platforms/custom_systems-PG/es_systems.xml",
+    "reference_system_config": "test_data/themes/legacy-configs/custom_systems-es-de/es_systems.xml",
+    "themes": "artifacts/themes/development",
+    "reports": "artifacts/themes/reports",
+    "lab": "research/themes/legacy-lab",
+    "platform_config": "src/frontend_platforms/platforms.json"
+  },
+  "theme_profiles": {
+    "alekfull-nx": "tools/themes/config/themes/alekfull-nx.json",
+    "aura": "tools/themes/config/themes/aura.json",
+    "canvas": "tools/themes/config/themes/canvas.json",
+    "elementerial": "tools/themes/config/themes/elementerial.json",
+    "iconic": "tools/themes/config/themes/iconic.json",
+    "iisu": "tools/themes/config/themes/iisu.json",
+    "playstation-x": "tools/themes/config/themes/playstation-x.json"
+  },
+  "theme_naming": {
+    "_comment": "输出名由转换器规则推导：源主题 capabilities.xml 的 <themeName> + 固定后缀 _天马G。目录名与自述名用同一个值。",
+    "source": "capabilities_xml",
+    "fallback_base": "Canvas"
+  },
+  "clean_patterns": {
+    "_comment": "打包时从主题目录里剔除的内容（构建产物不许混进可上机主题）",
+    "files": [
+      "_build_report.txt",
+      "_verify.txt",
+      "_manifest.json"
+    ],
+    "dirs": [
+      ".git"
+    ]
+  }
+}

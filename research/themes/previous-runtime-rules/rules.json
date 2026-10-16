@@ -1,0 +1,337 @@
+{
+  "canvas": {
+    "slots_all": [
+      "art-dark",
+      "art-light",
+      "art-medium",
+      "capsule",
+      "ctrl-clear",
+      "ctrl-dark",
+      "ctrl-medium",
+      "logo-clear",
+      "logo-color",
+      "logo-dark",
+      "logo-light",
+      "screenshot",
+      "svglogo"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": [
+          "logo-clear",
+          "logo-color",
+          "logo-dark",
+          "logo-light",
+          "screenshot"
+        ]
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "aura": {
+    "slots_all": [
+      "controllers",
+      "default-art",
+      "logo-webp",
+      "logo-svg"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "alekfull-nx": {
+    "slots_all": [
+      "backgrounds",
+      "carousel",
+      "logos"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "elementerial": {
+    "slots_all": [
+      "artwork-classic",
+      "artwork-modern",
+      "logos"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "iconic": {
+    "slots_all": [
+      "carousel",
+      "system",
+      "default-background",
+      "default-overlay",
+      "classic-background",
+      "classic-overlay",
+      "modern-background",
+      "modern-overlay"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "iisu": {
+    "slots_all": [
+      "artwork",
+      "controllers"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  },
+  "playstation-x": {
+    "slots_all": [
+      "background",
+      "consoles",
+      "icons",
+      "logos",
+      "overlays",
+      "videos"
+    ],
+    "platforms": [
+      {
+        "name": "FC-HD",
+        "slots": "all"
+      },
+      {
+        "name": "SFC hack",
+        "slots": "all"
+      },
+      {
+        "name": "SFC-MSU1",
+        "slots": "all"
+      },
+      {
+        "name": "PS1 hack",
+        "slots": "all"
+      },
+      {
+        "name": "PS2 hack",
+        "slots": "all"
+      },
+      {
+        "name": "nesh",
+        "slots": "all"
+      },
+      {
+        "name": "GBA HACK",
+        "slots": "all"
+      },
+      {
+        "name": "GBA vib",
+        "slots": "all"
+      },
+      {
+        "name": "WII Ware",
+        "slots": "all"
+      }
+    ]
+  }
+}

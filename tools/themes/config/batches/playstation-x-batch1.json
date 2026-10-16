@@ -1,0 +1,84 @@
+{
+  "batch": "playstation-x-batch1-nintendo-sony",
+  "theme_profile": "playstation-x",
+  "slots_all": [
+    "background",
+    "consoles",
+    "icons",
+    "logos",
+    "overlays",
+    "videos"
+  ],
+  "decisions": [
+    "目标平台资源优先使用 PlayStation-X 自己已有的文件；缺失时从母体平台复制并加标记",
+    "background/consoles/icons 回退资源按配置加标记，overlays 直接复制源图",
+    "logos 直接复制 SVG，videos 只复制并改名，不做视频处理",
+    "nesh 已有专用资源的槽位保持原样，缺失槽位从 nes 回退"
+  ],
+  "platforms": [
+    {
+      "name": "FC-HD",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 nes 回退生成"
+    },
+    {
+      "name": "SFC hack",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 回退生成"
+    },
+    {
+      "name": "SFC-MSU1",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 回退生成"
+    },
+    {
+      "name": "PS1 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 psx 回退生成"
+    },
+    {
+      "name": "PS2 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 ps2 回退生成"
+    },
+    {
+      "name": "nesh",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "优先使用 nesh，自身缺失时从 nes 回退"
+    },
+    {
+      "name": "GBA HACK",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 回退生成"
+    },
+    {
+      "name": "GBA vib",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 回退生成"
+    },
+    {
+      "name": "WII Ware",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 wii 回退生成"
+    }
+  ],
+  "_platforms": "平台名保留已验证版本；theme/source/badge_text/system_name从共用platform_config读取，批次仅维护槽位及处理范围。"
+}

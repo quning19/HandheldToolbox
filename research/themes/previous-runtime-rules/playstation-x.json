@@ -1,0 +1,29 @@
+{
+  "id": "playstation-x",
+  "metadata_dir": "_inc/systems/metadata-global",
+  "slots": {
+    "background": "_inc/systems/background",
+    "consoles": "_inc/systems/consoles",
+    "icons": "_inc/systems/icons",
+    "logos": "_inc/systems/logos",
+    "overlays": "_inc/systems/overlays",
+    "videos": "_inc/systems/videos"
+  },
+  "slot_ext": {
+    "logos": ".svg",
+    "videos": ".mp4"
+  },
+  "required_slots": [
+    "background",
+    "consoles",
+    "icons",
+    "logos",
+    "overlays",
+    "videos"
+  ],
+  "badge_slots": [
+    "background",
+    "consoles",
+    "icons"
+  ]
+}

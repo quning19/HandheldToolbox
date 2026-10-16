@@ -1,21 +1,42 @@
-# 天马G → 多前端转换
+# 掌机工具箱
 
-基于RetroLibX扩展，保留通用模型、适配器、操作计划和执行器。当前先实现天马G→Android ES-DE，后续可增加其他目标前端及明确的天马优化步骤。
+Windows Fluent 工作台，汇总独立的游戏库转换和 ES-DE 主题适配工具。工程目录保留 FrontendTransTool，Python 模块入口沿用原名。
 
-**当前状态：平台来源、列表合并及来源规则已统一。ES-DE 转换只导出封面、Logo、视频三类素材；共用素材默认关闭，开启时核对复制结果、局部更新原metadata，再清理对应源素材。获批的15个共用素材本地用例已分别取得通过结果，首轮失败项修复后定向复测；未做全量回归或设备执行。设备显示、启动和VIB震动由用户验收。**
+- `library_converter`：天马 G → ES-DE，自动平台配置、增量/全量、可选共用素材、文件夹封面及 Android 发布。
+- `theme_converter`：本地导入/设备同步原版，通用 ES-DE 资源解析、适配、保留结果及上传。
+- `frontend_gui`：页面、参数和结果展示；两个业务工具均可脱离 GUI 独立执行。
+- `retrolibx`：保留上游历史、MIT 许可及多前端能力的修改版引擎。
 
-- [代码运行入口](retrolibx/README.md)、[当前状态](retrolibx/docs/STATUS.md)：Python 3.12+，功能及验收边界。
-- [Android使用说明](retrolibx/docs/ANDROID.md)：scan/capture、多平台build及分步deploy入口；正常执行与专项检查/修复分别授权。
-- [ES-DE 素材与天马G共用](retrolibx/docs/SHARED_MEDIA.md)：三类素材、默认关闭的迁移模式及原metadata局部更新。
-- [共用平台配置](retrolibx/docs/PLATFORMS.md)：沿用主题转换工具验证过的名称、目录及系统定义。
-- [天马来源规则](retrolibx/docs/SOURCE_PROFILES.md)：媒体补找、版本说明及 VIB 确认的配置与选择方式。
-- [模型、目录和数据保留说明](retrolibx/docs/PROJECT_GUIDE.md)：合并、排序、完整平台配置、输入输出及 VIB 的实际边界。
-- [review处理状态](retrolibx/docs/REVIEW-2026-10-12.md)：已修复及暂缓问题，原报告归档。
-- [结果与快照索引](jobs/README.md)、[历史实现记录入口](docs/IMPLEMENTATION.md)。
-- [方案](docs/PLAN.md)、[开源评估](docs/OPEN_SOURCE.md)、[资源说明](docs/RESOURCES.md)。
+本机双击“掌机工具箱.cmd”（原“启动界面.cmd”仍可使用）。Python 3.12+ 环境也可在项目根目录安装：
 
-本地Git仓库位于本项目根目录，统一管理retrolibx源码和项目文档。`main`保存当前开发基线，`feature/web-app`用于后续Web应用开发；分支、提交和合并约定见[Git工作流](docs/GIT_WORKFLOW.md)。保留RetroLibX上游历史及MIT许可，上游基于提交`f1a73c126ba450ae7d01a856e17ed7aad83eeff9`；当前改动已在本地提交，尚未创建线上fork或推送。`upstream`保留原项目地址，尚未配置`origin`。
+```powershell
+python -m pip install -e '.[desktop]'
+python -m frontend_gui
+python -m library_converter --help
+python -m theme_converter --help
+python -m retrolibx.cli --help
+```
 
-真实ROM/媒体、设备快照、第三方参考和任务包位于test_data、references与jobs，由Git忽略；源码、当前文档和docs/archive历史文档纳入版本管理。旧superpowers及上游任务表不驱动当前实施，详见[资源清单](docs/RESOURCES.md)。
+源码入口：`python run_tool.py library|theme|gui|engine ...`。原有本机环境保留在 retrolibx/.venv，不复制或重建。
 
-2026-10-14整理已将部署、计时和metadata启动转换收进源码，过期任务与临时工具收敛为一个恢复归档。最新部署及通过报告保留，见[清理记录](jobs/cleanup-20261014.json)；本轮代码仅静态review，未运行新测试或设备操作。
+应用图标选用竖版掌机 1，窗口和侧栏统一使用；四张保留原稿及说明见 [图标资源](docs/design/assets/app-icons/README.md)。同名 Python GUI 入口安装后在 Windows 生成“掌机工具箱.exe”；独立 EXE 尚未打包。
+
+| 说明 | 内容 |
+|---|---|
+| [调整记录](docs/CHANGELOG.md) | 今天的实施范围、提交、测试及文档整理 |
+| [后续计划](docs/PLAN.md) | 名称/图标、实际窗口、设备联调及独立发布的剩余工作 |
+| [结构与独立入口](docs/ARCHITECTURE.md) | 包职责、依赖方向、旧主题工程迁移、与 retrolibx 上游的关系 |
+| [Windows 界面](docs/WINDOWS_GUI.md) | 实际页面和手动验收入口 |
+| [通用主题解析](docs/THEME_CONVERSION.md) | XML/变量/分支、素材策略、过期判断及支持边界 |
+| [工作目录与清理](docs/WORKSPACE_DATA.md) | 静态资源、动态数据、备份、手动清理规则 |
+| [发布数据清单](docs/RESOURCES.md) | 随包资源、动态资料和开发样本的编号清单 |
+| [统一平台](docs/engine/PLATFORMS.md) | 完整四文件基线、用户覆盖及升级合并 |
+| [Android 细节](docs/engine/ANDROID.md) | 原 scan/capture/build/deploy 命令 |
+| [共用素材](docs/engine/SHARED_MEDIA.md) | 开启后的副本核对、metadata 局部更新及源媒体清理 |
+| [当前状态](docs/engine/STATUS.md) | 当前实现与测试/设备/发布的实际边界 |
+| [Git 工作流](docs/GIT_WORKFLOW.md) | 分支、历史与提交规则 |
+| [历史资料](docs/archive/README.md) | 已归档的旧计划、研究与实施证据 |
+
+基础设置保存在程序同级 settings.json；全部运行资料由唯一 workspace 管理。真实 ROM、完整第三方主题、历史产物和旧项目归档保留在本地，均不进入 Git 或应用包。平台卡片资源保留来源/许可记录，独立软件分发仍需按各主题素材许可处理；当前没有打包或发布 EXE。
+
+本轮在 `codex/independent-tools` 实施。[先前 72 项本地测试](docs/TESTS_INDEPENDENT_TOOLS_20261016.md)已分别取得通过结果。[后续功能测试](docs/TESTS_FUNCTIONAL_20261016.md)覆盖七套真实主题完整导出、三项离屏 GUI 检查及真实 GBA 增量流程；48 项首轮有一项失败，修复 ROM 路径误匹配后，17 项定向测试全部通过，没有重跑整批测试。名称与图标此后接入，仅做静态 review；实际窗口外观、设备与发布仍分别验收，剩余事项见 [计划](docs/PLAN.md)。

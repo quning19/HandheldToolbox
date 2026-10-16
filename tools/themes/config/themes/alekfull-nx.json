@@ -1,0 +1,23 @@
+{
+  "id": "alekfull-nx",
+  "source_theme": "test_data/themes/original/alekfull-nx-es-de",
+  "staged": "artifacts/themes/staged/alekfull-nx",
+  "metadata_dir": null,
+  "slots": {
+    "backgrounds": "_inc/systems/backgrounds",
+    "carousel": "_inc/systems/carousel-icons",
+    "logos": "_inc/systems/logos"
+  },
+  "slot_ext": {
+    "backgrounds": ".jpg",
+    "logos": ".svg"
+  },
+  "required_slots": [
+    "backgrounds",
+    "carousel",
+    "logos"
+  ],
+  "badge_slots": [
+    "backgrounds"
+  ]
+}

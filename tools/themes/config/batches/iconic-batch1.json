@@ -1,0 +1,79 @@
+{
+  "batch": "iconic-batch1-nintendo-sony",
+  "theme_profile": "iconic",
+  "slots_all": [
+    "carousel",
+    "system",
+    "default-background",
+    "default-overlay",
+    "classic-background",
+    "classic-overlay",
+    "modern-background",
+    "modern-overlay"
+  ],
+  "decisions": [
+    "carousel 图标和各 overlay 槽位直接复制源图，不添加文字或压暗",
+    "其余列入 badge_slots 的回退栅格资源使用配置的标记样式",
+    "母体不存在的可选 background/overlay 不生成，保持原主题回退行为",
+    "nesh 等 Iconic 原版已有专用资源的平台保持原样"
+  ],
+  "platforms": [
+    {
+      "name": "FC-HD",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 nes 复制实际存在的资源并加 HD"
+    },
+    {
+      "name": "SFC hack",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 复制实际存在的资源并加 HACK"
+    },
+    {
+      "name": "SFC-MSU1",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 复制实际存在的资源并加 MSU1"
+    },
+    {
+      "name": "PS1 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 psx 复制实际存在的资源并加 HACK"
+    },
+    {
+      "name": "PS2 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 ps2 复制实际存在的资源并加 HACK"
+    },
+    {
+      "name": "GBA HACK",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 复制实际存在的资源并加 HACK"
+    },
+    {
+      "name": "GBA vib",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 复制实际存在的资源并加 VIB"
+    },
+    {
+      "name": "WII Ware",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 wii 复制实际存在的资源并加 WARE"
+    }
+  ],
+  "_platforms": "平台名保留已验证版本；theme/source/badge_text/system_name从共用platform_config读取，批次仅维护槽位及处理范围。"
+}
