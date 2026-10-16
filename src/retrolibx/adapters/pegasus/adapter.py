@@ -133,6 +133,7 @@ class PegasusAdapter(LibraryAdapter):
                         filename,
                         bases=(metadata_path.parent,),
                         preferred_parts=("rom", "roms", system.id),
+                        strict_relative=True,
                     )
                     actual = resolved or (metadata_path.parent / filename).resolve(strict=False)
                     if (

@@ -33,4 +33,4 @@ python -m retrolibx.cli --help
 
 基础设置保存在程序同级 settings.json；全部运行资料由唯一 workspace 管理。真实 ROM、完整第三方主题、历史产物和旧项目归档保留在本地，均不进入 Git 或应用包。平台卡片资源保留来源/许可记录，独立软件分发仍需按各主题素材许可处理；当前没有打包或发布 EXE。
 
-本轮在 `codex/independent-tools` 实施。[获批的 72 项本地测试](docs/TESTS_INDEPENDENT_TOOLS_20261016.md)已分别取得通过结果，含七套真实主题资源图解析；失败项修复后定向复测，没有在最后修复后全量重跑。窗口、完整主题导出、设备与发布仍分别验收。
+本轮在 `codex/independent-tools` 实施。[先前 72 项本地测试](docs/TESTS_INDEPENDENT_TOOLS_20261016.md)已分别取得通过结果。[后续功能测试](docs/TESTS_FUNCTIONAL_20261016.md)覆盖七套真实主题完整导出、三项离屏 GUI 检查及真实 GBA 增量流程；48 项首轮有一项失败，修复 ROM 路径误匹配后，17 项定向测试全部通过，没有重跑整批测试。实际窗口外观、设备与发布仍分别验收。

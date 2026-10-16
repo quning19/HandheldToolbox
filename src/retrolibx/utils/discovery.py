@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from collections.abc import Iterable
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 _IGNORED_DIRECTORIES = {".git", ".retrolibx", ".venv", "__pycache__"}
 
@@ -71,15 +71,26 @@ class FileIndex:
         *,
         bases: Iterable[Path] = (),
         preferred_parts: Iterable[str] = (),
+        strict_relative: bool = False,
     ) -> Path | None:
-        """Resolve without guessing when multiple candidates remain equally plausible."""
-        source = Path(str(raw_path)).expanduser()
+        """Resolve references, optionally treating relative paths as authoritative.
+
+        ROM references opt in so a missing version cannot borrow another folder's
+        identically named ROM. Rooted references retain device-root relocation.
+        """
+        source = Path(str(raw_path).replace("\\", "/")).expanduser()
+        bases = tuple(bases)
+        relative = not (source.anchor or PureWindowsPath(str(raw_path)).drive)
         direct = [source] if source.is_absolute() else []
         direct.extend(base / source for base in bases)
-        direct.append(self.root / source)
+        if not (strict_relative and relative and bases):
+            direct.append(self.root / source)
         for candidate in direct:
             if candidate.is_file():
                 return candidate.resolve()
+
+        if strict_relative and relative:
+            return None
 
         raw_parts = _normalized_parts(raw_path)
         # Stale device roots are common. Match the longest available trailing path first.
