@@ -1,6 +1,6 @@
 # 项目结构与独立入口
 
-2026-10-16，按用户批准的“独立工具＋汇总 GUI”调整。当前分支 `codex/independent-tools`。
+2026-10-16，按用户批准的“独立工具＋汇总 GUI”调整；实现自 `codex/independent-tools`，已通过 `791d7de` 合入本地 `main`，当前位于主干。
 
 ```text
 FrontendTransTool/
