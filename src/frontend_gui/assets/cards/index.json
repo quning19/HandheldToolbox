@@ -1,0 +1,4194 @@
+{
+  "canvas": {
+    "source_theme": "canvas-es-de",
+    "source_folder": "_inc/carousel-icons-capsule",
+    "count": 229,
+    "bytes": 10078394,
+    "assets": {
+      "3do": {
+        "file": "7cc838b72affd4c3adc3.webp",
+        "platform": "3do",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\3do.webp"
+      },
+      "gba hack": {
+        "file": "92a996922c4791c0709b.webp",
+        "platform": "GBA hack",
+        "source": "src\\frontend_gui\\assets\\platforms\\GBA hack.webp"
+      },
+      "gba vib": {
+        "file": "ed2f5416b6216ca92cd5.webp",
+        "platform": "GBA vib",
+        "source": "src\\frontend_gui\\assets\\platforms\\GBA vib.webp"
+      },
+      "adam": {
+        "file": "f7f376a1fcd0d0e11a10.webp",
+        "platform": "adam",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\adam.webp"
+      },
+      "ags": {
+        "file": "8534a12cd00c1df26722.webp",
+        "platform": "ags",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ags.webp"
+      },
+      "amiga": {
+        "file": "d0711972e2a8e2e4550b.webp",
+        "platform": "amiga",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\amiga.webp"
+      },
+      "amiga1200": {
+        "file": "f40767de770ee71443a6.webp",
+        "platform": "amiga1200",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\amiga1200.webp"
+      },
+      "amiga600": {
+        "file": "61c3a5fc3406679d3394.webp",
+        "platform": "amiga600",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\amiga600.webp"
+      },
+      "amigacd32": {
+        "file": "81785d521f657c500e3d.webp",
+        "platform": "amigacd32",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\amigacd32.webp"
+      },
+      "amstradcpc": {
+        "file": "38d8842a8c2ae909829f.webp",
+        "platform": "amstradcpc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\amstradcpc.webp"
+      },
+      "android": {
+        "file": "f60ed56a9c8275894022.webp",
+        "platform": "android",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\android.webp"
+      },
+      "androidapps": {
+        "file": "e85974a39958b62d1107.webp",
+        "platform": "androidapps",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\androidapps.webp"
+      },
+      "androidgames": {
+        "file": "98055ac54a3dbcc0d917.webp",
+        "platform": "androidgames",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\androidgames.webp"
+      },
+      "apple2": {
+        "file": "3b812ac32a1bb634c58c.webp",
+        "platform": "apple2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\apple2.webp"
+      },
+      "apple2gs": {
+        "file": "2d61301ca06f50e25b3a.webp",
+        "platform": "apple2gs",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\apple2gs.webp"
+      },
+      "arcade": {
+        "file": "d74c69db63e4763f64fc.webp",
+        "platform": "arcade",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\arcade.webp"
+      },
+      "arcadia": {
+        "file": "3259138318d8d440dc78.webp",
+        "platform": "arcadia",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\arcadia.webp"
+      },
+      "archimedes": {
+        "file": "b886fb7f1c248a67445b.webp",
+        "platform": "archimedes",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\archimedes.webp"
+      },
+      "arduboy": {
+        "file": "636636bc31bbeabf6cd4.webp",
+        "platform": "arduboy",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\arduboy.webp"
+      },
+      "astrocade": {
+        "file": "ae3d8efc01c7627d661f.webp",
+        "platform": "astrocade",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\astrocade.webp"
+      },
+      "atari2600": {
+        "file": "b17a61763e9007f19dea.webp",
+        "platform": "atari2600",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atari2600.webp"
+      },
+      "atari5200": {
+        "file": "92df6a56637d7c96a594.webp",
+        "platform": "atari5200",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atari5200.webp"
+      },
+      "atari7800": {
+        "file": "d5d254b4fd62a748ad35.webp",
+        "platform": "atari7800",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atari7800.webp"
+      },
+      "atari800": {
+        "file": "2ba294e7982e15983749.webp",
+        "platform": "atari800",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atari800.webp"
+      },
+      "atarijaguar": {
+        "file": "03b581c988e96c5884ea.webp",
+        "platform": "atarijaguar",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atarijaguar.webp"
+      },
+      "atarijaguarcd": {
+        "file": "ad60f6b0d4db1aa9cecc.webp",
+        "platform": "atarijaguarcd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atarijaguarcd.webp"
+      },
+      "atarilynx": {
+        "file": "e200e8966f0901dd86c0.webp",
+        "platform": "atarilynx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atarilynx.webp"
+      },
+      "atarist": {
+        "file": "b4458cc17424cf449cea.webp",
+        "platform": "atarist",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atarist.webp"
+      },
+      "atarixe": {
+        "file": "6d769398f2b9de036bf3.webp",
+        "platform": "atarixe",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atarixe.webp"
+      },
+      "atomiswave": {
+        "file": "a8fbe6e9a5b3b0a6cd75.webp",
+        "platform": "atomiswave",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\atomiswave.webp"
+      },
+      "auto-allgames": {
+        "file": "884faa8fc8e5c68123b5.webp",
+        "platform": "auto-allgames",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\auto-allgames.webp"
+      },
+      "auto-favorites": {
+        "file": "fabe70394f044c4b6771.webp",
+        "platform": "auto-favorites",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\auto-favorites.webp"
+      },
+      "auto-lastplayed": {
+        "file": "323f3c407ede96674955.webp",
+        "platform": "auto-lastplayed",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\auto-lastplayed.webp"
+      },
+      "bbcmicro": {
+        "file": "a42a679858ca6b9a68c8.webp",
+        "platform": "bbcmicro",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\bbcmicro.webp"
+      },
+      "c64": {
+        "file": "68a28c2215a945f52b1d.webp",
+        "platform": "c64",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\c64.webp"
+      },
+      "castlevania": {
+        "file": "abffbe4fe8a67dfdc078.webp",
+        "platform": "castlevania",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\castlevania.webp"
+      },
+      "cavestory": {
+        "file": "d79013b90d0f551083e2.webp",
+        "platform": "cavestory",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cavestory.webp"
+      },
+      "cdimono1": {
+        "file": "dda265b6d7697c22ebf0.webp",
+        "platform": "cdimono1",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cdimono1.webp"
+      },
+      "cdtv": {
+        "file": "3434fc9c927bef2fcd8a.webp",
+        "platform": "cdtv",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cdtv.webp"
+      },
+      "chailove": {
+        "file": "27abc1ada8ffdcb225cf.webp",
+        "platform": "chailove",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\chailove.webp"
+      },
+      "channelf": {
+        "file": "0a6f7f47d8922d6a01d7.webp",
+        "platform": "channelf",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\channelf.webp"
+      },
+      "coco": {
+        "file": "4f682b71153ffa91e608.webp",
+        "platform": "coco",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\coco.webp"
+      },
+      "colecovision": {
+        "file": "02ce66ba340b4a9e14b1.webp",
+        "platform": "colecovision",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\colecovision.webp"
+      },
+      "completed": {
+        "file": "4ddb3e96801a1ee2b77d.webp",
+        "platform": "completed",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\completed.webp"
+      },
+      "consolearcade": {
+        "file": "f2f0649f4e7335c63528.webp",
+        "platform": "consolearcade",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\consolearcade.webp"
+      },
+      "cps": {
+        "file": "3c103538dfa34e6b4165.webp",
+        "platform": "cps",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cps.webp"
+      },
+      "cps1": {
+        "file": "64b5bed738873efb82e0.webp",
+        "platform": "cps1",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cps1.webp"
+      },
+      "cps2": {
+        "file": "bc38fdc4ab30db8dae9d.webp",
+        "platform": "cps2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cps2.webp"
+      },
+      "cps3": {
+        "file": "80c27e9cbb1aad3ee014.webp",
+        "platform": "cps3",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\cps3.webp"
+      },
+      "crvision": {
+        "file": "f728ce16ce4f65e82b03.webp",
+        "platform": "crvision",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\crvision.webp"
+      },
+      "custom-collections": {
+        "file": "dee6a0ad905fea3ddf3d.webp",
+        "platform": "custom-collections",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\custom-collections.webp"
+      },
+      "daphne": {
+        "file": "7281ac5300c2836c027e.webp",
+        "platform": "daphne",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\daphne.webp"
+      },
+      "desktop": {
+        "file": "68693d02ab4fbb2331b8.webp",
+        "platform": "desktop",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\desktop.webp"
+      },
+      "doom": {
+        "file": "910ecd3e43c7d241425a.webp",
+        "platform": "doom",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\doom.webp"
+      },
+      "dos": {
+        "file": "c1299854f2b209632ab2.webp",
+        "platform": "dos",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\dos.webp"
+      },
+      "dragon32": {
+        "file": "74e37d5a4a37fac16386.webp",
+        "platform": "dragon32",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\dragon32.webp"
+      },
+      "dragonquest": {
+        "file": "560709a1af620dfd90fe.webp",
+        "platform": "dragonquest",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\dragonquest.webp"
+      },
+      "dreamcast": {
+        "file": "636d5cd504cefab94e1e.webp",
+        "platform": "dreamcast",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\dreamcast.webp"
+      },
+      "easyrpg": {
+        "file": "ab33efed17ddeba8bcbd.webp",
+        "platform": "easyrpg",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\easyrpg.webp"
+      },
+      "electron": {
+        "file": "88b1deea6a18cfd0d1df.webp",
+        "platform": "electron",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\electron.webp"
+      },
+      "emulators": {
+        "file": "2a390f80dc5031a7a82f.webp",
+        "platform": "emulators",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\emulators.webp"
+      },
+      "epic": {
+        "file": "49a70bd1e731c8cd1f77.webp",
+        "platform": "epic",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\epic.webp"
+      },
+      "famicom": {
+        "file": "c3e1b1b58d95636ce0be.webp",
+        "platform": "famicom",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\famicom.webp"
+      },
+      "fba": {
+        "file": "157adb9f9782f0740903.webp",
+        "platform": "fba",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fba.webp"
+      },
+      "fbneo": {
+        "file": "2dae6772fc21a792a253.webp",
+        "platform": "fbneo",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fbneo.webp"
+      },
+      "fds": {
+        "file": "827ade3254c72ae81120.webp",
+        "platform": "fds",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fds.webp"
+      },
+      "final-fantasy": {
+        "file": "c54f57ad79fab41ec1b5.webp",
+        "platform": "final-fantasy",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\final-fantasy.webp"
+      },
+      "flash": {
+        "file": "851e43bd44a2c3d30e5f.webp",
+        "platform": "flash",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\flash.webp"
+      },
+      "fm7": {
+        "file": "e5b73892deffd27b2fc7.webp",
+        "platform": "fm7",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fm7.webp"
+      },
+      "fmtowns": {
+        "file": "ea52e15e09beb29ee3ba.webp",
+        "platform": "fmtowns",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fmtowns.webp"
+      },
+      "fpinball": {
+        "file": "d8f0ed8a76e9d353e879.webp",
+        "platform": "fpinball",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\fpinball.webp"
+      },
+      "gamate": {
+        "file": "95a15d01285c9f3879a1.webp",
+        "platform": "gamate",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gamate.webp"
+      },
+      "gameandwatch": {
+        "file": "c04c097a3bf1f7897e60.webp",
+        "platform": "gameandwatch",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gameandwatch.webp"
+      },
+      "gamecom": {
+        "file": "d20ab2956df21bf39709.webp",
+        "platform": "gamecom",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gamecom.webp"
+      },
+      "gamegear": {
+        "file": "74570922833223e3edeb.webp",
+        "platform": "gamegear",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gamegear.webp"
+      },
+      "gb": {
+        "file": "0b407281768f0e833afe.webp",
+        "platform": "gb",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gb.webp"
+      },
+      "gba": {
+        "file": "f4656e2685c105a4492c.webp",
+        "platform": "gba",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gba.webp"
+      },
+      "gbah": {
+        "file": "228500182fe63aed7496.webp",
+        "platform": "gbah",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gbah.webp"
+      },
+      "gbc": {
+        "file": "d0adb0896e4b9a86588b.webp",
+        "platform": "gbc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gbc.webp"
+      },
+      "gbch": {
+        "file": "39cd1524d01b914a1c03.webp",
+        "platform": "gbch",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gbch.webp"
+      },
+      "gbh": {
+        "file": "ff7a8e504b9dde657228.webp",
+        "platform": "gbh",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gbh.webp"
+      },
+      "gc": {
+        "file": "3e399c46e9652dadde7e.webp",
+        "platform": "gc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gc.webp"
+      },
+      "genesis": {
+        "file": "aeebad4a796fcc2e15dc.webp",
+        "platform": "genesis",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\genesis.webp"
+      },
+      "genh": {
+        "file": "aecc528b542566031ff4.webp",
+        "platform": "genh",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\genh.webp"
+      },
+      "gmaster": {
+        "file": "a8a878f4ce46eb23c5d0.webp",
+        "platform": "gmaster",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gmaster.webp"
+      },
+      "gx4000": {
+        "file": "50dfb2b26e82770a5893.webp",
+        "platform": "gx4000",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\gx4000.webp"
+      },
+      "intellivision": {
+        "file": "ac080aad93da83ed8443.webp",
+        "platform": "intellivision",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\intellivision.webp"
+      },
+      "j2me": {
+        "file": "ddbc9024f6039e279cdd.webp",
+        "platform": "j2me",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\j2me.webp"
+      },
+      "kodi": {
+        "file": "972e92b2ee3757ece211.webp",
+        "platform": "kodi",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\kodi.webp"
+      },
+      "laserdisc": {
+        "file": "10da20fdfd81fd94393c.webp",
+        "platform": "laserdisc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\laserdisc.webp"
+      },
+      "lcdgames": {
+        "file": "8ae117e0cc9b3588f626.webp",
+        "platform": "lcdgames",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\lcdgames.webp"
+      },
+      "lowresnx": {
+        "file": "ef0fb0413781f79bf85d.webp",
+        "platform": "lowresnx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\lowresnx.webp"
+      },
+      "lutris": {
+        "file": "6cfd8455e3b128742d2a.webp",
+        "platform": "lutris",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\lutris.webp"
+      },
+      "lutro": {
+        "file": "398ee6ac13a2697a46ca.webp",
+        "platform": "lutro",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\lutro.webp"
+      },
+      "macintosh": {
+        "file": "39e7269dccaa7d106367.webp",
+        "platform": "macintosh",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\macintosh.webp"
+      },
+      "mame": {
+        "file": "68652da40a81880348e2.webp",
+        "platform": "mame",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mame.webp"
+      },
+      "mame-advmame": {
+        "file": "52f76a285fb83bbd17a4.webp",
+        "platform": "mame-advmame",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mame-advmame.webp"
+      },
+      "mario": {
+        "file": "59195c6c541c8307f1da.webp",
+        "platform": "mario",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mario.webp"
+      },
+      "mark3": {
+        "file": "da2213c8c508b60aa98d.webp",
+        "platform": "mark3",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mark3.webp"
+      },
+      "mastersystem": {
+        "file": "f125099271a72a6c62be.webp",
+        "platform": "mastersystem",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mastersystem.webp"
+      },
+      "megacd": {
+        "file": "978f116d2d249f1e2555.webp",
+        "platform": "megacd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megacd.webp"
+      },
+      "megacdjp": {
+        "file": "48206ddfb79b9c8c99c9.webp",
+        "platform": "megacdjp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megacdjp.webp"
+      },
+      "megadrive": {
+        "file": "e957b0cb6bbb6d400a08.webp",
+        "platform": "megadrive",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megadrive.webp"
+      },
+      "megadrivejp": {
+        "file": "8466a9b667e28b599693.webp",
+        "platform": "megadrivejp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megadrivejp.webp"
+      },
+      "megaduck": {
+        "file": "37f9d5a6e02ac248e5d6.webp",
+        "platform": "megaduck",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megaduck.webp"
+      },
+      "megaman": {
+        "file": "c013d16a335e2e40edf7.webp",
+        "platform": "megaman",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\megaman.webp"
+      },
+      "mess": {
+        "file": "7d64084076881eb259d7.webp",
+        "platform": "mess",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mess.webp"
+      },
+      "metalgear": {
+        "file": "e7bc30a52a4b42e8753b.webp",
+        "platform": "metalgear",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\metalgear.webp"
+      },
+      "model2": {
+        "file": "640482622b3fea0ac38c.webp",
+        "platform": "model2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\model2.webp"
+      },
+      "model3": {
+        "file": "db10e65f58aadc92c8db.webp",
+        "platform": "model3",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\model3.webp"
+      },
+      "moonlight": {
+        "file": "a22925b9c393ad6cfb3d.webp",
+        "platform": "moonlight",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\moonlight.webp"
+      },
+      "mortalkombat": {
+        "file": "73476e3826317779b8f9.webp",
+        "platform": "mortalkombat",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mortalkombat.webp"
+      },
+      "moto": {
+        "file": "7dbb8b144228e2f24fe4.webp",
+        "platform": "moto",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\moto.webp"
+      },
+      "msx": {
+        "file": "17c3272c9452ee234be8.webp",
+        "platform": "msx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\msx.webp"
+      },
+      "msx1": {
+        "file": "98b5386ac409c7557e25.webp",
+        "platform": "msx1",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\msx1.webp"
+      },
+      "msx2": {
+        "file": "4d42233ca647c54e7623.webp",
+        "platform": "msx2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\msx2.webp"
+      },
+      "msxturbor": {
+        "file": "8280938adb8c6a89e651.webp",
+        "platform": "msxturbor",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\msxturbor.webp"
+      },
+      "mugen": {
+        "file": "e50e1c2f703f0f9ef8a1.webp",
+        "platform": "mugen",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\mugen.webp"
+      },
+      "multivision": {
+        "file": "24f13fbfca6bb473bba0.webp",
+        "platform": "multivision",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\multivision.webp"
+      },
+      "n3ds": {
+        "file": "b9933a6eb49c2f70a9b1.webp",
+        "platform": "n3ds",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\n3ds.webp"
+      },
+      "n64": {
+        "file": "2616f2173c5b9cb5292a.webp",
+        "platform": "n64",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\n64.webp"
+      },
+      "n64dd": {
+        "file": "096ecd5d82cb8fa97a79.webp",
+        "platform": "n64dd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\n64dd.webp"
+      },
+      "naomi": {
+        "file": "46c4c923178acf98a933.webp",
+        "platform": "naomi",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\naomi.webp"
+      },
+      "naomi2": {
+        "file": "2d167ec5fa3f6033dc54.webp",
+        "platform": "naomi2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\naomi2.webp"
+      },
+      "naomigd": {
+        "file": "f425a8dc120cf4643ef2.webp",
+        "platform": "naomigd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\naomigd.webp"
+      },
+      "nds": {
+        "file": "61383e2da743e295ab1e.webp",
+        "platform": "nds",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\nds.webp"
+      },
+      "neogeo": {
+        "file": "79847637216d07556193.webp",
+        "platform": "neogeo",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\neogeo.webp"
+      },
+      "neogeocd": {
+        "file": "539ad3da251339ba8ce6.webp",
+        "platform": "neogeocd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\neogeocd.webp"
+      },
+      "neogeocdjp": {
+        "file": "c6965e7867e92864943f.webp",
+        "platform": "neogeocdjp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\neogeocdjp.webp"
+      },
+      "nes": {
+        "file": "7accb4417aea998fa57c.webp",
+        "platform": "nes",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\nes.webp"
+      },
+      "nesh": {
+        "file": "f95bb92140ecf978b0c0.webp",
+        "platform": "nesh",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\nesh.webp"
+      },
+      "ngage": {
+        "file": "e715a260ea3975fb2400.webp",
+        "platform": "ngage",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ngage.webp"
+      },
+      "ngp": {
+        "file": "ae7a7613c4ddfc5d6296.webp",
+        "platform": "ngp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ngp.webp"
+      },
+      "ngpc": {
+        "file": "567ad8ced74d824b8644.webp",
+        "platform": "ngpc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ngpc.webp"
+      },
+      "now-playing": {
+        "file": "e91a21fcacec25f4be11.webp",
+        "platform": "now-playing",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\now-playing.webp"
+      },
+      "odyssey2": {
+        "file": "918438630e767e4bbec4.webp",
+        "platform": "odyssey2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\odyssey2.webp"
+      },
+      "openbor": {
+        "file": "9d891edc5575c594a9bf.webp",
+        "platform": "openbor",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\openbor.webp"
+      },
+      "oric": {
+        "file": "4357ef902b58d6cd16ca.webp",
+        "platform": "oric",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\oric.webp"
+      },
+      "palm": {
+        "file": "f5afa2b3773eb81b5eb8.webp",
+        "platform": "palm",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\palm.webp"
+      },
+      "pc": {
+        "file": "d8463bd3ba4b10e5916f.webp",
+        "platform": "pc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pc.webp"
+      },
+      "pc88": {
+        "file": "70dbf0c8269254528823.webp",
+        "platform": "pc88",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pc88.webp"
+      },
+      "pc98": {
+        "file": "36587856dfca5de57985.webp",
+        "platform": "pc98",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pc98.webp"
+      },
+      "pcarcade": {
+        "file": "1fe91b4e23d9e1dfd840.webp",
+        "platform": "pcarcade",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pcarcade.webp"
+      },
+      "pcengine": {
+        "file": "f7f8d4203aa6fed1b915.webp",
+        "platform": "pcengine",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pcengine.webp"
+      },
+      "pcenginecd": {
+        "file": "8afa26abfd5db2abe522.webp",
+        "platform": "pcenginecd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pcenginecd.webp"
+      },
+      "pcfx": {
+        "file": "5ab3090a322d43bbc481.webp",
+        "platform": "pcfx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pcfx.webp"
+      },
+      "pico8": {
+        "file": "12e91bd871de6f359cbb.webp",
+        "platform": "pico8",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pico8.webp"
+      },
+      "plus4": {
+        "file": "6d67d3a67e215a129315.webp",
+        "platform": "plus4",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\plus4.webp"
+      },
+      "pokemini": {
+        "file": "3563bc88a6c2cc66cd86.webp",
+        "platform": "pokemini",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pokemini.webp"
+      },
+      "pokemon": {
+        "file": "eaa2bded32cc585d3f37.webp",
+        "platform": "pokemon",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pokemon.webp"
+      },
+      "ports": {
+        "file": "87afb3f7f383fcdedb67.webp",
+        "platform": "ports",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ports.webp"
+      },
+      "princeofpersia": {
+        "file": "f805a850462568e5e0bb.webp",
+        "platform": "princeofpersia",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\princeofpersia.webp"
+      },
+      "ps2": {
+        "file": "ade7bdba79d889345fe8.webp",
+        "platform": "ps2",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ps2.webp"
+      },
+      "ps3": {
+        "file": "2af0a392449422493846.webp",
+        "platform": "ps3",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ps3.webp"
+      },
+      "ps4": {
+        "file": "2957507e9c300d13300b.webp",
+        "platform": "ps4",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ps4.webp"
+      },
+      "psp": {
+        "file": "8f8e1f80de4676c8ee42.webp",
+        "platform": "psp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\psp.webp"
+      },
+      "psvita": {
+        "file": "27f34161bc4b574e3212.webp",
+        "platform": "psvita",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\psvita.webp"
+      },
+      "psx": {
+        "file": "943e8511e44936270ace.webp",
+        "platform": "psx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\psx.webp"
+      },
+      "pv1000": {
+        "file": "50ce6f2baa6f4297d9ca.webp",
+        "platform": "pv1000",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\pv1000.webp"
+      },
+      "quake": {
+        "file": "aae3ba6bd925f6fa90f7.webp",
+        "platform": "quake",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\quake.webp"
+      },
+      "residentevil": {
+        "file": "0534141524b187b540d3.webp",
+        "platform": "residentevil",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\residentevil.webp"
+      },
+      "samcoupe": {
+        "file": "c05d150ecbd5d901fbfc.webp",
+        "platform": "samcoupe",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\samcoupe.webp"
+      },
+      "satellaview": {
+        "file": "d43df55759afd92f31c1.webp",
+        "platform": "satellaview",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\satellaview.webp"
+      },
+      "saturn": {
+        "file": "b988b5837c24ad1987f3.webp",
+        "platform": "saturn",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\saturn.webp"
+      },
+      "saturnjp": {
+        "file": "35bfe7a1c03ef09929a1.webp",
+        "platform": "saturnjp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\saturnjp.webp"
+      },
+      "scummvm": {
+        "file": "429bcb40f738a0d79979.webp",
+        "platform": "scummvm",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\scummvm.webp"
+      },
+      "scv": {
+        "file": "bdb57bee241dc7a25dc3.webp",
+        "platform": "scv",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\scv.webp"
+      },
+      "sega32x": {
+        "file": "bceb132c1781d3272c29.webp",
+        "platform": "sega32x",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sega32x.webp"
+      },
+      "sega32xjp": {
+        "file": "94a2e94e16ccdb7fddd2.webp",
+        "platform": "sega32xjp",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sega32xjp.webp"
+      },
+      "sega32xna": {
+        "file": "e0479b6b5201a6e1ea8f.webp",
+        "platform": "sega32xna",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sega32xna.webp"
+      },
+      "segacd": {
+        "file": "9a92394ee4d7add00ed4.webp",
+        "platform": "segacd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\segacd.webp"
+      },
+      "sfc": {
+        "file": "a56068c3ca60024161a5.webp",
+        "platform": "sfc",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sfc.webp"
+      },
+      "sg-1000": {
+        "file": "ae3a2fbc36d31ff3f07e.webp",
+        "platform": "sg-1000",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sg-1000.webp"
+      },
+      "sgb": {
+        "file": "e5ddd04020188fc5d21d.webp",
+        "platform": "sgb",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sgb.webp"
+      },
+      "silenthill": {
+        "file": "e718f55cf0a418c72a91.webp",
+        "platform": "silenthill",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\silenthill.webp"
+      },
+      "snes": {
+        "file": "4f30ca9821db8cfd3b23.webp",
+        "platform": "snes",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\snes.webp"
+      },
+      "snes_msu1": {
+        "file": "3e61e1d090a53a8267d0.webp",
+        "platform": "snes_msu1",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\snes_msu1.webp"
+      },
+      "snes_trans": {
+        "file": "6553c8a4c54c14248b5b.webp",
+        "platform": "snes_trans",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\snes_trans.webp"
+      },
+      "snesh": {
+        "file": "be055d82cc2e5a49cdeb.webp",
+        "platform": "snesh",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\snesh.webp"
+      },
+      "snesna": {
+        "file": "483fdbd4c690897ce404.webp",
+        "platform": "snesna",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\snesna.webp"
+      },
+      "solarus": {
+        "file": "b0b4b1c2eae2af1a894e.webp",
+        "platform": "solarus",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\solarus.webp"
+      },
+      "sonic": {
+        "file": "7da6940c6ef99d18fbf4.webp",
+        "platform": "sonic",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sonic.webp"
+      },
+      "spectravideo": {
+        "file": "959bf83dbf964392e213.webp",
+        "platform": "spectravideo",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\spectravideo.webp"
+      },
+      "steam": {
+        "file": "3f1f29444c093e2890d2.webp",
+        "platform": "steam",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\steam.webp"
+      },
+      "stratagus": {
+        "file": "ce55c269cf6460a3f2c2.webp",
+        "platform": "stratagus",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\stratagus.webp"
+      },
+      "streetfighter": {
+        "file": "766bd9614c13b2c2c0b3.webp",
+        "platform": "streetfighter",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\streetfighter.webp"
+      },
+      "stv": {
+        "file": "7369fdc98cdbe4833d7b.webp",
+        "platform": "stv",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\stv.webp"
+      },
+      "sufami": {
+        "file": "492a890a422ac3c4e192.webp",
+        "platform": "sufami",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\sufami.webp"
+      },
+      "supergrafx": {
+        "file": "d6db304f62e211fa7078.webp",
+        "platform": "supergrafx",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\supergrafx.webp"
+      },
+      "supervision": {
+        "file": "b5ba526190b93c323cb1.webp",
+        "platform": "supervision",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\supervision.webp"
+      },
+      "supracan": {
+        "file": "84416f533a8db18a669a.webp",
+        "platform": "supracan",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\supracan.webp"
+      },
+      "switch": {
+        "file": "78b49fb2cc2d2ed6c1bb.webp",
+        "platform": "switch",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\switch.webp"
+      },
+      "symbian": {
+        "file": "8e468a5156bd3eb82c5b.webp",
+        "platform": "symbian",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\symbian.webp"
+      },
+      "tanodragon": {
+        "file": "678edc0fb20cefb9d122.webp",
+        "platform": "tanodragon",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\tanodragon.webp"
+      },
+      "tg-cd": {
+        "file": "053df80a4f7898ebe90b.webp",
+        "platform": "tg-cd",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\tg-cd.webp"
+      },
+      "tg16": {
+        "file": "f85c081a7deeaf1f6c0e.webp",
+        "platform": "tg16",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\tg16.webp"
+      },
+      "ti99": {
+        "file": "55f504856a6aa4ce4cea.webp",
+        "platform": "ti99",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\ti99.webp"
+      },
+      "tic80": {
+        "file": "ad57021d508bf3dd0633.webp",
+        "platform": "tic80",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\tic80.webp"
+      },
+      "to8": {
+        "file": "36dd1a16b8186221fa26.webp",
+        "platform": "to8",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\to8.webp"
+      },
+      "tools": {
+        "file": "f9d35d43770d39092a66.webp",
+        "platform": "tools",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\tools.webp"
+      },
+      "triforce": {
+        "file": "35c60b86dbcfe890aa92.webp",
+        "platform": "triforce",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\triforce.webp"
+      },
+      "trs-80": {
+        "file": "46d0ad9ed5175a3932a7.webp",
+        "platform": "trs-80",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\trs-80.webp"
+      },
+      "type-x": {
+        "file": "1a6a3e18c4ad8e7bf1ed.webp",
+        "platform": "type-x",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\type-x.webp"
+      },
+      "uzebox": {
+        "file": "83af55822a95d23b21a4.webp",
+        "platform": "uzebox",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\uzebox.webp"
+      },
+      "vectrex": {
+        "file": "a496d694d7bdb42c1681.webp",
+        "platform": "vectrex",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\vectrex.webp"
+      },
+      "vic20": {
+        "file": "b056acef0cbb82e409f6.webp",
+        "platform": "vic20",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\vic20.webp"
+      },
+      "videopac": {
+        "file": "9bcf005b9023d6a1cbb6.webp",
+        "platform": "videopac",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\videopac.webp"
+      },
+      "vircon32": {
+        "file": "d4e13de923b50e706764.webp",
+        "platform": "vircon32",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\vircon32.webp"
+      },
+      "virtualboy": {
+        "file": "a87b66ea5c13bde43d8d.webp",
+        "platform": "virtualboy",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\virtualboy.webp"
+      },
+      "vpinball": {
+        "file": "b14a7ac1294b2df9aa16.webp",
+        "platform": "vpinball",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\vpinball.webp"
+      },
+      "vsmile": {
+        "file": "81ec0b8fe7c5f037a7df.webp",
+        "platform": "vsmile",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\vsmile.webp"
+      },
+      "wasm4": {
+        "file": "9db619683b4256bc2f07.webp",
+        "platform": "wasm4",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\wasm4.webp"
+      },
+      "wii": {
+        "file": "1d0f7e15d6ed1142469f.webp",
+        "platform": "wii",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\wii.webp"
+      },
+      "wiiu": {
+        "file": "9917e1ea0fc9197db9cf.webp",
+        "platform": "wiiu",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\wiiu.webp"
+      },
+      "windows": {
+        "file": "340d600392818df24133.webp",
+        "platform": "windows",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\windows.webp"
+      },
+      "windows3x": {
+        "file": "435890aaadc91b4dda36.webp",
+        "platform": "windows3x",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\windows3x.webp"
+      },
+      "windows9x": {
+        "file": "579f1c3fc579310bd09b.webp",
+        "platform": "windows9x",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\windows9x.webp"
+      },
+      "wonderswan": {
+        "file": "628418aeb9434344ed37.webp",
+        "platform": "wonderswan",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\wonderswan.webp"
+      },
+      "wonderswancolor": {
+        "file": "7cb5e8e5daa763f7f270.webp",
+        "platform": "wonderswancolor",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\wonderswancolor.webp"
+      },
+      "x1": {
+        "file": "ec31682fde561917952f.webp",
+        "platform": "x1",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\x1.webp"
+      },
+      "x68000": {
+        "file": "c07e4ff7b2eba74a40ea.webp",
+        "platform": "x68000",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\x68000.webp"
+      },
+      "xbox": {
+        "file": "f711da60664c04c146d7.webp",
+        "platform": "xbox",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\xbox.webp"
+      },
+      "xbox360": {
+        "file": "42d7fecef5991375b386.webp",
+        "platform": "xbox360",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\xbox360.webp"
+      },
+      "xboxone": {
+        "file": "06c1f52592fb04ceeed4.webp",
+        "platform": "xboxone",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\xboxone.webp"
+      },
+      "zelda": {
+        "file": "8d01416611a03b7c979d.webp",
+        "platform": "zelda",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\zelda.webp"
+      },
+      "zmachine": {
+        "file": "56d8a024c2d296af6095.webp",
+        "platform": "zmachine",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\zmachine.webp"
+      },
+      "zx81": {
+        "file": "413fedc88760592beff7.webp",
+        "platform": "zx81",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\zx81.webp"
+      },
+      "zxnext": {
+        "file": "e54ebd7e367ea1629be2.webp",
+        "platform": "zxnext",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\zxnext.webp"
+      },
+      "zxspectrum": {
+        "file": "81e0cd9dd7f69d8862e2.webp",
+        "platform": "zxspectrum",
+        "source": "test_data\\themes\\original\\canvas-es-de\\_inc\\carousel-icons-capsule\\zxspectrum.webp"
+      }
+    }
+  },
+  "aura": {
+    "source_theme": "aura-es-de",
+    "source_folder": "_inc/default-art",
+    "count": 218,
+    "bytes": 10087794,
+    "assets": {
+      "3do": {
+        "file": "7cc838b72affd4c3adc3.webp",
+        "platform": "3do",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\3do\\3do-clear-full-w-char.webp"
+      },
+      "_default": {
+        "file": "3bf305731dd26307a59c.webp",
+        "platform": "_default",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\_default\\_default-clear-full-w-char.webp"
+      },
+      "adam": {
+        "file": "f7f376a1fcd0d0e11a10.webp",
+        "platform": "adam",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\adam\\adam-clear-full-w-char.webp"
+      },
+      "ags": {
+        "file": "8534a12cd00c1df26722.webp",
+        "platform": "ags",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ags\\ags-clear-full-w-char.webp"
+      },
+      "amiga": {
+        "file": "d0711972e2a8e2e4550b.webp",
+        "platform": "amiga",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\amiga\\amiga-clear-full-w-char.webp"
+      },
+      "amiga1200": {
+        "file": "f40767de770ee71443a6.webp",
+        "platform": "amiga1200",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\amiga1200\\amiga1200-clear-full-w-char.webp"
+      },
+      "amiga600": {
+        "file": "61c3a5fc3406679d3394.webp",
+        "platform": "amiga600",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\amiga600\\amiga600-clear-full-w-char.webp"
+      },
+      "amigacd32": {
+        "file": "81785d521f657c500e3d.webp",
+        "platform": "amigacd32",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\amigacd32\\amigacd32-clear-full-w-char.webp"
+      },
+      "amstradcpc": {
+        "file": "38d8842a8c2ae909829f.webp",
+        "platform": "amstradcpc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\amstradcpc\\amstradcpc-clear-full-w-char.webp"
+      },
+      "android": {
+        "file": "f60ed56a9c8275894022.webp",
+        "platform": "android",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\android\\android-clear-full-w-char.webp"
+      },
+      "androidapps": {
+        "file": "e85974a39958b62d1107.webp",
+        "platform": "androidapps",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\androidapps\\androidapps-clear-full-w-char.webp"
+      },
+      "androidgames": {
+        "file": "98055ac54a3dbcc0d917.webp",
+        "platform": "androidgames",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\androidgames\\androidgames-clear-full-w-char.webp"
+      },
+      "apple2": {
+        "file": "3b812ac32a1bb634c58c.webp",
+        "platform": "apple2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\apple2\\apple2-clear-full-w-char.webp"
+      },
+      "apple2gs": {
+        "file": "2d61301ca06f50e25b3a.webp",
+        "platform": "apple2gs",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\apple2gs\\apple2gs-clear-full-w-char.webp"
+      },
+      "arcade": {
+        "file": "d74c69db63e4763f64fc.webp",
+        "platform": "arcade",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\arcade\\arcade-clear-full-w-char.webp"
+      },
+      "arcadia": {
+        "file": "3259138318d8d440dc78.webp",
+        "platform": "arcadia",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\arcadia\\arcadia-clear-full-w-char.webp"
+      },
+      "archimedes": {
+        "file": "b886fb7f1c248a67445b.webp",
+        "platform": "archimedes",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\archimedes\\archimedes-clear-full-w-char.webp"
+      },
+      "arduboy": {
+        "file": "636636bc31bbeabf6cd4.webp",
+        "platform": "arduboy",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\arduboy\\arduboy-clear-full-w-char.webp"
+      },
+      "astrocade": {
+        "file": "ae3d8efc01c7627d661f.webp",
+        "platform": "astrocade",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\astrocade\\astrocade-clear-full-w-char.webp"
+      },
+      "atari2600": {
+        "file": "b17a61763e9007f19dea.webp",
+        "platform": "atari2600",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atari2600\\atari2600-clear-full-w-char.webp"
+      },
+      "atari5200": {
+        "file": "92df6a56637d7c96a594.webp",
+        "platform": "atari5200",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atari5200\\atari5200-clear-full-w-char.webp"
+      },
+      "atari7800": {
+        "file": "d5d254b4fd62a748ad35.webp",
+        "platform": "atari7800",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atari7800\\atari7800-clear-full-w-char.webp"
+      },
+      "atari800": {
+        "file": "2ba294e7982e15983749.webp",
+        "platform": "atari800",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atari800\\atari800-clear-full-w-char.webp"
+      },
+      "atarijaguar": {
+        "file": "03b581c988e96c5884ea.webp",
+        "platform": "atarijaguar",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atarijaguar\\atarijaguar-clear-full-w-char.webp"
+      },
+      "atarijaguarcd": {
+        "file": "ad60f6b0d4db1aa9cecc.webp",
+        "platform": "atarijaguarcd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atarijaguarcd\\atarijaguarcd-clear-full-w-char.webp"
+      },
+      "atarilynx": {
+        "file": "e200e8966f0901dd86c0.webp",
+        "platform": "atarilynx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atarilynx\\atarilynx-clear-full-w-char.webp"
+      },
+      "atarist": {
+        "file": "b4458cc17424cf449cea.webp",
+        "platform": "atarist",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atarist\\atarist-clear-full-w-char.webp"
+      },
+      "atarixe": {
+        "file": "6d769398f2b9de036bf3.webp",
+        "platform": "atarixe",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atarixe\\atarixe-clear-full-w-char.webp"
+      },
+      "atomiswave": {
+        "file": "a8fbe6e9a5b3b0a6cd75.webp",
+        "platform": "atomiswave",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\atomiswave\\atomiswave-clear-full-w-char.webp"
+      },
+      "auto-allgames": {
+        "file": "884faa8fc8e5c68123b5.webp",
+        "platform": "auto-allgames",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\auto-allgames\\auto-allgames-clear-full-w-char.webp"
+      },
+      "auto-favorites": {
+        "file": "fabe70394f044c4b6771.webp",
+        "platform": "auto-favorites",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\auto-favorites\\auto-favorites-clear-full-w-char.webp"
+      },
+      "auto-lastplayed": {
+        "file": "323f3c407ede96674955.webp",
+        "platform": "auto-lastplayed",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\auto-lastplayed\\auto-lastplayed-clear-full-w-char.webp"
+      },
+      "bbcmicro": {
+        "file": "a42a679858ca6b9a68c8.webp",
+        "platform": "bbcmicro",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\bbcmicro\\bbcmicro-clear-full-w-char.webp"
+      },
+      "c64": {
+        "file": "68a28c2215a945f52b1d.webp",
+        "platform": "c64",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\c64\\c64-clear-full-w-char.webp"
+      },
+      "cavestory": {
+        "file": "d79013b90d0f551083e2.webp",
+        "platform": "cavestory",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cavestory\\cavestory-clear-full-w-char.webp"
+      },
+      "cdimono1": {
+        "file": "dda265b6d7697c22ebf0.webp",
+        "platform": "cdimono1",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cdimono1\\cdimono1-clear-full-w-char.webp"
+      },
+      "cdtv": {
+        "file": "3434fc9c927bef2fcd8a.webp",
+        "platform": "cdtv",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cdtv\\cdtv-clear-full-w-char.webp"
+      },
+      "chailove": {
+        "file": "27abc1ada8ffdcb225cf.webp",
+        "platform": "chailove",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\chailove\\chailove-clear-full-w-char.webp"
+      },
+      "channelf": {
+        "file": "0a6f7f47d8922d6a01d7.webp",
+        "platform": "channelf",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\channelf\\channelf-clear-full-w-char.webp"
+      },
+      "coco": {
+        "file": "4f682b71153ffa91e608.webp",
+        "platform": "coco",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\coco\\coco-clear-full-w-char.webp"
+      },
+      "colecovision": {
+        "file": "02ce66ba340b4a9e14b1.webp",
+        "platform": "colecovision",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\colecovision\\colecovision-clear-full-w-char.webp"
+      },
+      "completed": {
+        "file": "4ddb3e96801a1ee2b77d.webp",
+        "platform": "completed",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\completed\\completed-clear-full-w-char.webp"
+      },
+      "consolearcade": {
+        "file": "f2f0649f4e7335c63528.webp",
+        "platform": "consolearcade",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\consolearcade\\consolearcade-clear-full-w-char.webp"
+      },
+      "cps": {
+        "file": "3c103538dfa34e6b4165.webp",
+        "platform": "cps",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cps\\cps-clear-full-w-char.webp"
+      },
+      "cps1": {
+        "file": "64b5bed738873efb82e0.webp",
+        "platform": "cps1",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cps1\\cps1-clear-full-w-char.webp"
+      },
+      "cps2": {
+        "file": "bc38fdc4ab30db8dae9d.webp",
+        "platform": "cps2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cps2\\cps2-clear-full-w-char.webp"
+      },
+      "cps3": {
+        "file": "80c27e9cbb1aad3ee014.webp",
+        "platform": "cps3",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\cps3\\cps3-clear-full-w-char.webp"
+      },
+      "crvision": {
+        "file": "f728ce16ce4f65e82b03.webp",
+        "platform": "crvision",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\crvision\\crvision-clear-full-w-char.webp"
+      },
+      "custom-collections": {
+        "file": "dee6a0ad905fea3ddf3d.webp",
+        "platform": "custom-collections",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\custom-collections\\custom-collections-clear-full-w-char.webp"
+      },
+      "daphne": {
+        "file": "7281ac5300c2836c027e.webp",
+        "platform": "daphne",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\daphne\\daphne-clear-full-w-char.webp"
+      },
+      "desktop": {
+        "file": "68693d02ab4fbb2331b8.webp",
+        "platform": "desktop",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\desktop\\desktop-clear-full-w-char.webp"
+      },
+      "doom": {
+        "file": "910ecd3e43c7d241425a.webp",
+        "platform": "doom",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\doom\\doom-clear-full-w-char.webp"
+      },
+      "dos": {
+        "file": "c1299854f2b209632ab2.webp",
+        "platform": "dos",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\dos\\dos-clear-full-w-char.webp"
+      },
+      "dragon32": {
+        "file": "74e37d5a4a37fac16386.webp",
+        "platform": "dragon32",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\dragon32\\dragon32-clear-full-w-char.webp"
+      },
+      "dreamcast": {
+        "file": "636d5cd504cefab94e1e.webp",
+        "platform": "dreamcast",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\dreamcast\\dreamcast-clear-full-w-char.webp"
+      },
+      "easyrpg": {
+        "file": "ab33efed17ddeba8bcbd.webp",
+        "platform": "easyrpg",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\easyrpg\\easyrpg-clear-full-w-char.webp"
+      },
+      "electron": {
+        "file": "88b1deea6a18cfd0d1df.webp",
+        "platform": "electron",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\electron\\electron-clear-full-w-char.webp"
+      },
+      "emulators": {
+        "file": "2a390f80dc5031a7a82f.webp",
+        "platform": "emulators",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\emulators\\emulators-clear-full-w-char.webp"
+      },
+      "epic": {
+        "file": "49a70bd1e731c8cd1f77.webp",
+        "platform": "epic",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\epic\\epic-clear-full-w-char.webp"
+      },
+      "famicom": {
+        "file": "c3e1b1b58d95636ce0be.webp",
+        "platform": "famicom",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\famicom\\famicom-clear-full-w-char.webp"
+      },
+      "fba": {
+        "file": "157adb9f9782f0740903.webp",
+        "platform": "fba",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fba\\fba-clear-full-w-char.webp"
+      },
+      "fbneo": {
+        "file": "2dae6772fc21a792a253.webp",
+        "platform": "fbneo",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fbneo\\fbneo-clear-full-w-char.webp"
+      },
+      "fds": {
+        "file": "827ade3254c72ae81120.webp",
+        "platform": "fds",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fds\\fds-clear-full-w-char.webp"
+      },
+      "final-fantasy": {
+        "file": "c54f57ad79fab41ec1b5.webp",
+        "platform": "final-fantasy",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\final-fantasy\\final-fantasy-clear-full-w-char.webp"
+      },
+      "flash": {
+        "file": "851e43bd44a2c3d30e5f.webp",
+        "platform": "flash",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\flash\\flash-clear-full-w-char.webp"
+      },
+      "fm7": {
+        "file": "e5b73892deffd27b2fc7.webp",
+        "platform": "fm7",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fm7\\fm7-clear-full-w-char.webp"
+      },
+      "fmtowns": {
+        "file": "ea52e15e09beb29ee3ba.webp",
+        "platform": "fmtowns",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fmtowns\\fmtowns-clear-full-w-char.webp"
+      },
+      "fpinball": {
+        "file": "d8f0ed8a76e9d353e879.webp",
+        "platform": "fpinball",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\fpinball\\fpinball-clear-full-w-char.webp"
+      },
+      "gamate": {
+        "file": "95a15d01285c9f3879a1.webp",
+        "platform": "gamate",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gamate\\gamate-clear-full-w-char.webp"
+      },
+      "gameandwatch": {
+        "file": "c04c097a3bf1f7897e60.webp",
+        "platform": "gameandwatch",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gameandwatch\\gameandwatch-clear-full-w-char.webp"
+      },
+      "gamecom": {
+        "file": "d20ab2956df21bf39709.webp",
+        "platform": "gamecom",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gamecom\\gamecom-clear-full-w-char.webp"
+      },
+      "gamegear": {
+        "file": "74570922833223e3edeb.webp",
+        "platform": "gamegear",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gamegear\\gamegear-clear-full-w-char.webp"
+      },
+      "gb": {
+        "file": "0b407281768f0e833afe.webp",
+        "platform": "gb",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gb\\gb-clear-full-w-char.webp"
+      },
+      "gba": {
+        "file": "f4656e2685c105a4492c.webp",
+        "platform": "gba",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gba\\gba-clear-full-w-char.webp"
+      },
+      "gbah": {
+        "file": "228500182fe63aed7496.webp",
+        "platform": "gbah",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gbah\\gbah-clear-full-w-char.webp"
+      },
+      "gbc": {
+        "file": "d0adb0896e4b9a86588b.webp",
+        "platform": "gbc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gbc\\gbc-clear-full-w-char.webp"
+      },
+      "gbch": {
+        "file": "39cd1524d01b914a1c03.webp",
+        "platform": "gbch",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gbch\\gbch-clear-full-w-char.webp"
+      },
+      "gbh": {
+        "file": "ff7a8e504b9dde657228.webp",
+        "platform": "gbh",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gbh\\gbh-clear-full-w-char.webp"
+      },
+      "gc": {
+        "file": "3e399c46e9652dadde7e.webp",
+        "platform": "gc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gc\\gc-clear-full-w-char.webp"
+      },
+      "genesis": {
+        "file": "aeebad4a796fcc2e15dc.webp",
+        "platform": "genesis",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\genesis\\genesis-clear-full-w-char.webp"
+      },
+      "genh": {
+        "file": "aecc528b542566031ff4.webp",
+        "platform": "genh",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\genh\\genh-clear-full-w-char.webp"
+      },
+      "gmaster": {
+        "file": "a8a878f4ce46eb23c5d0.webp",
+        "platform": "gmaster",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gmaster\\gmaster-clear-full-w-char.webp"
+      },
+      "gog": {
+        "file": "3293a927d5ffe892ce96.webp",
+        "platform": "gog",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gog\\gog-clear-full-w-char.webp"
+      },
+      "gx4000": {
+        "file": "50dfb2b26e82770a5893.webp",
+        "platform": "gx4000",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\gx4000\\gx4000-clear-full-w-char.webp"
+      },
+      "intellivision": {
+        "file": "ac080aad93da83ed8443.webp",
+        "platform": "intellivision",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\intellivision\\intellivision-clear-full-w-char.webp"
+      },
+      "j2me": {
+        "file": "ddbc9024f6039e279cdd.webp",
+        "platform": "j2me",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\j2me\\j2me-clear-full-w-char.webp"
+      },
+      "kodi": {
+        "file": "972e92b2ee3757ece211.webp",
+        "platform": "kodi",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\kodi\\kodi-clear-full-w-char.webp"
+      },
+      "laserdisc": {
+        "file": "10da20fdfd81fd94393c.webp",
+        "platform": "laserdisc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\laserdisc\\laserdisc-clear-full-w-char.webp"
+      },
+      "lcdgames": {
+        "file": "8ae117e0cc9b3588f626.webp",
+        "platform": "lcdgames",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\lcdgames\\lcdgames-clear-full-w-char.webp"
+      },
+      "lowresnx": {
+        "file": "ef0fb0413781f79bf85d.webp",
+        "platform": "lowresnx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\lowresnx\\lowresnx-clear-full-w-char.webp"
+      },
+      "lutris": {
+        "file": "6cfd8455e3b128742d2a.webp",
+        "platform": "lutris",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\lutris\\lutris-clear-full-w-char.webp"
+      },
+      "lutro": {
+        "file": "398ee6ac13a2697a46ca.webp",
+        "platform": "lutro",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\lutro\\lutro-clear-full-w-char.webp"
+      },
+      "macintosh": {
+        "file": "39e7269dccaa7d106367.webp",
+        "platform": "macintosh",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\macintosh\\macintosh-clear-full-w-char.webp"
+      },
+      "mame": {
+        "file": "68652da40a81880348e2.webp",
+        "platform": "mame",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mame\\mame-clear-full-w-char.webp"
+      },
+      "mame-advmame": {
+        "file": "52f76a285fb83bbd17a4.webp",
+        "platform": "mame-advmame",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mame-advmame\\mame-advmame-clear-full-w-char.webp"
+      },
+      "mario": {
+        "file": "59195c6c541c8307f1da.webp",
+        "platform": "mario",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mario\\mario-clear-full-w-char.webp"
+      },
+      "mark3": {
+        "file": "da2213c8c508b60aa98d.webp",
+        "platform": "mark3",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mark3\\mark3-clear-full-w-char.webp"
+      },
+      "mastersystem": {
+        "file": "f125099271a72a6c62be.webp",
+        "platform": "mastersystem",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mastersystem\\mastersystem-clear-full-w-char.webp"
+      },
+      "megacd": {
+        "file": "978f116d2d249f1e2555.webp",
+        "platform": "megacd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\megacd\\megacd-clear-full-w-char.webp"
+      },
+      "megacdjp": {
+        "file": "48206ddfb79b9c8c99c9.webp",
+        "platform": "megacdjp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\megacdjp\\megacdjp-clear-full-w-char.webp"
+      },
+      "megadrive": {
+        "file": "e957b0cb6bbb6d400a08.webp",
+        "platform": "megadrive",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\megadrive\\megadrive-clear-full-w-char.webp"
+      },
+      "megadrivejp": {
+        "file": "8466a9b667e28b599693.webp",
+        "platform": "megadrivejp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\megadrivejp\\megadrivejp-clear-full-w-char.webp"
+      },
+      "megaduck": {
+        "file": "37f9d5a6e02ac248e5d6.webp",
+        "platform": "megaduck",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\megaduck\\megaduck-clear-full-w-char.webp"
+      },
+      "mess": {
+        "file": "7d64084076881eb259d7.webp",
+        "platform": "mess",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mess\\mess-clear-full-w-char.webp"
+      },
+      "model2": {
+        "file": "640482622b3fea0ac38c.webp",
+        "platform": "model2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\model2\\model2-clear-full-w-char.webp"
+      },
+      "model3": {
+        "file": "db10e65f58aadc92c8db.webp",
+        "platform": "model3",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\model3\\model3-clear-full-w-char.webp"
+      },
+      "moto": {
+        "file": "7dbb8b144228e2f24fe4.webp",
+        "platform": "moto",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\moto\\moto-clear-full-w-char.webp"
+      },
+      "msx": {
+        "file": "17c3272c9452ee234be8.webp",
+        "platform": "msx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\msx\\msx-clear-full-w-char.webp"
+      },
+      "msx1": {
+        "file": "98b5386ac409c7557e25.webp",
+        "platform": "msx1",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\msx1\\msx1-clear-full-w-char.webp"
+      },
+      "msx2": {
+        "file": "4d42233ca647c54e7623.webp",
+        "platform": "msx2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\msx2\\msx2-clear-full-w-char.webp"
+      },
+      "msxturbor": {
+        "file": "8280938adb8c6a89e651.webp",
+        "platform": "msxturbor",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\msxturbor\\msxturbor-clear-full-w-char.webp"
+      },
+      "mugen": {
+        "file": "e50e1c2f703f0f9ef8a1.webp",
+        "platform": "mugen",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\mugen\\mugen-clear-full-w-char.webp"
+      },
+      "multivision": {
+        "file": "24f13fbfca6bb473bba0.webp",
+        "platform": "multivision",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\multivision\\multivision-clear-full-w-char.webp"
+      },
+      "n3ds": {
+        "file": "b9933a6eb49c2f70a9b1.webp",
+        "platform": "n3ds",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\n3ds\\n3ds-clear-full-w-char.webp"
+      },
+      "n64": {
+        "file": "2616f2173c5b9cb5292a.webp",
+        "platform": "n64",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\n64\\n64-clear-full-w-char.webp"
+      },
+      "n64dd": {
+        "file": "096ecd5d82cb8fa97a79.webp",
+        "platform": "n64dd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\n64dd\\n64dd-clear-full-w-char.webp"
+      },
+      "naomi": {
+        "file": "46c4c923178acf98a933.webp",
+        "platform": "naomi",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\naomi\\naomi-clear-full-w-char.webp"
+      },
+      "naomi2": {
+        "file": "2d167ec5fa3f6033dc54.webp",
+        "platform": "naomi2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\naomi2\\naomi2-clear-full-w-char.webp"
+      },
+      "naomigd": {
+        "file": "f425a8dc120cf4643ef2.webp",
+        "platform": "naomigd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\naomigd\\naomigd-clear-full-w-char.webp"
+      },
+      "nds": {
+        "file": "61383e2da743e295ab1e.webp",
+        "platform": "nds",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\nds\\nds-clear-full-w-char.webp"
+      },
+      "neogeo": {
+        "file": "79847637216d07556193.webp",
+        "platform": "neogeo",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\neogeo\\neogeo-clear-full-w-char.webp"
+      },
+      "neogeocd": {
+        "file": "539ad3da251339ba8ce6.webp",
+        "platform": "neogeocd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\neogeocd\\neogeocd-clear-full-w-char.webp"
+      },
+      "neogeocdjp": {
+        "file": "c6965e7867e92864943f.webp",
+        "platform": "neogeocdjp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\neogeocdjp\\neogeocdjp-clear-full-w-char.webp"
+      },
+      "nes": {
+        "file": "7accb4417aea998fa57c.webp",
+        "platform": "nes",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\nes\\nes-clear-full-w-char.webp"
+      },
+      "nesh": {
+        "file": "f95bb92140ecf978b0c0.webp",
+        "platform": "nesh",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\nesh\\nesh-clear-full-w-char.webp"
+      },
+      "ngage": {
+        "file": "e715a260ea3975fb2400.webp",
+        "platform": "ngage",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ngage\\ngage-clear-full-w-char.webp"
+      },
+      "ngp": {
+        "file": "ae7a7613c4ddfc5d6296.webp",
+        "platform": "ngp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ngp\\ngp-clear-full-w-char.webp"
+      },
+      "ngpc": {
+        "file": "567ad8ced74d824b8644.webp",
+        "platform": "ngpc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ngpc\\ngpc-clear-full-w-char.webp"
+      },
+      "now-playing": {
+        "file": "e91a21fcacec25f4be11.webp",
+        "platform": "now-playing",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\now-playing\\now-playing-clear-full-w-char.webp"
+      },
+      "odyssey2": {
+        "file": "918438630e767e4bbec4.webp",
+        "platform": "odyssey2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\odyssey2\\odyssey2-clear-full-w-char.webp"
+      },
+      "openbor": {
+        "file": "9d891edc5575c594a9bf.webp",
+        "platform": "openbor",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\openbor\\openbor-clear-full-w-char.webp"
+      },
+      "oric": {
+        "file": "4357ef902b58d6cd16ca.webp",
+        "platform": "oric",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\oric\\oric-clear-full-w-char.webp"
+      },
+      "palm": {
+        "file": "f5afa2b3773eb81b5eb8.webp",
+        "platform": "palm",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\palm\\palm-clear-full-w-char.webp"
+      },
+      "pc": {
+        "file": "d8463bd3ba4b10e5916f.webp",
+        "platform": "pc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pc\\pc-clear-full-w-char.webp"
+      },
+      "pc88": {
+        "file": "70dbf0c8269254528823.webp",
+        "platform": "pc88",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pc88\\pc88-clear-full-w-char.webp"
+      },
+      "pc98": {
+        "file": "36587856dfca5de57985.webp",
+        "platform": "pc98",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pc98\\pc98-clear-full-w-char.webp"
+      },
+      "pcarcade": {
+        "file": "1fe91b4e23d9e1dfd840.webp",
+        "platform": "pcarcade",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pcarcade\\pcarcade-clear-full-w-char.webp"
+      },
+      "pcengine": {
+        "file": "f7f8d4203aa6fed1b915.webp",
+        "platform": "pcengine",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pcengine\\pcengine-clear-full-w-char.webp"
+      },
+      "pcenginecd": {
+        "file": "8afa26abfd5db2abe522.webp",
+        "platform": "pcenginecd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pcenginecd\\pcenginecd-clear-full-w-char.webp"
+      },
+      "pcfx": {
+        "file": "5ab3090a322d43bbc481.webp",
+        "platform": "pcfx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pcfx\\pcfx-clear-full-w-char.webp"
+      },
+      "pico8": {
+        "file": "12e91bd871de6f359cbb.webp",
+        "platform": "pico8",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pico8\\pico8-clear-full-w-char.webp"
+      },
+      "playdate": {
+        "file": "e49e490eb23c522f7f2b.webp",
+        "platform": "playdate",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\playdate\\playdate-clear-full-w-char.webp"
+      },
+      "plus4": {
+        "file": "6d67d3a67e215a129315.webp",
+        "platform": "plus4",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\plus4\\plus4-clear-full-w-char.webp"
+      },
+      "pokemini": {
+        "file": "3563bc88a6c2cc66cd86.webp",
+        "platform": "pokemini",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pokemini\\pokemini-clear-full-w-char.webp"
+      },
+      "pokemon": {
+        "file": "eaa2bded32cc585d3f37.webp",
+        "platform": "pokemon",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pokemon\\pokemon-clear-full-w-char.webp"
+      },
+      "ports": {
+        "file": "87afb3f7f383fcdedb67.webp",
+        "platform": "ports",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ports\\ports-clear-full-w-char.webp"
+      },
+      "ps2": {
+        "file": "ade7bdba79d889345fe8.webp",
+        "platform": "ps2",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ps2\\ps2-clear-full-w-char.webp"
+      },
+      "ps3": {
+        "file": "2af0a392449422493846.webp",
+        "platform": "ps3",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ps3\\ps3-clear-full-w-char.webp"
+      },
+      "ps4": {
+        "file": "2957507e9c300d13300b.webp",
+        "platform": "ps4",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ps4\\ps4-clear-full-w-char.webp"
+      },
+      "psp": {
+        "file": "8f8e1f80de4676c8ee42.webp",
+        "platform": "psp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\psp\\psp-clear-full-w-char.webp"
+      },
+      "psvita": {
+        "file": "27f34161bc4b574e3212.webp",
+        "platform": "psvita",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\psvita\\psvita-clear-full-w-char.webp"
+      },
+      "psx": {
+        "file": "943e8511e44936270ace.webp",
+        "platform": "psx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\psx\\psx-clear-full-w-char.webp"
+      },
+      "pv1000": {
+        "file": "50ce6f2baa6f4297d9ca.webp",
+        "platform": "pv1000",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\pv1000\\pv1000-clear-full-w-char.webp"
+      },
+      "quake": {
+        "file": "aae3ba6bd925f6fa90f7.webp",
+        "platform": "quake",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\quake\\quake-clear-full-w-char.webp"
+      },
+      "samcoupe": {
+        "file": "c05d150ecbd5d901fbfc.webp",
+        "platform": "samcoupe",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\samcoupe\\samcoupe-clear-full-w-char.webp"
+      },
+      "satellaview": {
+        "file": "d43df55759afd92f31c1.webp",
+        "platform": "satellaview",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\satellaview\\satellaview-clear-full-w-char.webp"
+      },
+      "saturn": {
+        "file": "b988b5837c24ad1987f3.webp",
+        "platform": "saturn",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\saturn\\saturn-clear-full-w-char.webp"
+      },
+      "saturnjp": {
+        "file": "35bfe7a1c03ef09929a1.webp",
+        "platform": "saturnjp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\saturnjp\\saturnjp-clear-full-w-char.webp"
+      },
+      "scummvm": {
+        "file": "429bcb40f738a0d79979.webp",
+        "platform": "scummvm",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\scummvm\\scummvm-clear-full-w-char.webp"
+      },
+      "scv": {
+        "file": "bdb57bee241dc7a25dc3.webp",
+        "platform": "scv",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\scv\\scv-clear-full-w-char.webp"
+      },
+      "sega32x": {
+        "file": "bceb132c1781d3272c29.webp",
+        "platform": "sega32x",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sega32x\\sega32x-clear-full-w-char.webp"
+      },
+      "sega32xjp": {
+        "file": "94a2e94e16ccdb7fddd2.webp",
+        "platform": "sega32xjp",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sega32xjp\\sega32xjp-clear-full-w-char.webp"
+      },
+      "sega32xna": {
+        "file": "e0479b6b5201a6e1ea8f.webp",
+        "platform": "sega32xna",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sega32xna\\sega32xna-clear-full-w-char.webp"
+      },
+      "segacd": {
+        "file": "9a92394ee4d7add00ed4.webp",
+        "platform": "segacd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\segacd\\segacd-clear-full-w-char.webp"
+      },
+      "sfc": {
+        "file": "a56068c3ca60024161a5.webp",
+        "platform": "sfc",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sfc\\sfc-clear-full-w-char.webp"
+      },
+      "sg-1000": {
+        "file": "ae3a2fbc36d31ff3f07e.webp",
+        "platform": "sg-1000",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sg-1000\\sg-1000-clear-full-w-char.webp"
+      },
+      "sgb": {
+        "file": "e5ddd04020188fc5d21d.webp",
+        "platform": "sgb",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sgb\\sgb-clear-full-w-char.webp"
+      },
+      "snes": {
+        "file": "4f30ca9821db8cfd3b23.webp",
+        "platform": "snes",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\snes\\snes-clear-full-w-char.webp"
+      },
+      "snes_msu1": {
+        "file": "3e61e1d090a53a8267d0.webp",
+        "platform": "snes_msu1",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\snes_msu1\\snes_msu1-clear-full-w-char.webp"
+      },
+      "snesh": {
+        "file": "be055d82cc2e5a49cdeb.webp",
+        "platform": "snesh",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\snesh\\snesh-clear-full-w-char.webp"
+      },
+      "snesna": {
+        "file": "483fdbd4c690897ce404.webp",
+        "platform": "snesna",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\snesna\\snesna-clear-full-w-char.webp"
+      },
+      "solarus": {
+        "file": "b0b4b1c2eae2af1a894e.webp",
+        "platform": "solarus",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\solarus\\solarus-clear-full-w-char.webp"
+      },
+      "spectravideo": {
+        "file": "959bf83dbf964392e213.webp",
+        "platform": "spectravideo",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\spectravideo\\spectravideo-clear-full-w-char.webp"
+      },
+      "steam": {
+        "file": "3f1f29444c093e2890d2.webp",
+        "platform": "steam",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\steam\\steam-clear-full-w-char.webp"
+      },
+      "stv": {
+        "file": "7369fdc98cdbe4833d7b.webp",
+        "platform": "stv",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\stv\\stv-clear-full-w-char.webp"
+      },
+      "sufami": {
+        "file": "492a890a422ac3c4e192.webp",
+        "platform": "sufami",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\sufami\\sufami-clear-full-w-char.webp"
+      },
+      "supergrafx": {
+        "file": "d6db304f62e211fa7078.webp",
+        "platform": "supergrafx",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\supergrafx\\supergrafx-clear-full-w-char.webp"
+      },
+      "supervision": {
+        "file": "b5ba526190b93c323cb1.webp",
+        "platform": "supervision",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\supervision\\supervision-clear-full-w-char.webp"
+      },
+      "supracan": {
+        "file": "84416f533a8db18a669a.webp",
+        "platform": "supracan",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\supracan\\supracan-clear-full-w-char.webp"
+      },
+      "switch": {
+        "file": "78b49fb2cc2d2ed6c1bb.webp",
+        "platform": "switch",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\switch\\switch-clear-full-w-char.webp"
+      },
+      "symbian": {
+        "file": "8e468a5156bd3eb82c5b.webp",
+        "platform": "symbian",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\symbian\\symbian-clear-full-w-char.webp"
+      },
+      "system2x6": {
+        "file": "add354c47e1cd713bb56.webp",
+        "platform": "system2x6",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\system2x6\\system2x6-clear-full-w-char.webp"
+      },
+      "tanodragon": {
+        "file": "678edc0fb20cefb9d122.webp",
+        "platform": "tanodragon",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\tanodragon\\tanodragon-clear-full-w-char.webp"
+      },
+      "tg-cd": {
+        "file": "053df80a4f7898ebe90b.webp",
+        "platform": "tg-cd",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\tg-cd\\tg-cd-clear-full-w-char.webp"
+      },
+      "tg16": {
+        "file": "f85c081a7deeaf1f6c0e.webp",
+        "platform": "tg16",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\tg16\\tg16-clear-full-w-char.webp"
+      },
+      "ti99": {
+        "file": "55f504856a6aa4ce4cea.webp",
+        "platform": "ti99",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\ti99\\ti99-clear-full-w-char.webp"
+      },
+      "tic80": {
+        "file": "ad57021d508bf3dd0633.webp",
+        "platform": "tic80",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\tic80\\tic80-clear-full-w-char.webp"
+      },
+      "to8": {
+        "file": "36dd1a16b8186221fa26.webp",
+        "platform": "to8",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\to8\\to8-clear-full-w-char.webp"
+      },
+      "tools": {
+        "file": "f9d35d43770d39092a66.webp",
+        "platform": "tools",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\tools\\tools-clear-full-w-char.webp"
+      },
+      "triforce": {
+        "file": "35c60b86dbcfe890aa92.webp",
+        "platform": "triforce",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\triforce\\triforce-clear-full-w-char.webp"
+      },
+      "trs-80": {
+        "file": "46d0ad9ed5175a3932a7.webp",
+        "platform": "trs-80",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\trs-80\\trs-80-clear-full-w-char.webp"
+      },
+      "type-x": {
+        "file": "1a6a3e18c4ad8e7bf1ed.webp",
+        "platform": "type-x",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\type-x\\type-x-clear-full-w-char.webp"
+      },
+      "uzebox": {
+        "file": "83af55822a95d23b21a4.webp",
+        "platform": "uzebox",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\uzebox\\uzebox-clear-full-w-char.webp"
+      },
+      "vectrex": {
+        "file": "a496d694d7bdb42c1681.webp",
+        "platform": "vectrex",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\vectrex\\vectrex-clear-full-w-char.webp"
+      },
+      "vic20": {
+        "file": "b056acef0cbb82e409f6.webp",
+        "platform": "vic20",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\vic20\\vic20-clear-full-w-char.webp"
+      },
+      "videopac": {
+        "file": "9bcf005b9023d6a1cbb6.webp",
+        "platform": "videopac",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\videopac\\videopac-clear-full-w-char.webp"
+      },
+      "vircon32": {
+        "file": "d4e13de923b50e706764.webp",
+        "platform": "vircon32",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\vircon32\\vircon32-clear-full-w-char.webp"
+      },
+      "virtualboy": {
+        "file": "a87b66ea5c13bde43d8d.webp",
+        "platform": "virtualboy",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\virtualboy\\virtualboy-clear-full-w-char.webp"
+      },
+      "vpinball": {
+        "file": "b14a7ac1294b2df9aa16.webp",
+        "platform": "vpinball",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\vpinball\\vpinball-clear-full-w-char.webp"
+      },
+      "vsmile": {
+        "file": "81ec0b8fe7c5f037a7df.webp",
+        "platform": "vsmile",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\vsmile\\vsmile-clear-full-w-char.webp"
+      },
+      "wasm4": {
+        "file": "9db619683b4256bc2f07.webp",
+        "platform": "wasm4",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\wasm4\\wasm4-clear-full-w-char.webp"
+      },
+      "wii": {
+        "file": "1d0f7e15d6ed1142469f.webp",
+        "platform": "wii",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\wii\\wii-clear-full-w-char.webp"
+      },
+      "wiiu": {
+        "file": "9917e1ea0fc9197db9cf.webp",
+        "platform": "wiiu",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\wiiu\\wiiu-clear-full-w-char.webp"
+      },
+      "windows": {
+        "file": "340d600392818df24133.webp",
+        "platform": "windows",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\windows\\windows-clear-full-w-char.webp"
+      },
+      "windows3x": {
+        "file": "435890aaadc91b4dda36.webp",
+        "platform": "windows3x",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\windows3x\\windows3x-clear-full-w-char.webp"
+      },
+      "windows9x": {
+        "file": "579f1c3fc579310bd09b.webp",
+        "platform": "windows9x",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\windows9x\\windows9x-clear-full-w-char.webp"
+      },
+      "wonderswan": {
+        "file": "628418aeb9434344ed37.webp",
+        "platform": "wonderswan",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\wonderswan\\wonderswan-clear-full-w-char.webp"
+      },
+      "wonderswancolor": {
+        "file": "7cb5e8e5daa763f7f270.webp",
+        "platform": "wonderswancolor",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\wonderswancolor\\wonderswancolor-clear-full-w-char.webp"
+      },
+      "x1": {
+        "file": "ec31682fde561917952f.webp",
+        "platform": "x1",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\x1\\x1-clear-full-w-char.webp"
+      },
+      "x68000": {
+        "file": "c07e4ff7b2eba74a40ea.webp",
+        "platform": "x68000",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\x68000\\x68000-clear-full-w-char.webp"
+      },
+      "xbox": {
+        "file": "f711da60664c04c146d7.webp",
+        "platform": "xbox",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\xbox\\xbox-clear-full-w-char.webp"
+      },
+      "xbox360": {
+        "file": "42d7fecef5991375b386.webp",
+        "platform": "xbox360",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\xbox360\\xbox360-clear-full-w-char.webp"
+      },
+      "xboxone": {
+        "file": "06c1f52592fb04ceeed4.webp",
+        "platform": "xboxone",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\xboxone\\xboxone-clear-full-w-char.webp"
+      },
+      "zelda": {
+        "file": "8d01416611a03b7c979d.webp",
+        "platform": "zelda",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\zelda\\zelda-clear-full-w-char.webp"
+      },
+      "zmachine": {
+        "file": "56d8a024c2d296af6095.webp",
+        "platform": "zmachine",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\zmachine\\zmachine-clear-full-w-char.webp"
+      },
+      "zx81": {
+        "file": "413fedc88760592beff7.webp",
+        "platform": "zx81",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\zx81\\zx81-clear-full-w-char.webp"
+      },
+      "zxnext": {
+        "file": "e54ebd7e367ea1629be2.webp",
+        "platform": "zxnext",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\zxnext\\zxnext-clear-full-w-char.webp"
+      },
+      "zxspectrum": {
+        "file": "81e0cd9dd7f69d8862e2.webp",
+        "platform": "zxspectrum",
+        "source": "test_data\\themes\\original\\aura-es-de\\_inc\\default-art\\zxspectrum\\zxspectrum-clear-full-w-char.webp"
+      }
+    }
+  },
+  "alekfull-nx": {
+    "source_theme": "alekfull-nx-es-de",
+    "source_folder": "_inc/systems/backgrounds",
+    "count": 182,
+    "bytes": 8057532,
+    "assets": {
+      "3do": {
+        "file": "7cc838b72affd4c3adc3.webp",
+        "platform": "3do",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\3do.jpg"
+      },
+      "_default": {
+        "file": "3bf305731dd26307a59c.webp",
+        "platform": "_default",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\_default.jpg"
+      },
+      "adam": {
+        "file": "f7f376a1fcd0d0e11a10.webp",
+        "platform": "adam",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\adam.jpg"
+      },
+      "ags": {
+        "file": "8534a12cd00c1df26722.webp",
+        "platform": "ags",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ags.jpg"
+      },
+      "amiga": {
+        "file": "d0711972e2a8e2e4550b.webp",
+        "platform": "amiga",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\amiga.jpg"
+      },
+      "amiga1200": {
+        "file": "f40767de770ee71443a6.webp",
+        "platform": "amiga1200",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\amiga1200.jpg"
+      },
+      "amiga600": {
+        "file": "61c3a5fc3406679d3394.webp",
+        "platform": "amiga600",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\amiga600.jpg"
+      },
+      "amigacd32": {
+        "file": "81785d521f657c500e3d.webp",
+        "platform": "amigacd32",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\amigacd32.jpg"
+      },
+      "amstradcpc": {
+        "file": "38d8842a8c2ae909829f.webp",
+        "platform": "amstradcpc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\amstradcpc.jpg"
+      },
+      "android": {
+        "file": "f60ed56a9c8275894022.webp",
+        "platform": "android",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\android.jpg"
+      },
+      "androidgames": {
+        "file": "98055ac54a3dbcc0d917.webp",
+        "platform": "androidgames",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\androidgames.jpg"
+      },
+      "apple2": {
+        "file": "3b812ac32a1bb634c58c.webp",
+        "platform": "apple2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\apple2.jpg"
+      },
+      "apple2gs": {
+        "file": "2d61301ca06f50e25b3a.webp",
+        "platform": "apple2gs",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\apple2gs.jpg"
+      },
+      "arcade": {
+        "file": "d74c69db63e4763f64fc.webp",
+        "platform": "arcade",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\arcade.jpg"
+      },
+      "arcadia": {
+        "file": "3259138318d8d440dc78.webp",
+        "platform": "arcadia",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\arcadia.jpg"
+      },
+      "archimedes": {
+        "file": "b886fb7f1c248a67445b.webp",
+        "platform": "archimedes",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\archimedes.jpg"
+      },
+      "arduboy": {
+        "file": "636636bc31bbeabf6cd4.webp",
+        "platform": "arduboy",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\arduboy.jpg"
+      },
+      "astrocade": {
+        "file": "ae3d8efc01c7627d661f.webp",
+        "platform": "astrocade",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\astrocade.jpg"
+      },
+      "atari2600": {
+        "file": "b17a61763e9007f19dea.webp",
+        "platform": "atari2600",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atari2600.jpg"
+      },
+      "atari5200": {
+        "file": "92df6a56637d7c96a594.webp",
+        "platform": "atari5200",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atari5200.jpg"
+      },
+      "atari7800": {
+        "file": "d5d254b4fd62a748ad35.webp",
+        "platform": "atari7800",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atari7800.jpg"
+      },
+      "atari800": {
+        "file": "2ba294e7982e15983749.webp",
+        "platform": "atari800",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atari800.jpg"
+      },
+      "atarijaguar": {
+        "file": "03b581c988e96c5884ea.webp",
+        "platform": "atarijaguar",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atarijaguar.jpg"
+      },
+      "atarijaguarcd": {
+        "file": "ad60f6b0d4db1aa9cecc.webp",
+        "platform": "atarijaguarcd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atarijaguarcd.jpg"
+      },
+      "atarilynx": {
+        "file": "e200e8966f0901dd86c0.webp",
+        "platform": "atarilynx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atarilynx.jpg"
+      },
+      "atarist": {
+        "file": "b4458cc17424cf449cea.webp",
+        "platform": "atarist",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atarist.jpg"
+      },
+      "atarixe": {
+        "file": "6d769398f2b9de036bf3.webp",
+        "platform": "atarixe",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atarixe.jpg"
+      },
+      "atomiswave": {
+        "file": "a8fbe6e9a5b3b0a6cd75.webp",
+        "platform": "atomiswave",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\atomiswave.jpg"
+      },
+      "auto-allgames": {
+        "file": "884faa8fc8e5c68123b5.webp",
+        "platform": "auto-allgames",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\auto-allgames.jpg"
+      },
+      "auto-favorites": {
+        "file": "fabe70394f044c4b6771.webp",
+        "platform": "auto-favorites",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\auto-favorites.jpg"
+      },
+      "auto-lastplayed": {
+        "file": "323f3c407ede96674955.webp",
+        "platform": "auto-lastplayed",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\auto-lastplayed.jpg"
+      },
+      "bbcmicro": {
+        "file": "a42a679858ca6b9a68c8.webp",
+        "platform": "bbcmicro",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\bbcmicro.jpg"
+      },
+      "c64": {
+        "file": "68a28c2215a945f52b1d.webp",
+        "platform": "c64",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\c64.jpg"
+      },
+      "cdimono1": {
+        "file": "dda265b6d7697c22ebf0.webp",
+        "platform": "cdimono1",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cdimono1.jpg"
+      },
+      "cdtv": {
+        "file": "3434fc9c927bef2fcd8a.webp",
+        "platform": "cdtv",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cdtv.jpg"
+      },
+      "chailove": {
+        "file": "27abc1ada8ffdcb225cf.webp",
+        "platform": "chailove",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\chailove.jpg"
+      },
+      "channelf": {
+        "file": "0a6f7f47d8922d6a01d7.webp",
+        "platform": "channelf",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\channelf.jpg"
+      },
+      "coco": {
+        "file": "4f682b71153ffa91e608.webp",
+        "platform": "coco",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\coco.jpg"
+      },
+      "colecovision": {
+        "file": "02ce66ba340b4a9e14b1.webp",
+        "platform": "colecovision",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\colecovision.jpg"
+      },
+      "cps": {
+        "file": "3c103538dfa34e6b4165.webp",
+        "platform": "cps",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cps.jpg"
+      },
+      "cps1": {
+        "file": "64b5bed738873efb82e0.webp",
+        "platform": "cps1",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cps1.jpg"
+      },
+      "cps2": {
+        "file": "bc38fdc4ab30db8dae9d.webp",
+        "platform": "cps2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cps2.jpg"
+      },
+      "cps3": {
+        "file": "80c27e9cbb1aad3ee014.webp",
+        "platform": "cps3",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\cps3.jpg"
+      },
+      "crvision": {
+        "file": "f728ce16ce4f65e82b03.webp",
+        "platform": "crvision",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\crvision.jpg"
+      },
+      "custom-collections": {
+        "file": "dee6a0ad905fea3ddf3d.webp",
+        "platform": "custom-collections",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\custom-collections.jpg"
+      },
+      "daphne": {
+        "file": "7281ac5300c2836c027e.webp",
+        "platform": "daphne",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\daphne.jpg"
+      },
+      "doom": {
+        "file": "910ecd3e43c7d241425a.webp",
+        "platform": "doom",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\doom.jpg"
+      },
+      "dos": {
+        "file": "c1299854f2b209632ab2.webp",
+        "platform": "dos",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\dos.jpg"
+      },
+      "dragon32": {
+        "file": "74e37d5a4a37fac16386.webp",
+        "platform": "dragon32",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\dragon32.jpg"
+      },
+      "dreamcast": {
+        "file": "636d5cd504cefab94e1e.webp",
+        "platform": "dreamcast",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\dreamcast.jpg"
+      },
+      "easyrpg": {
+        "file": "ab33efed17ddeba8bcbd.webp",
+        "platform": "easyrpg",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\easyrpg.jpg"
+      },
+      "electron": {
+        "file": "88b1deea6a18cfd0d1df.webp",
+        "platform": "electron",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\electron.jpg"
+      },
+      "famicom": {
+        "file": "c3e1b1b58d95636ce0be.webp",
+        "platform": "famicom",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\famicom.jpg"
+      },
+      "fba": {
+        "file": "157adb9f9782f0740903.webp",
+        "platform": "fba",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fba.jpg"
+      },
+      "fbneo": {
+        "file": "2dae6772fc21a792a253.webp",
+        "platform": "fbneo",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fbneo.jpg"
+      },
+      "fds": {
+        "file": "827ade3254c72ae81120.webp",
+        "platform": "fds",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fds.jpg"
+      },
+      "flash": {
+        "file": "851e43bd44a2c3d30e5f.webp",
+        "platform": "flash",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\flash.jpg"
+      },
+      "fm7": {
+        "file": "e5b73892deffd27b2fc7.webp",
+        "platform": "fm7",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fm7.jpg"
+      },
+      "fmtowns": {
+        "file": "ea52e15e09beb29ee3ba.webp",
+        "platform": "fmtowns",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fmtowns.jpg"
+      },
+      "fpinball": {
+        "file": "d8f0ed8a76e9d353e879.webp",
+        "platform": "fpinball",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\fpinball.jpg"
+      },
+      "gamate": {
+        "file": "95a15d01285c9f3879a1.webp",
+        "platform": "gamate",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gamate.jpg"
+      },
+      "gameandwatch": {
+        "file": "c04c097a3bf1f7897e60.webp",
+        "platform": "gameandwatch",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gameandwatch.jpg"
+      },
+      "gamecom": {
+        "file": "d20ab2956df21bf39709.webp",
+        "platform": "gamecom",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gamecom.jpg"
+      },
+      "gamegear": {
+        "file": "74570922833223e3edeb.webp",
+        "platform": "gamegear",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gamegear.jpg"
+      },
+      "gb": {
+        "file": "0b407281768f0e833afe.webp",
+        "platform": "gb",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gb.jpg"
+      },
+      "gba": {
+        "file": "f4656e2685c105a4492c.webp",
+        "platform": "gba",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gba.jpg"
+      },
+      "gbc": {
+        "file": "d0adb0896e4b9a86588b.webp",
+        "platform": "gbc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gbc.jpg"
+      },
+      "gc": {
+        "file": "3e399c46e9652dadde7e.webp",
+        "platform": "gc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gc.jpg"
+      },
+      "genesis": {
+        "file": "aeebad4a796fcc2e15dc.webp",
+        "platform": "genesis",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\genesis.jpg"
+      },
+      "gmaster": {
+        "file": "a8a878f4ce46eb23c5d0.webp",
+        "platform": "gmaster",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gmaster.jpg"
+      },
+      "gx4000": {
+        "file": "50dfb2b26e82770a5893.webp",
+        "platform": "gx4000",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\gx4000.jpg"
+      },
+      "intellivision": {
+        "file": "ac080aad93da83ed8443.webp",
+        "platform": "intellivision",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\intellivision.jpg"
+      },
+      "j2me": {
+        "file": "ddbc9024f6039e279cdd.webp",
+        "platform": "j2me",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\j2me.jpg"
+      },
+      "kodi": {
+        "file": "972e92b2ee3757ece211.webp",
+        "platform": "kodi",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\kodi.jpg"
+      },
+      "lcdgames": {
+        "file": "8ae117e0cc9b3588f626.webp",
+        "platform": "lcdgames",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\lcdgames.jpg"
+      },
+      "lowresnx": {
+        "file": "ef0fb0413781f79bf85d.webp",
+        "platform": "lowresnx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\lowresnx.jpg"
+      },
+      "lutro": {
+        "file": "398ee6ac13a2697a46ca.webp",
+        "platform": "lutro",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\lutro.jpg"
+      },
+      "macintosh": {
+        "file": "39e7269dccaa7d106367.webp",
+        "platform": "macintosh",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\macintosh.jpg"
+      },
+      "mame": {
+        "file": "68652da40a81880348e2.webp",
+        "platform": "mame",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\mame.jpg"
+      },
+      "mastersystem": {
+        "file": "f125099271a72a6c62be.webp",
+        "platform": "mastersystem",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\mastersystem.jpg"
+      },
+      "megacd": {
+        "file": "978f116d2d249f1e2555.webp",
+        "platform": "megacd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\megacd.jpg"
+      },
+      "megacdjp": {
+        "file": "48206ddfb79b9c8c99c9.webp",
+        "platform": "megacdjp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\megacdjp.jpg"
+      },
+      "megadrive": {
+        "file": "e957b0cb6bbb6d400a08.webp",
+        "platform": "megadrive",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\megadrive.jpg"
+      },
+      "megadrivejp": {
+        "file": "8466a9b667e28b599693.webp",
+        "platform": "megadrivejp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\megadrivejp.jpg"
+      },
+      "megaduck": {
+        "file": "37f9d5a6e02ac248e5d6.webp",
+        "platform": "megaduck",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\megaduck.jpg"
+      },
+      "mess": {
+        "file": "7d64084076881eb259d7.webp",
+        "platform": "mess",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\mess.jpg"
+      },
+      "model2": {
+        "file": "640482622b3fea0ac38c.webp",
+        "platform": "model2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\model2.jpg"
+      },
+      "model3": {
+        "file": "db10e65f58aadc92c8db.webp",
+        "platform": "model3",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\model3.jpg"
+      },
+      "msx": {
+        "file": "17c3272c9452ee234be8.webp",
+        "platform": "msx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\msx.jpg"
+      },
+      "msx1": {
+        "file": "98b5386ac409c7557e25.webp",
+        "platform": "msx1",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\msx1.jpg"
+      },
+      "msx2": {
+        "file": "4d42233ca647c54e7623.webp",
+        "platform": "msx2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\msx2.jpg"
+      },
+      "msxturbor": {
+        "file": "8280938adb8c6a89e651.webp",
+        "platform": "msxturbor",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\msxturbor.jpg"
+      },
+      "mugen": {
+        "file": "e50e1c2f703f0f9ef8a1.webp",
+        "platform": "mugen",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\mugen.jpg"
+      },
+      "multivision": {
+        "file": "24f13fbfca6bb473bba0.webp",
+        "platform": "multivision",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\multivision.jpg"
+      },
+      "n3ds": {
+        "file": "b9933a6eb49c2f70a9b1.webp",
+        "platform": "n3ds",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\n3ds.jpg"
+      },
+      "n64": {
+        "file": "2616f2173c5b9cb5292a.webp",
+        "platform": "n64",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\n64.jpg"
+      },
+      "n64dd": {
+        "file": "096ecd5d82cb8fa97a79.webp",
+        "platform": "n64dd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\n64dd.jpg"
+      },
+      "naomi": {
+        "file": "46c4c923178acf98a933.webp",
+        "platform": "naomi",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\naomi.jpg"
+      },
+      "naomi2": {
+        "file": "2d167ec5fa3f6033dc54.webp",
+        "platform": "naomi2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\naomi2.jpg"
+      },
+      "naomigd": {
+        "file": "f425a8dc120cf4643ef2.webp",
+        "platform": "naomigd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\naomigd.jpg"
+      },
+      "nds": {
+        "file": "61383e2da743e295ab1e.webp",
+        "platform": "nds",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\nds.jpg"
+      },
+      "neogeo": {
+        "file": "79847637216d07556193.webp",
+        "platform": "neogeo",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\neogeo.jpg"
+      },
+      "neogeocd": {
+        "file": "539ad3da251339ba8ce6.webp",
+        "platform": "neogeocd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\neogeocd.jpg"
+      },
+      "neogeocdjp": {
+        "file": "c6965e7867e92864943f.webp",
+        "platform": "neogeocdjp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\neogeocdjp.jpg"
+      },
+      "nes": {
+        "file": "7accb4417aea998fa57c.webp",
+        "platform": "nes",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\nes.jpg"
+      },
+      "ngage": {
+        "file": "e715a260ea3975fb2400.webp",
+        "platform": "ngage",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ngage.jpg"
+      },
+      "ngp": {
+        "file": "ae7a7613c4ddfc5d6296.webp",
+        "platform": "ngp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ngp.jpg"
+      },
+      "ngpc": {
+        "file": "567ad8ced74d824b8644.webp",
+        "platform": "ngpc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ngpc.jpg"
+      },
+      "odyssey2": {
+        "file": "918438630e767e4bbec4.webp",
+        "platform": "odyssey2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\odyssey2.jpg"
+      },
+      "openbor": {
+        "file": "9d891edc5575c594a9bf.webp",
+        "platform": "openbor",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\openbor.jpg"
+      },
+      "oric": {
+        "file": "4357ef902b58d6cd16ca.webp",
+        "platform": "oric",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\oric.jpg"
+      },
+      "palm": {
+        "file": "f5afa2b3773eb81b5eb8.webp",
+        "platform": "palm",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\palm.jpg"
+      },
+      "pc": {
+        "file": "d8463bd3ba4b10e5916f.webp",
+        "platform": "pc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pc.jpg"
+      },
+      "pc88": {
+        "file": "70dbf0c8269254528823.webp",
+        "platform": "pc88",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pc88.jpg"
+      },
+      "pc98": {
+        "file": "36587856dfca5de57985.webp",
+        "platform": "pc98",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pc98.jpg"
+      },
+      "pcengine": {
+        "file": "f7f8d4203aa6fed1b915.webp",
+        "platform": "pcengine",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pcengine.jpg"
+      },
+      "pcenginecd": {
+        "file": "8afa26abfd5db2abe522.webp",
+        "platform": "pcenginecd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pcenginecd.jpg"
+      },
+      "pcfx": {
+        "file": "5ab3090a322d43bbc481.webp",
+        "platform": "pcfx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pcfx.jpg"
+      },
+      "pico8": {
+        "file": "12e91bd871de6f359cbb.webp",
+        "platform": "pico8",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pico8.jpg"
+      },
+      "plus4": {
+        "file": "6d67d3a67e215a129315.webp",
+        "platform": "plus4",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\plus4.jpg"
+      },
+      "pokemini": {
+        "file": "3563bc88a6c2cc66cd86.webp",
+        "platform": "pokemini",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pokemini.jpg"
+      },
+      "ports": {
+        "file": "87afb3f7f383fcdedb67.webp",
+        "platform": "ports",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ports.jpg"
+      },
+      "ps2": {
+        "file": "ade7bdba79d889345fe8.webp",
+        "platform": "ps2",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ps2.jpg"
+      },
+      "ps3": {
+        "file": "2af0a392449422493846.webp",
+        "platform": "ps3",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ps3.jpg"
+      },
+      "ps4": {
+        "file": "2957507e9c300d13300b.webp",
+        "platform": "ps4",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ps4.jpg"
+      },
+      "psp": {
+        "file": "8f8e1f80de4676c8ee42.webp",
+        "platform": "psp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\psp.jpg"
+      },
+      "psvita": {
+        "file": "27f34161bc4b574e3212.webp",
+        "platform": "psvita",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\psvita.jpg"
+      },
+      "psx": {
+        "file": "943e8511e44936270ace.webp",
+        "platform": "psx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\psx.jpg"
+      },
+      "pv1000": {
+        "file": "50ce6f2baa6f4297d9ca.webp",
+        "platform": "pv1000",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\pv1000.jpg"
+      },
+      "quake": {
+        "file": "aae3ba6bd925f6fa90f7.webp",
+        "platform": "quake",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\quake.jpg"
+      },
+      "samcoupe": {
+        "file": "c05d150ecbd5d901fbfc.webp",
+        "platform": "samcoupe",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\samcoupe.jpg"
+      },
+      "satellaview": {
+        "file": "d43df55759afd92f31c1.webp",
+        "platform": "satellaview",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\satellaview.jpg"
+      },
+      "saturn": {
+        "file": "b988b5837c24ad1987f3.webp",
+        "platform": "saturn",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\saturn.jpg"
+      },
+      "saturnjp": {
+        "file": "35bfe7a1c03ef09929a1.webp",
+        "platform": "saturnjp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\saturnjp.jpg"
+      },
+      "scummvm": {
+        "file": "429bcb40f738a0d79979.webp",
+        "platform": "scummvm",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\scummvm.jpg"
+      },
+      "scv": {
+        "file": "bdb57bee241dc7a25dc3.webp",
+        "platform": "scv",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\scv.jpg"
+      },
+      "sega32x": {
+        "file": "bceb132c1781d3272c29.webp",
+        "platform": "sega32x",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sega32x.jpg"
+      },
+      "sega32xjp": {
+        "file": "94a2e94e16ccdb7fddd2.webp",
+        "platform": "sega32xjp",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sega32xjp.jpg"
+      },
+      "sega32xna": {
+        "file": "e0479b6b5201a6e1ea8f.webp",
+        "platform": "sega32xna",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sega32xna.jpg"
+      },
+      "segacd": {
+        "file": "9a92394ee4d7add00ed4.webp",
+        "platform": "segacd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\segacd.jpg"
+      },
+      "sfc": {
+        "file": "a56068c3ca60024161a5.webp",
+        "platform": "sfc",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sfc.jpg"
+      },
+      "sg-1000": {
+        "file": "ae3a2fbc36d31ff3f07e.webp",
+        "platform": "sg-1000",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sg-1000.jpg"
+      },
+      "sgb": {
+        "file": "e5ddd04020188fc5d21d.webp",
+        "platform": "sgb",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sgb.jpg"
+      },
+      "snes": {
+        "file": "4f30ca9821db8cfd3b23.webp",
+        "platform": "snes",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\snes.jpg"
+      },
+      "snesna": {
+        "file": "483fdbd4c690897ce404.webp",
+        "platform": "snesna",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\snesna.jpg"
+      },
+      "solarus": {
+        "file": "b0b4b1c2eae2af1a894e.webp",
+        "platform": "solarus",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\solarus.jpg"
+      },
+      "spectravideo": {
+        "file": "959bf83dbf964392e213.webp",
+        "platform": "spectravideo",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\spectravideo.jpg"
+      },
+      "steam": {
+        "file": "3f1f29444c093e2890d2.webp",
+        "platform": "steam",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\steam.jpg"
+      },
+      "stv": {
+        "file": "7369fdc98cdbe4833d7b.webp",
+        "platform": "stv",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\stv.jpg"
+      },
+      "sufami": {
+        "file": "492a890a422ac3c4e192.webp",
+        "platform": "sufami",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\sufami.jpg"
+      },
+      "supergrafx": {
+        "file": "d6db304f62e211fa7078.webp",
+        "platform": "supergrafx",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\supergrafx.jpg"
+      },
+      "supervision": {
+        "file": "b5ba526190b93c323cb1.webp",
+        "platform": "supervision",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\supervision.jpg"
+      },
+      "supracan": {
+        "file": "84416f533a8db18a669a.webp",
+        "platform": "supracan",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\supracan.jpg"
+      },
+      "switch": {
+        "file": "78b49fb2cc2d2ed6c1bb.webp",
+        "platform": "switch",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\switch.jpg"
+      },
+      "tanodragon": {
+        "file": "678edc0fb20cefb9d122.webp",
+        "platform": "tanodragon",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\tanodragon.jpg"
+      },
+      "tg-cd": {
+        "file": "053df80a4f7898ebe90b.webp",
+        "platform": "tg-cd",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\tg-cd.jpg"
+      },
+      "tg16": {
+        "file": "f85c081a7deeaf1f6c0e.webp",
+        "platform": "tg16",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\tg16.jpg"
+      },
+      "ti99": {
+        "file": "55f504856a6aa4ce4cea.webp",
+        "platform": "ti99",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\ti99.jpg"
+      },
+      "tic80": {
+        "file": "ad57021d508bf3dd0633.webp",
+        "platform": "tic80",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\tic80.jpg"
+      },
+      "to8": {
+        "file": "36dd1a16b8186221fa26.webp",
+        "platform": "to8",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\to8.jpg"
+      },
+      "tools": {
+        "file": "f9d35d43770d39092a66.webp",
+        "platform": "tools",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\tools.jpg"
+      },
+      "triforce": {
+        "file": "35c60b86dbcfe890aa92.webp",
+        "platform": "triforce",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\triforce.jpg"
+      },
+      "trs-80": {
+        "file": "46d0ad9ed5175a3932a7.webp",
+        "platform": "trs-80",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\trs-80.jpg"
+      },
+      "type-x": {
+        "file": "1a6a3e18c4ad8e7bf1ed.webp",
+        "platform": "type-x",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\type-x.jpg"
+      },
+      "uzebox": {
+        "file": "83af55822a95d23b21a4.webp",
+        "platform": "uzebox",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\uzebox.jpg"
+      },
+      "vectrex": {
+        "file": "a496d694d7bdb42c1681.webp",
+        "platform": "vectrex",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\vectrex.jpg"
+      },
+      "vic20": {
+        "file": "b056acef0cbb82e409f6.webp",
+        "platform": "vic20",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\vic20.jpg"
+      },
+      "videopac": {
+        "file": "9bcf005b9023d6a1cbb6.webp",
+        "platform": "videopac",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\videopac.jpg"
+      },
+      "virtualboy": {
+        "file": "a87b66ea5c13bde43d8d.webp",
+        "platform": "virtualboy",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\virtualboy.jpg"
+      },
+      "vpinball": {
+        "file": "b14a7ac1294b2df9aa16.webp",
+        "platform": "vpinball",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\vpinball.jpg"
+      },
+      "vsmile": {
+        "file": "81ec0b8fe7c5f037a7df.webp",
+        "platform": "vsmile",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\vsmile.jpg"
+      },
+      "wii": {
+        "file": "1d0f7e15d6ed1142469f.webp",
+        "platform": "wii",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\wii.jpg"
+      },
+      "wiiu": {
+        "file": "9917e1ea0fc9197db9cf.webp",
+        "platform": "wiiu",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\wiiu.jpg"
+      },
+      "windows": {
+        "file": "340d600392818df24133.webp",
+        "platform": "windows",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\windows.jpg"
+      },
+      "wonderswan": {
+        "file": "628418aeb9434344ed37.webp",
+        "platform": "wonderswan",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\wonderswan.jpg"
+      },
+      "wonderswancolor": {
+        "file": "7cb5e8e5daa763f7f270.webp",
+        "platform": "wonderswancolor",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\wonderswancolor.jpg"
+      },
+      "x1": {
+        "file": "ec31682fde561917952f.webp",
+        "platform": "x1",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\x1.jpg"
+      },
+      "x68000": {
+        "file": "c07e4ff7b2eba74a40ea.webp",
+        "platform": "x68000",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\x68000.jpg"
+      },
+      "xbox": {
+        "file": "f711da60664c04c146d7.webp",
+        "platform": "xbox",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\xbox.jpg"
+      },
+      "xbox360": {
+        "file": "42d7fecef5991375b386.webp",
+        "platform": "xbox360",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\xbox360.jpg"
+      },
+      "zx81": {
+        "file": "413fedc88760592beff7.webp",
+        "platform": "zx81",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\zx81.jpg"
+      },
+      "zxspectrum": {
+        "file": "81e0cd9dd7f69d8862e2.webp",
+        "platform": "zxspectrum",
+        "source": "test_data\\themes\\original\\alekfull-nx-es-de\\_inc\\systems\\backgrounds\\zxspectrum.jpg"
+      }
+    }
+  },
+  "iisu": {
+    "source_theme": "iisu-interpreted-es-de",
+    "source_folder": "_inc/systems/artwork",
+    "count": 203,
+    "bytes": 12509220,
+    "assets": {
+      "3do": {
+        "file": "7cc838b72affd4c3adc3.webp",
+        "platform": "3do",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\3do.webp"
+      },
+      "_default_game": {
+        "file": "68c57183a03958cbfa0c.webp",
+        "platform": "_default_game",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\_default_game.webp"
+      },
+      "_default_sys": {
+        "file": "36db60c8ee49b42524ee.webp",
+        "platform": "_default_sys",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\_default_sys.webp"
+      },
+      "adam": {
+        "file": "f7f376a1fcd0d0e11a10.webp",
+        "platform": "adam",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\adam.webp"
+      },
+      "ags": {
+        "file": "8534a12cd00c1df26722.webp",
+        "platform": "ags",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ags.webp"
+      },
+      "amiga": {
+        "file": "d0711972e2a8e2e4550b.webp",
+        "platform": "amiga",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\amiga.webp"
+      },
+      "amiga1200": {
+        "file": "f40767de770ee71443a6.webp",
+        "platform": "amiga1200",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\amiga1200.webp"
+      },
+      "amiga600": {
+        "file": "61c3a5fc3406679d3394.webp",
+        "platform": "amiga600",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\amiga600.webp"
+      },
+      "amigacd32": {
+        "file": "81785d521f657c500e3d.webp",
+        "platform": "amigacd32",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\amigacd32.webp"
+      },
+      "amstradcpc": {
+        "file": "38d8842a8c2ae909829f.webp",
+        "platform": "amstradcpc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\amstradcpc.webp"
+      },
+      "android": {
+        "file": "f60ed56a9c8275894022.webp",
+        "platform": "android",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\android.webp"
+      },
+      "androidapps": {
+        "file": "e85974a39958b62d1107.webp",
+        "platform": "androidapps",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\androidapps.webp"
+      },
+      "androidgames": {
+        "file": "98055ac54a3dbcc0d917.webp",
+        "platform": "androidgames",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\androidgames.webp"
+      },
+      "apple2": {
+        "file": "3b812ac32a1bb634c58c.webp",
+        "platform": "apple2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\apple2.webp"
+      },
+      "apple2gs": {
+        "file": "2d61301ca06f50e25b3a.webp",
+        "platform": "apple2gs",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\apple2gs.webp"
+      },
+      "arcade": {
+        "file": "d74c69db63e4763f64fc.webp",
+        "platform": "arcade",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\arcade.webp"
+      },
+      "arcadia": {
+        "file": "3259138318d8d440dc78.webp",
+        "platform": "arcadia",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\arcadia.webp"
+      },
+      "archimedes": {
+        "file": "b886fb7f1c248a67445b.webp",
+        "platform": "archimedes",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\archimedes.webp"
+      },
+      "arduboy": {
+        "file": "636636bc31bbeabf6cd4.webp",
+        "platform": "arduboy",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\arduboy.webp"
+      },
+      "astrocade": {
+        "file": "ae3d8efc01c7627d661f.webp",
+        "platform": "astrocade",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\astrocade.webp"
+      },
+      "atari2600": {
+        "file": "b17a61763e9007f19dea.webp",
+        "platform": "atari2600",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atari2600.webp"
+      },
+      "atari5200": {
+        "file": "92df6a56637d7c96a594.webp",
+        "platform": "atari5200",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atari5200.webp"
+      },
+      "atari7800": {
+        "file": "d5d254b4fd62a748ad35.webp",
+        "platform": "atari7800",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atari7800.webp"
+      },
+      "atari800": {
+        "file": "2ba294e7982e15983749.webp",
+        "platform": "atari800",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atari800.webp"
+      },
+      "atarijaguar": {
+        "file": "03b581c988e96c5884ea.webp",
+        "platform": "atarijaguar",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atarijaguar.webp"
+      },
+      "atarijaguarcd": {
+        "file": "ad60f6b0d4db1aa9cecc.webp",
+        "platform": "atarijaguarcd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atarijaguarcd.webp"
+      },
+      "atarilynx": {
+        "file": "e200e8966f0901dd86c0.webp",
+        "platform": "atarilynx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atarilynx.webp"
+      },
+      "atarist": {
+        "file": "b4458cc17424cf449cea.webp",
+        "platform": "atarist",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atarist.webp"
+      },
+      "atarixe": {
+        "file": "6d769398f2b9de036bf3.webp",
+        "platform": "atarixe",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atarixe.webp"
+      },
+      "atomiswave": {
+        "file": "a8fbe6e9a5b3b0a6cd75.webp",
+        "platform": "atomiswave",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\atomiswave.webp"
+      },
+      "auto-allgames": {
+        "file": "884faa8fc8e5c68123b5.webp",
+        "platform": "auto-allgames",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\auto-allgames.webp"
+      },
+      "auto-favorites": {
+        "file": "fabe70394f044c4b6771.webp",
+        "platform": "auto-favorites",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\auto-favorites.webp"
+      },
+      "auto-lastplayed": {
+        "file": "323f3c407ede96674955.webp",
+        "platform": "auto-lastplayed",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\auto-lastplayed.webp"
+      },
+      "bbcmicro": {
+        "file": "a42a679858ca6b9a68c8.webp",
+        "platform": "bbcmicro",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\bbcmicro.webp"
+      },
+      "c64": {
+        "file": "68a28c2215a945f52b1d.webp",
+        "platform": "c64",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\c64.webp"
+      },
+      "cavestory": {
+        "file": "d79013b90d0f551083e2.webp",
+        "platform": "cavestory",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cavestory.webp"
+      },
+      "cdimono1": {
+        "file": "dda265b6d7697c22ebf0.webp",
+        "platform": "cdimono1",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cdimono1.webp"
+      },
+      "cdtv": {
+        "file": "3434fc9c927bef2fcd8a.webp",
+        "platform": "cdtv",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cdtv.webp"
+      },
+      "chailove": {
+        "file": "27abc1ada8ffdcb225cf.webp",
+        "platform": "chailove",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\chailove.webp"
+      },
+      "channelf": {
+        "file": "0a6f7f47d8922d6a01d7.webp",
+        "platform": "channelf",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\channelf.webp"
+      },
+      "coco": {
+        "file": "4f682b71153ffa91e608.webp",
+        "platform": "coco",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\coco.webp"
+      },
+      "colecovision": {
+        "file": "02ce66ba340b4a9e14b1.webp",
+        "platform": "colecovision",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\colecovision.webp"
+      },
+      "consolearcade": {
+        "file": "f2f0649f4e7335c63528.webp",
+        "platform": "consolearcade",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\consolearcade.webp"
+      },
+      "cps": {
+        "file": "3c103538dfa34e6b4165.webp",
+        "platform": "cps",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cps.webp"
+      },
+      "cps1": {
+        "file": "64b5bed738873efb82e0.webp",
+        "platform": "cps1",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cps1.webp"
+      },
+      "cps2": {
+        "file": "bc38fdc4ab30db8dae9d.webp",
+        "platform": "cps2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cps2.webp"
+      },
+      "cps3": {
+        "file": "80c27e9cbb1aad3ee014.webp",
+        "platform": "cps3",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\cps3.webp"
+      },
+      "crvision": {
+        "file": "f728ce16ce4f65e82b03.webp",
+        "platform": "crvision",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\crvision.webp"
+      },
+      "custom-collections": {
+        "file": "dee6a0ad905fea3ddf3d.webp",
+        "platform": "custom-collections",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\custom-collections.webp"
+      },
+      "daphne": {
+        "file": "7281ac5300c2836c027e.webp",
+        "platform": "daphne",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\daphne.webp"
+      },
+      "desktop": {
+        "file": "68693d02ab4fbb2331b8.webp",
+        "platform": "desktop",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\desktop.webp"
+      },
+      "doom": {
+        "file": "910ecd3e43c7d241425a.webp",
+        "platform": "doom",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\doom.webp"
+      },
+      "dos": {
+        "file": "c1299854f2b209632ab2.webp",
+        "platform": "dos",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\dos.webp"
+      },
+      "dragon32": {
+        "file": "74e37d5a4a37fac16386.webp",
+        "platform": "dragon32",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\dragon32.webp"
+      },
+      "dreamcast": {
+        "file": "636d5cd504cefab94e1e.webp",
+        "platform": "dreamcast",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\dreamcast.webp"
+      },
+      "easyrpg": {
+        "file": "ab33efed17ddeba8bcbd.webp",
+        "platform": "easyrpg",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\easyrpg.webp"
+      },
+      "electron": {
+        "file": "88b1deea6a18cfd0d1df.webp",
+        "platform": "electron",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\electron.webp"
+      },
+      "emulators": {
+        "file": "2a390f80dc5031a7a82f.webp",
+        "platform": "emulators",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\emulators.webp"
+      },
+      "epic": {
+        "file": "49a70bd1e731c8cd1f77.webp",
+        "platform": "epic",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\epic.webp"
+      },
+      "famicom": {
+        "file": "c3e1b1b58d95636ce0be.webp",
+        "platform": "famicom",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\famicom.webp"
+      },
+      "fba": {
+        "file": "157adb9f9782f0740903.webp",
+        "platform": "fba",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fba.webp"
+      },
+      "fbneo": {
+        "file": "2dae6772fc21a792a253.webp",
+        "platform": "fbneo",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fbneo.webp"
+      },
+      "fds": {
+        "file": "827ade3254c72ae81120.webp",
+        "platform": "fds",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fds.webp"
+      },
+      "flash": {
+        "file": "851e43bd44a2c3d30e5f.webp",
+        "platform": "flash",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\flash.webp"
+      },
+      "fm7": {
+        "file": "e5b73892deffd27b2fc7.webp",
+        "platform": "fm7",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fm7.webp"
+      },
+      "fmtowns": {
+        "file": "ea52e15e09beb29ee3ba.webp",
+        "platform": "fmtowns",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fmtowns.webp"
+      },
+      "fpinball": {
+        "file": "d8f0ed8a76e9d353e879.webp",
+        "platform": "fpinball",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\fpinball.webp"
+      },
+      "gamate": {
+        "file": "95a15d01285c9f3879a1.webp",
+        "platform": "gamate",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gamate.webp"
+      },
+      "gameandwatch": {
+        "file": "c04c097a3bf1f7897e60.webp",
+        "platform": "gameandwatch",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gameandwatch.webp"
+      },
+      "gamecom": {
+        "file": "d20ab2956df21bf39709.webp",
+        "platform": "gamecom",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gamecom.webp"
+      },
+      "gamegear": {
+        "file": "74570922833223e3edeb.webp",
+        "platform": "gamegear",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gamegear.webp"
+      },
+      "gb": {
+        "file": "0b407281768f0e833afe.webp",
+        "platform": "gb",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gb.webp"
+      },
+      "gba": {
+        "file": "f4656e2685c105a4492c.webp",
+        "platform": "gba",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gba.webp"
+      },
+      "gbc": {
+        "file": "d0adb0896e4b9a86588b.webp",
+        "platform": "gbc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gbc.webp"
+      },
+      "gc": {
+        "file": "3e399c46e9652dadde7e.webp",
+        "platform": "gc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gc.webp"
+      },
+      "genesis": {
+        "file": "aeebad4a796fcc2e15dc.webp",
+        "platform": "genesis",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\genesis.webp"
+      },
+      "gmaster": {
+        "file": "a8a878f4ce46eb23c5d0.webp",
+        "platform": "gmaster",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gmaster.webp"
+      },
+      "gx4000": {
+        "file": "50dfb2b26e82770a5893.webp",
+        "platform": "gx4000",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\gx4000.webp"
+      },
+      "intellivision": {
+        "file": "ac080aad93da83ed8443.webp",
+        "platform": "intellivision",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\intellivision.webp"
+      },
+      "j2me": {
+        "file": "ddbc9024f6039e279cdd.webp",
+        "platform": "j2me",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\j2me.webp"
+      },
+      "kodi": {
+        "file": "972e92b2ee3757ece211.webp",
+        "platform": "kodi",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\kodi.webp"
+      },
+      "laserdisc": {
+        "file": "10da20fdfd81fd94393c.webp",
+        "platform": "laserdisc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\laserdisc.webp"
+      },
+      "lcdgames": {
+        "file": "8ae117e0cc9b3588f626.webp",
+        "platform": "lcdgames",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\lcdgames.webp"
+      },
+      "lowresnx": {
+        "file": "ef0fb0413781f79bf85d.webp",
+        "platform": "lowresnx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\lowresnx.webp"
+      },
+      "lutris": {
+        "file": "6cfd8455e3b128742d2a.webp",
+        "platform": "lutris",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\lutris.webp"
+      },
+      "lutro": {
+        "file": "398ee6ac13a2697a46ca.webp",
+        "platform": "lutro",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\lutro.webp"
+      },
+      "macintosh": {
+        "file": "39e7269dccaa7d106367.webp",
+        "platform": "macintosh",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\macintosh.webp"
+      },
+      "mame": {
+        "file": "68652da40a81880348e2.webp",
+        "platform": "mame",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mame.webp"
+      },
+      "mame-advmame": {
+        "file": "52f76a285fb83bbd17a4.webp",
+        "platform": "mame-advmame",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mame-advmame.webp"
+      },
+      "mark3": {
+        "file": "da2213c8c508b60aa98d.webp",
+        "platform": "mark3",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mark3.webp"
+      },
+      "mastersystem": {
+        "file": "f125099271a72a6c62be.webp",
+        "platform": "mastersystem",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mastersystem.webp"
+      },
+      "megacd": {
+        "file": "978f116d2d249f1e2555.webp",
+        "platform": "megacd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\megacd.webp"
+      },
+      "megacdjp": {
+        "file": "48206ddfb79b9c8c99c9.webp",
+        "platform": "megacdjp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\megacdjp.webp"
+      },
+      "megadrive": {
+        "file": "e957b0cb6bbb6d400a08.webp",
+        "platform": "megadrive",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\megadrive.webp"
+      },
+      "megadrivejp": {
+        "file": "8466a9b667e28b599693.webp",
+        "platform": "megadrivejp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\megadrivejp.webp"
+      },
+      "megaduck": {
+        "file": "37f9d5a6e02ac248e5d6.webp",
+        "platform": "megaduck",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\megaduck.webp"
+      },
+      "mess": {
+        "file": "7d64084076881eb259d7.webp",
+        "platform": "mess",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mess.webp"
+      },
+      "model2": {
+        "file": "640482622b3fea0ac38c.webp",
+        "platform": "model2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\model2.webp"
+      },
+      "model3": {
+        "file": "db10e65f58aadc92c8db.webp",
+        "platform": "model3",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\model3.webp"
+      },
+      "moto": {
+        "file": "7dbb8b144228e2f24fe4.webp",
+        "platform": "moto",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\moto.webp"
+      },
+      "msx": {
+        "file": "17c3272c9452ee234be8.webp",
+        "platform": "msx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\msx.webp"
+      },
+      "msx1": {
+        "file": "98b5386ac409c7557e25.webp",
+        "platform": "msx1",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\msx1.webp"
+      },
+      "msx2": {
+        "file": "4d42233ca647c54e7623.webp",
+        "platform": "msx2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\msx2.webp"
+      },
+      "msxturbor": {
+        "file": "8280938adb8c6a89e651.webp",
+        "platform": "msxturbor",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\msxturbor.webp"
+      },
+      "mugen": {
+        "file": "e50e1c2f703f0f9ef8a1.webp",
+        "platform": "mugen",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\mugen.webp"
+      },
+      "multivision": {
+        "file": "24f13fbfca6bb473bba0.webp",
+        "platform": "multivision",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\multivision.webp"
+      },
+      "n3ds": {
+        "file": "b9933a6eb49c2f70a9b1.webp",
+        "platform": "n3ds",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\n3ds.webp"
+      },
+      "n64": {
+        "file": "2616f2173c5b9cb5292a.webp",
+        "platform": "n64",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\n64.webp"
+      },
+      "n64dd": {
+        "file": "096ecd5d82cb8fa97a79.webp",
+        "platform": "n64dd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\n64dd.webp"
+      },
+      "naomi": {
+        "file": "46c4c923178acf98a933.webp",
+        "platform": "naomi",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\naomi.webp"
+      },
+      "naomi2": {
+        "file": "2d167ec5fa3f6033dc54.webp",
+        "platform": "naomi2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\naomi2.webp"
+      },
+      "naomigd": {
+        "file": "f425a8dc120cf4643ef2.webp",
+        "platform": "naomigd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\naomigd.webp"
+      },
+      "nds": {
+        "file": "61383e2da743e295ab1e.webp",
+        "platform": "nds",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\nds.webp"
+      },
+      "neogeo": {
+        "file": "79847637216d07556193.webp",
+        "platform": "neogeo",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\neogeo.webp"
+      },
+      "neogeocd": {
+        "file": "539ad3da251339ba8ce6.webp",
+        "platform": "neogeocd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\neogeocd.webp"
+      },
+      "neogeocdjp": {
+        "file": "c6965e7867e92864943f.webp",
+        "platform": "neogeocdjp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\neogeocdjp.webp"
+      },
+      "nes": {
+        "file": "7accb4417aea998fa57c.webp",
+        "platform": "nes",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\nes.webp"
+      },
+      "ngage": {
+        "file": "e715a260ea3975fb2400.webp",
+        "platform": "ngage",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ngage.webp"
+      },
+      "ngp": {
+        "file": "ae7a7613c4ddfc5d6296.webp",
+        "platform": "ngp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ngp.webp"
+      },
+      "ngpc": {
+        "file": "567ad8ced74d824b8644.webp",
+        "platform": "ngpc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ngpc.webp"
+      },
+      "odyssey2": {
+        "file": "918438630e767e4bbec4.webp",
+        "platform": "odyssey2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\odyssey2.webp"
+      },
+      "openbor": {
+        "file": "9d891edc5575c594a9bf.webp",
+        "platform": "openbor",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\openbor.webp"
+      },
+      "oric": {
+        "file": "4357ef902b58d6cd16ca.webp",
+        "platform": "oric",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\oric.webp"
+      },
+      "palm": {
+        "file": "f5afa2b3773eb81b5eb8.webp",
+        "platform": "palm",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\palm.webp"
+      },
+      "pc": {
+        "file": "d8463bd3ba4b10e5916f.webp",
+        "platform": "pc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pc.webp"
+      },
+      "pc88": {
+        "file": "70dbf0c8269254528823.webp",
+        "platform": "pc88",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pc88.webp"
+      },
+      "pc98": {
+        "file": "36587856dfca5de57985.webp",
+        "platform": "pc98",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pc98.webp"
+      },
+      "pcarcade": {
+        "file": "1fe91b4e23d9e1dfd840.webp",
+        "platform": "pcarcade",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pcarcade.webp"
+      },
+      "pcengine": {
+        "file": "f7f8d4203aa6fed1b915.webp",
+        "platform": "pcengine",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pcengine.webp"
+      },
+      "pcenginecd": {
+        "file": "8afa26abfd5db2abe522.webp",
+        "platform": "pcenginecd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pcenginecd.webp"
+      },
+      "pcfx": {
+        "file": "5ab3090a322d43bbc481.webp",
+        "platform": "pcfx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pcfx.webp"
+      },
+      "pico8": {
+        "file": "12e91bd871de6f359cbb.webp",
+        "platform": "pico8",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pico8.webp"
+      },
+      "plus4": {
+        "file": "6d67d3a67e215a129315.webp",
+        "platform": "plus4",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\plus4.webp"
+      },
+      "pokemini": {
+        "file": "3563bc88a6c2cc66cd86.webp",
+        "platform": "pokemini",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pokemini.webp"
+      },
+      "ports": {
+        "file": "87afb3f7f383fcdedb67.webp",
+        "platform": "ports",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ports.webp"
+      },
+      "ps2": {
+        "file": "ade7bdba79d889345fe8.webp",
+        "platform": "ps2",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ps2.webp"
+      },
+      "ps3": {
+        "file": "2af0a392449422493846.webp",
+        "platform": "ps3",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ps3.webp"
+      },
+      "ps4": {
+        "file": "2957507e9c300d13300b.webp",
+        "platform": "ps4",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ps4.webp"
+      },
+      "psp": {
+        "file": "8f8e1f80de4676c8ee42.webp",
+        "platform": "psp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\psp.webp"
+      },
+      "psvita": {
+        "file": "27f34161bc4b574e3212.webp",
+        "platform": "psvita",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\psvita.webp"
+      },
+      "psx": {
+        "file": "943e8511e44936270ace.webp",
+        "platform": "psx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\psx.webp"
+      },
+      "pv1000": {
+        "file": "50ce6f2baa6f4297d9ca.webp",
+        "platform": "pv1000",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\pv1000.webp"
+      },
+      "quake": {
+        "file": "aae3ba6bd925f6fa90f7.webp",
+        "platform": "quake",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\quake.webp"
+      },
+      "samcoupe": {
+        "file": "c05d150ecbd5d901fbfc.webp",
+        "platform": "samcoupe",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\samcoupe.webp"
+      },
+      "satellaview": {
+        "file": "d43df55759afd92f31c1.webp",
+        "platform": "satellaview",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\satellaview.webp"
+      },
+      "saturn": {
+        "file": "b988b5837c24ad1987f3.webp",
+        "platform": "saturn",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\saturn.webp"
+      },
+      "saturnjp": {
+        "file": "35bfe7a1c03ef09929a1.webp",
+        "platform": "saturnjp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\saturnjp.webp"
+      },
+      "scummvm": {
+        "file": "429bcb40f738a0d79979.webp",
+        "platform": "scummvm",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\scummvm.webp"
+      },
+      "scv": {
+        "file": "bdb57bee241dc7a25dc3.webp",
+        "platform": "scv",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\scv.webp"
+      },
+      "sega32x": {
+        "file": "bceb132c1781d3272c29.webp",
+        "platform": "sega32x",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sega32x.webp"
+      },
+      "sega32xjp": {
+        "file": "94a2e94e16ccdb7fddd2.webp",
+        "platform": "sega32xjp",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sega32xjp.webp"
+      },
+      "sega32xna": {
+        "file": "e0479b6b5201a6e1ea8f.webp",
+        "platform": "sega32xna",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sega32xna.webp"
+      },
+      "segacd": {
+        "file": "9a92394ee4d7add00ed4.webp",
+        "platform": "segacd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\segacd.webp"
+      },
+      "sfc": {
+        "file": "a56068c3ca60024161a5.webp",
+        "platform": "sfc",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sfc.webp"
+      },
+      "sg-1000": {
+        "file": "ae3a2fbc36d31ff3f07e.webp",
+        "platform": "sg-1000",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sg-1000.webp"
+      },
+      "sgb": {
+        "file": "e5ddd04020188fc5d21d.webp",
+        "platform": "sgb",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sgb.webp"
+      },
+      "snes": {
+        "file": "4f30ca9821db8cfd3b23.webp",
+        "platform": "snes",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\snes.webp"
+      },
+      "snesna": {
+        "file": "483fdbd4c690897ce404.webp",
+        "platform": "snesna",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\snesna.webp"
+      },
+      "solarus": {
+        "file": "b0b4b1c2eae2af1a894e.webp",
+        "platform": "solarus",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\solarus.webp"
+      },
+      "spectravideo": {
+        "file": "959bf83dbf964392e213.webp",
+        "platform": "spectravideo",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\spectravideo.webp"
+      },
+      "steam": {
+        "file": "3f1f29444c093e2890d2.webp",
+        "platform": "steam",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\steam.webp"
+      },
+      "stv": {
+        "file": "7369fdc98cdbe4833d7b.webp",
+        "platform": "stv",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\stv.webp"
+      },
+      "sufami": {
+        "file": "492a890a422ac3c4e192.webp",
+        "platform": "sufami",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\sufami.webp"
+      },
+      "supergrafx": {
+        "file": "d6db304f62e211fa7078.webp",
+        "platform": "supergrafx",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\supergrafx.webp"
+      },
+      "supervision": {
+        "file": "b5ba526190b93c323cb1.webp",
+        "platform": "supervision",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\supervision.webp"
+      },
+      "supracan": {
+        "file": "84416f533a8db18a669a.webp",
+        "platform": "supracan",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\supracan.webp"
+      },
+      "switch": {
+        "file": "78b49fb2cc2d2ed6c1bb.webp",
+        "platform": "switch",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\switch.webp"
+      },
+      "symbian": {
+        "file": "8e468a5156bd3eb82c5b.webp",
+        "platform": "symbian",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\symbian.webp"
+      },
+      "tanodragon": {
+        "file": "678edc0fb20cefb9d122.webp",
+        "platform": "tanodragon",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\tanodragon.webp"
+      },
+      "tg-cd": {
+        "file": "053df80a4f7898ebe90b.webp",
+        "platform": "tg-cd",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\tg-cd.webp"
+      },
+      "tg16": {
+        "file": "f85c081a7deeaf1f6c0e.webp",
+        "platform": "tg16",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\tg16.webp"
+      },
+      "ti99": {
+        "file": "55f504856a6aa4ce4cea.webp",
+        "platform": "ti99",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\ti99.webp"
+      },
+      "tic80": {
+        "file": "ad57021d508bf3dd0633.webp",
+        "platform": "tic80",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\tic80.webp"
+      },
+      "to8": {
+        "file": "36dd1a16b8186221fa26.webp",
+        "platform": "to8",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\to8.webp"
+      },
+      "tools": {
+        "file": "f9d35d43770d39092a66.webp",
+        "platform": "tools",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\tools.webp"
+      },
+      "triforce": {
+        "file": "35c60b86dbcfe890aa92.webp",
+        "platform": "triforce",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\triforce.webp"
+      },
+      "trs-80": {
+        "file": "46d0ad9ed5175a3932a7.webp",
+        "platform": "trs-80",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\trs-80.webp"
+      },
+      "type-x": {
+        "file": "1a6a3e18c4ad8e7bf1ed.webp",
+        "platform": "type-x",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\type-x.webp"
+      },
+      "uzebox": {
+        "file": "83af55822a95d23b21a4.webp",
+        "platform": "uzebox",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\uzebox.webp"
+      },
+      "vectrex": {
+        "file": "a496d694d7bdb42c1681.webp",
+        "platform": "vectrex",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\vectrex.webp"
+      },
+      "vic20": {
+        "file": "b056acef0cbb82e409f6.webp",
+        "platform": "vic20",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\vic20.webp"
+      },
+      "videopac": {
+        "file": "9bcf005b9023d6a1cbb6.webp",
+        "platform": "videopac",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\videopac.webp"
+      },
+      "vircon32": {
+        "file": "d4e13de923b50e706764.webp",
+        "platform": "vircon32",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\vircon32.webp"
+      },
+      "virtualboy": {
+        "file": "a87b66ea5c13bde43d8d.webp",
+        "platform": "virtualboy",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\virtualboy.webp"
+      },
+      "vpinball": {
+        "file": "b14a7ac1294b2df9aa16.webp",
+        "platform": "vpinball",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\vpinball.webp"
+      },
+      "vsmile": {
+        "file": "81ec0b8fe7c5f037a7df.webp",
+        "platform": "vsmile",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\vsmile.webp"
+      },
+      "wasm4": {
+        "file": "9db619683b4256bc2f07.webp",
+        "platform": "wasm4",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\wasm4.webp"
+      },
+      "wii": {
+        "file": "1d0f7e15d6ed1142469f.webp",
+        "platform": "wii",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\wii.webp"
+      },
+      "wiiu": {
+        "file": "9917e1ea0fc9197db9cf.webp",
+        "platform": "wiiu",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\wiiu.webp"
+      },
+      "windows": {
+        "file": "340d600392818df24133.webp",
+        "platform": "windows",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\windows.webp"
+      },
+      "windows3x": {
+        "file": "435890aaadc91b4dda36.webp",
+        "platform": "windows3x",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\windows3x.webp"
+      },
+      "windows9x": {
+        "file": "579f1c3fc579310bd09b.webp",
+        "platform": "windows9x",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\windows9x.webp"
+      },
+      "wonderswan": {
+        "file": "628418aeb9434344ed37.webp",
+        "platform": "wonderswan",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\wonderswan.webp"
+      },
+      "wonderswancolor": {
+        "file": "7cb5e8e5daa763f7f270.webp",
+        "platform": "wonderswancolor",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\wonderswancolor.webp"
+      },
+      "x1": {
+        "file": "ec31682fde561917952f.webp",
+        "platform": "x1",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\x1.webp"
+      },
+      "x68000": {
+        "file": "c07e4ff7b2eba74a40ea.webp",
+        "platform": "x68000",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\x68000.webp"
+      },
+      "xbox": {
+        "file": "f711da60664c04c146d7.webp",
+        "platform": "xbox",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\xbox.webp"
+      },
+      "xbox360": {
+        "file": "42d7fecef5991375b386.webp",
+        "platform": "xbox360",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\xbox360.webp"
+      },
+      "xboxone": {
+        "file": "06c1f52592fb04ceeed4.webp",
+        "platform": "xboxone",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\xboxone.webp"
+      },
+      "zmachine": {
+        "file": "56d8a024c2d296af6095.webp",
+        "platform": "zmachine",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\zmachine.webp"
+      },
+      "zx81": {
+        "file": "413fedc88760592beff7.webp",
+        "platform": "zx81",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\zx81.webp"
+      },
+      "zxnext": {
+        "file": "e54ebd7e367ea1629be2.webp",
+        "platform": "zxnext",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\zxnext.webp"
+      },
+      "zxspectrum": {
+        "file": "81e0cd9dd7f69d8862e2.webp",
+        "platform": "zxspectrum",
+        "source": "test_data\\themes\\original\\iisu-interpreted-es-de\\_inc\\systems\\artwork\\zxspectrum.webp"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "iconic",
+  "source_theme": "test_data/themes/original/iconic-es-de",
+  "staged": "artifacts/themes/staged/iconic",
+  "metadata_dir": "_inc/systems/metadata-global",
+  "slots": {
+    "carousel": "_inc/systems/carousel-icons",
+    "system": "_inc/systems/system",
+    "default-background": "_inc/systems/default-backgrounds",
+    "default-overlay": "_inc/systems/default-overlay",
+    "classic-background": "_inc/systems/classic-backgrounds",
+    "classic-overlay": "_inc/systems/classic-overlay",
+    "modern-background": "_inc/systems/modern-backgrounds",
+    "modern-overlay": "_inc/systems/modern-overlay"
+  },
+  "slot_ext": {},
+  "required_slots": [
+    "carousel",
+    "system"
+  ],
+  "badge_slots": [
+    "system",
+    "default-background",
+    "classic-background",
+    "modern-background"
+  ]
+}

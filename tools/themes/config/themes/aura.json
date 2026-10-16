@@ -1,0 +1,39 @@
+{
+  "id": "aura",
+  "source_theme": "test_data/themes/original/aura-es-de",
+  "staged": "artifacts/themes/staged/aura",
+  "metadata_dir": "_inc/system-metadata",
+  "slots": {
+    "controllers": "_inc/controllers",
+    "default-art": "_inc/default-art",
+    "logo-webp": "_inc/system-logo",
+    "logo-svg": "_inc/system-logo"
+  },
+  "slot_ext": {
+    "logo-svg": ".svg"
+  },
+  "directory_slots": {
+    "default-art": [
+      "",
+      "-blur-full-no-char",
+      "-blur-full-w-char",
+      "-blur-strip-w-char",
+      "-clear-full-w-char"
+    ]
+  },
+  "copy_only_suffixes": {
+    "default-art": [
+      ""
+    ]
+  },
+  "required_slots": [
+    "controllers",
+    "default-art",
+    "logo-webp",
+    "logo-svg"
+  ],
+  "badge_slots": [
+    "controllers",
+    "default-art"
+  ]
+}

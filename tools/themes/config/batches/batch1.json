@@ -1,0 +1,104 @@
+{
+  "batch": "batch1-nintendo-sony",
+  "theme_profile": "canvas",
+  "_paths": "源主题与输出目录统一取自 config/project.json（source_theme / staged），本文件不再写路径；如需临时覆盖可加 source_theme / output_theme 字段",
+  "slots_all": [
+    "art-dark",
+    "art-light",
+    "art-medium",
+    "capsule",
+    "ctrl-clear",
+    "ctrl-dark",
+    "ctrl-medium",
+    "logo-clear",
+    "logo-color",
+    "logo-dark",
+    "logo-light",
+    "screenshot",
+    "svglogo"
+  ],
+  "decisions": [
+    "3 个别名平台也加角标，但文案差异化：GBA hack=HACK、GBA vib=VIB、WII Ware=WARE（用户 2026-09-22 打字确认，纠正此前「统一 HACK」的窄理解）",
+    "角标文案保留区分：FC-HD=HD、SFC-MSU1=MSU1，其余改版平台=HACK",
+    "本批只处理任天堂 + 索尼范围；SS plus 大小写、MD hack 的 megacdjp svg logo、tetris 的 Vocaloid 名称均不在范围内，留到后续批次"
+  ],
+  "platforms": [
+    {
+      "name": "FC-HD",
+      "vendor": "Nintendo",
+      "action": "new",
+      "slots": "all",
+      "note": "全新：13 槽从 nes 复制 + 角标，新建 metadata xml"
+    },
+    {
+      "name": "SFC hack",
+      "vendor": "Nintendo",
+      "action": "new",
+      "slots": "all",
+      "note": "全新：13 槽从 sfc 复制 + 角标，新建 xml"
+    },
+    {
+      "name": "SFC-MSU1",
+      "vendor": "Nintendo",
+      "action": "new",
+      "slots": "all",
+      "note": "全新：与 SFC hack 同母体不同角标文案，新建 xml"
+    },
+    {
+      "name": "PS1 hack",
+      "vendor": "Sony",
+      "action": "new",
+      "slots": "all",
+      "note": "全新：13 槽从 psx 复制 + 角标，新建 xml"
+    },
+    {
+      "name": "PS2 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "别名平台：图标从 ps2 全套复制重命名并加角标，新建 xml"
+    },
+    {
+      "name": "nesh",
+      "vendor": "Nintendo",
+      "action": "patch",
+      "slots": [
+        "logo-clear",
+        "logo-color",
+        "logo-dark",
+        "logo-light",
+        "screenshot"
+      ],
+      "note": "原版缺这 5 槽；xml 已存在，仅把 systemName 由 Nintendo Hacks 改为 FC hack"
+    },
+    {
+      "name": "GBA HACK",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "别名平台：图标从 gba 全套复制重命名并加角标，新建 xml"
+    },
+    {
+      "name": "GBA vib",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "别名平台：图标从 gba 全套复制重命名并加角标，新建 xml"
+    },
+    {
+      "name": "WII Ware",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "别名平台：图标从 wii 全套复制重命名并加角标，新建 xml"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "psm",
+      "vendor": "Sony",
+      "reason": "13 槽全空且无素材来源，按用户决定本批跳过"
+    }
+  ],
+  "_platforms": "平台名保留已验证版本；theme/source/badge_text/system_name从共用platform_config读取，批次仅维护槽位及处理范围。"
+}

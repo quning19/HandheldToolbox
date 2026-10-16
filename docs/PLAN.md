@@ -1,6 +1,6 @@
 # 当前方案与后续计划
 
-更新日期：2026-10-14。当前交付天马G/Pegasus→Android ES-DE，保留RetroLibX架构和其他前端能力。运行入口见[README](../retrolibx/README.md)，当前代码及验收边界见[STATUS](../retrolibx/docs/STATUS.md)。
+更新日期：2026-10-14。当前交付天马G/Pegasus→Android ES-DE，保留RetroLibX架构和其他前端能力。运行入口见[README](../README.md)，当前代码及验收边界见[STATUS](../docs/engine/STATUS.md)。
 
 ## 已完成的设备计划
 

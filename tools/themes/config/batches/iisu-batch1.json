@@ -1,0 +1,79 @@
+{
+  "batch": "iisu-batch1-nintendo-sony",
+  "theme_profile": "iisu",
+  "slots_all": [
+    "artwork",
+    "controllers"
+  ],
+  "decisions": [
+    "目标平台资源优先使用 iisu 自己已有的文件；缺失时从母体平台复制并加标记",
+    "回退图片槽位统一使用当前右上角药丸标记方案",
+    "nesh 的 artwork/controllers 缺失时从 nes 回退"
+  ],
+  "platforms": [
+    {
+      "name": "FC-HD",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 nes 回退生成"
+    },
+    {
+      "name": "SFC hack",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 回退生成"
+    },
+    {
+      "name": "SFC-MSU1",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 sfc 回退生成"
+    },
+    {
+      "name": "PS1 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 psx 回退生成"
+    },
+    {
+      "name": "PS2 hack",
+      "vendor": "Sony",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 ps2 回退生成"
+    },
+    {
+      "name": "nesh",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "优先使用 nesh，自身缺失时从 nes 回退"
+    },
+    {
+      "name": "GBA HACK",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 回退生成"
+    },
+    {
+      "name": "GBA vib",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 gba 回退生成"
+    },
+    {
+      "name": "WII Ware",
+      "vendor": "Nintendo",
+      "action": "alias",
+      "slots": "all",
+      "note": "从 wii 回退生成"
+    }
+  ],
+  "_platforms": "平台名保留已验证版本；theme/source/badge_text/system_name从共用platform_config读取，批次仅维护槽位及处理范围。"
+}

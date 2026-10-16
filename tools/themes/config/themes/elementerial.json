@@ -1,0 +1,24 @@
+{
+  "id": "elementerial",
+  "source_theme": "test_data/themes/original/elementerial-es-de",
+  "staged": "artifacts/themes/staged/elementerial",
+  "metadata_dir": "_inc/systems/metadata-global",
+  "metadata_copy_dirs": [
+    "_inc/systems/metadata-custom"
+  ],
+  "slots": {
+    "artwork-classic": "_inc/systems/artwork (classic)",
+    "artwork-modern": "_inc/systems/artwork (modern)",
+    "logos": "_inc/systems/logos"
+  },
+  "slot_ext": {},
+  "required_slots": [
+    "artwork-classic",
+    "artwork-modern",
+    "logos"
+  ],
+  "badge_slots": [
+    "artwork-classic",
+    "artwork-modern"
+  ]
+}

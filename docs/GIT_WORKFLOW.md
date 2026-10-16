@@ -1,6 +1,6 @@
 # 本地 Git 工作流
 
-2026-10-14建立。仓库根目录为`FrontendTransTool/`，Python源码和运行入口仍在`retrolibx/`；本次没有实现Web应用或改动业务逻辑。
+2026-10-14建立。仓库根目录为`FrontendTransTool/`。2026-10-16 源码提升到根目录 `src/`，当前功能分支为 `codex/independent-tools`，结构见 [ARCHITECTURE](ARCHITECTURE.md)。以下旧分支、基线及测试记录保留作历史追溯。
 
 ## 分支与基线
 
@@ -53,7 +53,7 @@ git merge --no-ff feature/web-app -m "merge: integrate web application"
 - 忽略：test_data、references、jobs、.deps、虚拟环境、缓存、构建产物、node_modules及本地.env文件。被忽略的本地数据不由Git保存。
 - `upstream`保留`https://github.com/tiancheng91/retrolibx.git`，供来源追溯；main不跟踪upstream/main，避免日常pull误用原项目分支。
 - 尚未配置origin、创建线上仓库或推送；现有Git作者信息继续使用本机配置。
-- 原GitHub Actions文件仍在`retrolibx/.github/workflows/`，作为原项目配置保留。当前没有启用根目录CI或线上发布；后续接入远程时再按项目结构处理。
+- 原 GitHub Actions 文件迁入 `docs/archive/retrolibx/github/` 保留，当前没有启用根目录 CI 或线上发布。
 
 仓库初始化时仅静态查看Git状态、文件清单及文档diff，未执行测试、lint、类型检查、构建或设备操作。后续文件夹封面修复的获批测试范围见上述记录。
 

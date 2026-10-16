@@ -1,0 +1,108 @@
+{
+  "active_candidate": "P_pill_top_right",
+  "_comment": "正式构建使用 active_candidate 指定的候选方案；default 保留旧版底部通栏参数作为实验基线。源主题与参考主题路径来自 config/project.json。",
+  "reference": {
+    "slot": "_inc/carousel-icons-art/dark",
+    "system": "SFC hack"
+  },
+  "default": {
+    "style": "bar",
+    "position": "bottom",
+    "align": "center",
+    "text": "HACK",
+    "scale_h": 0.10,
+    "font_ratio": 0.077,
+    "bg": "#000000",
+    "fg": "#B0B0B0",
+    "opacity": 100,
+    "margin": 0.045,
+    "scale_w": 0.30,
+    "radius_ratio": 0.0,
+    "stroke": null,
+    "stroke_ratio": 0.0,
+    "font": "arialbd"
+  },
+  "slot_overrides": {
+    "_comment": "预留：若某槽位需单独参数，按槽位名覆盖 default 里的字段。当前为空 = 全槽位统一用 default。"
+  },
+  "fonts": {
+    "arialbd": "C:/Windows/Fonts/arialbd.ttf",
+    "impact": "C:/Windows/Fonts/impact.ttf",
+    "seguisb": "C:/Windows/Fonts/seguisb.ttf",
+    "verdanab": "C:/Windows/Fonts/verdanab.ttf",
+    "msyhbd": "C:/Windows/Fonts/msyhbd.ttc"
+  },
+  "candidates": [
+    {
+      "name": "default_v2",
+      "enabled": true,
+      "note": "旧版底部通栏实验基线，不用于当前正式构建"
+    },
+    {
+      "name": "P_pill_top_right",
+      "enabled": true,
+      "note": "GBA HACK 第六版试样：药丸高度=min(0.065×(画布长边+半个短边)+15像素, 140像素)；右上半透明黑色药丸、白字；有圆角画面板时按画面板定位，否则按画布留白",
+      "style": "pill",
+      "position": "top-right",
+      "scale_h": 0.065,
+      "size_add_px": 15,
+      "max_height_px": 140,
+      "font_to_pill_ratio": 0.62,
+      "pill_padding_ratio": 0.38,
+      "frame_margin_ratio": 0.035,
+      "margin": 0.045,
+      "bg": "#000000",
+      "fg": "#FFFFFF",
+      "opacity": 170
+    },
+    {
+      "name": "A_ribbon_red",
+      "enabled": false,
+      "note": "备选：左上红缎带（对齐 PG 现成做法的水平版）",
+      "style": "ribbon",
+      "position": "top-left",
+      "scale_w": 0.30,
+      "scale_h": 0.088,
+      "font_ratio": 0.056,
+      "bg": "#D0021B",
+      "fg": "#FFFFFF",
+      "opacity": 255
+    },
+    {
+      "name": "C_badge_dark",
+      "enabled": false,
+      "note": "备选：左上圆角徽章",
+      "style": "badge",
+      "scale_w": 0.26,
+      "scale_h": 0.075,
+      "radius_ratio": 0.018,
+      "font_ratio": 0.056,
+      "bg": "#000000",
+      "opacity": 170,
+      "fg": "#FFFFFF"
+    },
+    {
+      "name": "F_text_stroke",
+      "enabled": false,
+      "note": "备选：无底板纯文字描边",
+      "style": "text",
+      "font_ratio": 0.072,
+      "fg": "#FFFFFF",
+      "stroke": "#000000",
+      "stroke_ratio": 0.006
+    }
+  ],
+  "samples": [
+    { "tag": "nes",    "system": "nes",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "sfc",    "system": "sfc",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "gba",    "system": "gba",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "n64",    "system": "n64",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "gc",     "system": "gc",     "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "switch", "system": "switch", "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "psx",    "system": "psx",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "ps2",    "system": "ps2",    "slot": "_inc/carousel-icons-art/dark", "text": "HACK" },
+    { "tag": "sfc_capsule", "system": "sfc", "slot": "_inc/carousel-icons-capsule", "text": "HACK" },
+    { "tag": "sfc_shot",    "system": "sfc", "slot": "_inc/carousel-icons-screenshot", "text": "HACK" },
+    { "tag": "sfc_logo",    "system": "sfc", "slot": "_inc/carousel-icons-logo/color", "text": "HACK" }
+  ]
+}

@@ -1,6 +1,6 @@
 # 资源与目录清单
 
-更新于2026-10-14。Git仓库位于FrontendTransTool根目录，产品代码仍位于retrolibx；项目文档统一纳入版本管理，真实资源、运行环境和产物由Git忽略。分支约定见[Git工作流](GIT_WORKFLOW.md)。
+2026-10-16 结构已调整：产品代码在根目录 src，当前资源分类见 [ARCHITECTURE](ARCHITECTURE.md) 和 [工作目录](WORKSPACE_DATA.md)。七套完整真实主题、旧 dist/lab、原项目完整归档及 GBA 样本均在本地保留，运行时不依赖旧相邻项目。以下为 2026-10-14 历史资源清单与清理记录，旧路径用于追溯；分支约定见 [Git 工作流](GIT_WORKFLOW.md)。
 
 | 位置 | 用途及保留规则 |
 |---|---|
@@ -13,7 +13,7 @@
 | jobs | 导出、任务、索引、设备快照及报告，见[索引](../jobs/README.md) |
 | references/tools、references/apks | 原第三方工具、说明和APK，保留，不作为运行依赖 |
 | docs/archive | 旧方案、评估和详细过程，不驱动实施 |
-| retrolibx/docs/archive | 上游设计、原review、旧模板及许可 |
+| docs/engine/archive | 上游设计、原review、旧模板及许可 |
 | .deps/tooling | 本地uv工具保留，uv-cache可清理 |
 | .deps/theme-tests-py39 | 已准备的主题项目Python 3.9依赖，保留 |
 
@@ -31,4 +31,4 @@ GT78原APK作为提取缓存，在记录来源与SHA-256后清理；Android XML�
 
 研究缓存清理后，历史报告仍保留；重现时按[开源评估](OPEN_SOURCE.md)的来源及版本重新获取，不将旧绝对路径当成当前配置。
 
-必读入口为[代码README](../retrolibx/README.md)、[STATUS](../retrolibx/docs/STATUS.md)及所需功能说明。测试数据和历史检查器见[test_data说明](../test_data/README.md)，执行这些检查仍需用户批准。
+必读入口为[代码README](../README.md)、[STATUS](../docs/engine/STATUS.md)及所需功能说明。测试数据和历史检查器见[test_data说明](../test_data/README.md)，执行这些检查仍需用户批准。
