@@ -15,7 +15,7 @@
 ## 验证与交付
 
 - 自动检查：[独立工具测试](../TESTS_INDEPENDENT_TOOLS_20261016.md)、[本地功能测试](../TESTS_FUNCTIONAL_20261016.md)、[主题管理定向测试](../TESTS_THEME_MANAGER_20261016.md)已有通过记录。失败项修复后按范围复测，未在最终修改后重跑全仓库。
-- 本轮改动纳入 main 源码版本，仓库为 [quning19/HandheldToolbox](https://github.com/quning19/HandheldToolbox)；未构建或发布独立 EXE。本次整理与更名未重新运行测试或操作设备。
+- 本轮主题管理、更名及文档／许可整理已提交并推送至 origin/main，仓库为 [quning19/HandheldToolbox](https://github.com/quning19/HandheldToolbox)；未构建或发布独立 EXE。本次整理与更名未重新运行测试或操作设备。
 - 本地目录、工作目录设置及虚拟环境路径已迁移至 HandheldToolbox，原配置已备份；Codex 项目设置由用户手动调整。
 
 后续问题按实际反馈跟进，独立 EXE 发布按需要安排。页面约定见 [界面说明](../WINDOWS_UI_PLAN.md)，转换规则见 [主题说明](../THEME_CONVERSION.md)，实施历史见 [调整记录](../CHANGELOG.md)，后续事项见 [计划](../PLAN.md)。
