@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from pathlib import Path, PurePosixPath
+from uuid import uuid4
 
 from retrolibx.core.models import (
     Capabilities,
@@ -28,7 +29,8 @@ from retrolibx.utils.encoding import detect_metadata_encoding
 from ..base import DetectionResult, ImportResult, LibraryAdapter
 from .metadata import field, parse_metadata, render_records
 from .media import canonical_role
-from retrolibx.core.media import supported_media
+from .asset_discovery import AssetFiles, discover_media
+from .savedeck_policy import canonical_fields, plain_text
 
 
 class PegasusAdapter(LibraryAdapter):
@@ -77,6 +79,10 @@ class PegasusAdapter(LibraryAdapter):
             except (OSError, UnicodeError, LookupError) as exc:
                 raise ParseError(f"Could not read {metadata_path}: {exc}") from exc
             records = parse_metadata(text)
+            original_records = records
+            official_policy = profile.pegasus_policy == "savedeck-1.0.1"
+            if official_policy:
+                records = [canonical_fields(record) for record in records]
             if not records or not any("collection" in record for record in records):
                 raise ParseError(f"No collection in {metadata_path}")
             if sum("collection" in record for record in records) != 1:
@@ -104,11 +110,14 @@ class PegasusAdapter(LibraryAdapter):
                 name=system_record.name if system_record else collection_name,
                 metadata={
                     "pegasus": collection,
+                    **({"pegasus_original": next((record for record in original_records if "collection" in record), {})}
+                       if official_policy else {}),
                     "source_root": str(metadata_path.parent.resolve()),
                     "source_platform": metadata_path.parent.relative_to(root).as_posix(),
                     "metadata_sha256": hashlib.sha256(metadata_bytes).hexdigest(),
                 },
             )
+            media_files = AssetFiles(metadata_path.parent) if profile.media_directory is not None and profile.media_fallbacks else None
             for record_index, record in enumerate(game_records):
                 filenames = [
                     value for key in ("file", "files") for value in record.get(key, []) if value
@@ -157,7 +166,8 @@ class PegasusAdapter(LibraryAdapter):
                     roms.append(
                         Rom(
                             path=actual,
-                            metadata={"source_path": filename, "relative_path": relative},
+                            metadata={"source_path": filename, "relative_path": relative,
+                                      **({"savedeck": {"id": str(uuid4())}} if official_policy else {})},
                         )
                     )
                 players_min, players_max = parse_players(field(record, "players"))
@@ -172,16 +182,26 @@ class PegasusAdapter(LibraryAdapter):
                     rating = None
                 assets: dict[str, Path] = {}
                 for key, values in record.items():
+                    values = [value.strip() for value in values if value.strip()]
                     if not key.startswith("assets.") or not values:
                         continue
                     kind = canonical_role(key.removeprefix("assets."))
-                    value = values[-1]
+                    value = values[0].strip() if official_policy else values[-1]
                     if ".." in PurePosixPath(value.replace("\\", "/")).parts:
                         raise ParseError(f"Unsafe media reference: {value}")
                     aliased = options.media_path_aliases.get(system.metadata["source_platform"], {}).get(value)
-                    resolved_asset = aliased.resolve() if aliased else resolver.resolve(
-                        value, bases=(metadata_path.parent,), preferred_parts=("media", "images", kind),
-                    )
+                    if aliased is None and options.device_rom_root and PurePosixPath(value).is_absolute():
+                        remote_platform = PurePosixPath(options.device_rom_root) / system.metadata["source_platform"]
+                        reference = PurePosixPath(value)
+                        if reference.is_relative_to(remote_platform):
+                            aliased = metadata_path.parent.joinpath(*reference.relative_to(remote_platform).parts)
+                    if official_policy or media_files is not None:
+                        direct = (metadata_path.parent / value.replace("\\", "/")).resolve()
+                        resolved_asset = aliased.resolve() if aliased else direct if direct.is_file() else None
+                    else:
+                        resolved_asset = aliased.resolve() if aliased else resolver.resolve(
+                            value, bases=(metadata_path.parent,), preferred_parts=("media", "images", kind),
+                        )
                     if (
                         options.platforms
                         and resolved_asset
@@ -193,52 +213,9 @@ class PegasusAdapter(LibraryAdapter):
                         strict=False
                     )
                 game_name = field(record, "game") or Path(filenames[0]).stem
-                for role, basename in profile.media_fallbacks.items():
-                    aliases = (role, "boxfront") if role == "box_front" else (role,)
-                    existing = next((assets[k] for k in aliases if k in assets), None)
-                    if existing and existing.is_file() and supported_media(existing, role):
-                        assets[aliases[0]] = existing
-                        continue
-                    if profile.media_directory is None:
-                        continue
-                    folder = metadata_path.parent / profile.media_directory / game_name
-                    stems = basename if isinstance(basename, list) else [basename]
-                    names = {name.casefold() for name in stems}
-                    candidates = (
-                        [
-                            p
-                            for p in folder.iterdir()
-                            if p.is_file()
-                            and p.stem.casefold() in names
-                            and supported_media(p, role)
-                            and p.resolve().is_relative_to(scope_root.resolve())
-                        ]
-                        if folder.is_dir()
-                        and folder.resolve().is_relative_to(metadata_path.parent.resolve())
-                        else []
-                    )
-                    if len(candidates) == 1:
-                        assets[aliases[0]] = candidates[0].resolve()
-                        if existing:
-                            diagnostics.append(
-                                Diagnostic(
-                                    severity="info",
-                                    code="repaired-media-reference",
-                                    message=f"{game_name}: {existing} -> {candidates[0]}",
-                                    path=metadata_path,
-                                    game_name=game_name,
-                                )
-                            )
-                    else:
-                        diagnostics.append(
-                            Diagnostic(
-                                severity="warning",
-                                code="missing-media",
-                                message=f"{game_name}: {aliases[0]} media missing or ambiguous",
-                                path=metadata_path,
-                                game_name=game_name,
-                            )
-                        )
+                if media_files is not None:
+                    assets = discover_media(media_files, game_name, [rom.path for rom in roms],
+                                            assets, profile, metadata_path, diagnostics)
                 if "boxfront" in assets:
                     assets.setdefault("box_front", assets.pop("boxfront"))
                 media_fields = {
@@ -272,8 +249,9 @@ class PegasusAdapter(LibraryAdapter):
                     roms=roms,
                     media=media,
                     description=(
-                        field(record, "description") or field(record, "summary") or ""
-                    ).replace("\\n", "\n") or None,
+                        plain_text(field(record, "description") or field(record, "summary") or "")
+                        if official_policy else (field(record, "description") or field(record, "summary") or "").replace("\\n", "\n")
+                    ) or None,
                     developer=field(record, "developer"),
                     publisher=field(record, "publisher"),
                     genre=[
@@ -292,6 +270,8 @@ class PegasusAdapter(LibraryAdapter):
                     source_metadata={
                         "pegasus": unknown, "pegasus_fields": record,
                         "pegasus_record_index": record_index,
+                        **({"pegasus_original": [entry for entry in original_records if "game" in entry][record_index]}
+                           if official_policy else {}),
                     },
                 )
                 profile.normalize_game(game)

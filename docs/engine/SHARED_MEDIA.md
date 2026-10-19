@@ -9,7 +9,7 @@
 | 普通 convert | 关闭；只复制，源metadata和媒体不变 | `--shared-pegasus --rom-mode none` |
 | Android build | `shared_pegasus: false`；任务只发布ES-DE | 配置 `"shared_pegasus": true` |
 
-Android仍只处理明确选中的平台，平台内全部游戏按匹配结果补充三类素材引用；全库迁移需明确选择全部平台。缺失或歧义的素材不猜测，不修改其原引用，并在报告中说明。默认不开启时不产生原metadata更新或源媒体清理计划。
+Android仍只处理明确选中的平台，平台内全部游戏按匹配结果补充三类素材引用；全库迁移需明确选择全部平台。补找采用来源规则中明确的目录优先级及同级首选，并报告多个候选；没有候选或状态未知时，不修改其原引用。默认不开启时不产生原metadata更新或源媒体清理计划。
 
 | Pegasus字段 | ES-DE目录 | 天马补找名 |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ Android仍只处理明确选中的平台，平台内全部游戏按匹配结果�
 | logo | marquees | logo / wheel |
 | video | videos | video |
 
-原ROM相对目录保留，目标按每个ROM文件名去扩展名命名。图片支持PNG/JPG/JPEG/WebP，视频支持MP4/MKV/AVI/WMV/MOV/WebM；JPEG使用.jpg后缀，字节不转码、不缩放。显式有效引用优先，缺失或失效时按来源profile补找；多个有效候选报告歧义，generic默认不补找。
+原ROM相对目录保留，目标按每个ROM文件名去扩展名命名。图片支持PNG/JPG/JPEG/WebP，视频支持MP4/MKV/AVI/WMV/MOV/WebM；JPEG使用.jpg后缀，字节不转码、不缩放。显式有效引用优先，缺失或失效时按来源profile补找；ES-DE／SaveDeck 的天马来源共用按目录优先级选择的规则，同级多个候选选排序后的第一个并报告，generic默认不补找。补找候选扩展名沿用 PegasusGGameManager（视频不包含 WMV），完整规则见 [SOURCE_PROFILES.md](SOURCE_PROFILES.md#媒体)。
 
 mini、背面、截图、标题画面、背景、卡带/光盘、manual、music等不迁移；原文件夹不整体删除。被其他素材字段、collection默认素材或其他metadata引用的源文件继续保留并报告，避免产生失效引用。
 

@@ -57,6 +57,7 @@ def builtin_registry(systems: SystemRegistry | None = None) -> AdapterRegistry:
     from .pegasus.adapter import PegasusAdapter
     from .retroarch.adapter import RetroArchAdapter
     from .rocknix.adapter import RocknixAdapter
+    from .savedeck.adapter import SaveDeckAdapter
 
     registry = AdapterRegistry(systems or SystemRegistry.load())
     for adapter in (
@@ -65,6 +66,7 @@ def builtin_registry(systems: SystemRegistry | None = None) -> AdapterRegistry:
         RocknixAdapter,
         ESDEAdapter,
         PegasusAdapter,
+        SaveDeckAdapter,
     ):
         registry.register(adapter)
     return registry

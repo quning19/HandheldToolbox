@@ -1,6 +1,6 @@
 # 游戏库转换业务说明
 
-更新日期：2026-10-16。当前业务入口为 `python -m library_converter`，GUI 汇总调用；保留的 `python -m retrolibx.cli` 是通用引擎及原 Android 任务入口。前者的电脑转换会处理完整平台配置，不能与原引擎普通 convert 的行为混为一谈。拆分前的详细模型、旧目录和选型过程见 [历史说明](archive/guides/2026-10-16-project-guide-before-split.md)。
+更新日期：2026-10-19。当前业务入口为 `python -m library_converter`，GUI 汇总调用；保留的 `python -m retrolibx.cli` 是通用引擎及原 Android 任务入口。前者的电脑转换会处理完整平台配置，不能与原引擎普通 convert 的行为混为一谈。拆分前的详细模型、旧目录和选型过程见 [历史说明](archive/guides/2026-10-16-project-guide-before-split.md)。
 
 ## 导入、计数和选择
 
@@ -10,11 +10,11 @@
 
 ## 增量、全量与列表合并
 
-Windows 业务默认按平台和 ROM 相对路径与已有 gamelist 比对：已有入口跳过，新增入口处理。全量替换会重新处理所选平台当前识别到的入口及媒体，不清空目标，也不删除旧额外条目。来源 ROM 移动/改名视为新路径，不自动转移统计。
+GUI／独立工具的 ES-DE、SaveDeck 按平台和 ROM 相对路径同步。共同有效集合由 metadata 登记、ROM 存在及描述文件从属关系确定。默认只处理新增入口及媒体，已有有效入口跳过；metadata 删除、ROM 删除或成为从属文件的旧入口从目标列表移除，即使实际文件仍在也不保留未登记条目。全量覆盖所选平台全部有效入口的来源资料、媒体和启动配置。两种模式都不清理媒体，不删除 ROM；ROM 移动／改名视为新路径。
 
-转换引擎统一使用 merge_gamelists：旧非空 name、desc、sortname、favorite、playcount、lastplayed、altemulator 等字段保留，空字段补齐、新入口追加，旧额外游戏/文件夹/未知 XML 字段保留。相同路径重复或越界报错，不猜测合并对象；计划和发布保留基线保护及旧文件备份。该合并不是游玩统计求和，也不保证 XML 排版和编码逐字节不变。
+入口选择共用 core/entries.py，XML／TOML 仍由各自适配器合并。默认保留有效旧条目原有字段；全量以本次来源重建来源管理字段，包括清除来源已不再提供的旧字段。两种模式均保留已有 ID／UUID、favorite、hidden、playcount／play_count、lastplayed／last_played 等身份和使用状态，未知目标扩展字段保留。保留配置基线和备份；不累加统计，不保证排版逐字节不变。底层 Pegasus → ES-DE／SaveDeck 的 ROM none 转换同样执行入口同步；其他格式及传统 merge 用法保留其原合并接口。
 
-新列表保持来源游戏与 ROM 展开顺序，游戏 sort/sort-by 映射到 sortname，旧非空排序仍优先。平台排序及相同键的版本显示次序不在本次改造范围。普通 Pegasus 的原始自定义字段可留在模型中，不代表全部写成 ES-DE 字段。
+新列表按来源游戏与有效 ROM 顺序生成；默认保留有效旧条目排序，SaveDeck 新入口追加数字排序号；全量重新采用来源排序。平台排序及相同键的版本显示次序不在本次改造范围。普通 Pegasus 的原始自定义字段可留在模型中，不代表全部写成 ES-DE 字段。
 
 ## 媒体与平台
 
@@ -22,7 +22,7 @@ Windows 业务默认按平台和 ROM 相对路径与已有 gamelist 比对：已
 
 共用素材默认关闭；开启后先核对副本，再局部更新原 metadata 并清理允许迁移的源媒体，保留仍被其他字段引用的素材。详见 [共用素材](SHARED_MEDIA.md)。主题插画角标生成属于另一个工具，不受游戏媒体“不加工”的限制。
 
-平台四文件基线在 `src/frontend_platforms/custom_systems-PG/`，不依赖相邻主题工程。新目标完整初始化，已有配置保留用户节点和命令、补齐所需平台。用户平台升级合并见 [统一平台](PLATFORMS.md)。
+平台四文件基线在 `src/frontend_platforms/custom_systems-PG/`，不依赖相邻主题工程。新目标完整初始化；默认保留已有平台节点和命令，补齐所需平台。全量刷新所选平台的启动命令，其他平台不受影响。用户平台升级合并见 [统一平台](PLATFORMS.md)。
 
 ## 设备与启动边界
 

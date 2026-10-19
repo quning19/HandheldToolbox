@@ -47,6 +47,27 @@ def window(qt_app, request):
         qt_app.processEvents()
 
 
+def test_savedeck_target_switch_resets_session_and_keeps_the_source(window, qt_app):
+    page = window.library
+    page.source.setCurrentIndex(1)
+    page.computer_root.setText(str(window.store.workspace.parent / "roms"))
+    source = page.source_key()
+    page.session = object()
+    page.shared.setChecked(True)
+    page.frontend.setCurrentText("SaveDeck")
+    qt_app.processEvents()
+    assert page.session is None
+    assert page.source_key() == source
+    assert page.shared.isHidden() and not page.shared.isChecked()
+    assert page.full.text() == "全量覆盖"
+    assert page.start.text() == "导出到原目录"
+    page.source.setCurrentIndex(0)
+    assert page.start.text() == "导出并推送"
+    page.frontend.setCurrentText("ES-DE")
+    assert not page.shared.isHidden()
+    assert page.start.text() == "开始转换"
+
+
 def test_offscreen_startup_pages_and_fixed_progress(window, qt_app):
     size = window.size()
     for index, page in enumerate((window.library, window.themes, window.settings)):

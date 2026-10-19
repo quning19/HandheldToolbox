@@ -2,11 +2,11 @@
 
 # GT78设备GBA红宝石核对及游典结论修正
 
-日期：2026-10-12。检查授权实体设备GT78_VN，序列号BW02112230003736；另有模拟器连接，本轮未访问模拟器。通过ADB只读查看内置ES-DE及外置SD卡ROM，按用户要求下载1个gamelist.xml，没有写入设备或启动游戏。
+日期：2026-10-12。检查授权实体设备GT78_VN，序列号已脱敏；另有模拟器连接，本轮未访问模拟器。通过ADB只读查看内置ES-DE及外置SD卡ROM，按用户要求下载1个gamelist.xml，没有写入设备或启动游戏。
 
 ## 确认的结果
 
-设备内置ES-DE位于/storage/emulated/0/ES-DE，ROM位于/storage/9C33-6BBD/Roms/gba。设备安装游典1.0.8，ES-DE 3.4.1-58。
+设备内置ES-DE位于/storage/emulated/0/ES-DE，ROM位于/storage/<SD_VOLUME>/Roms/gba（存储卷标已脱敏）。设备安装游典1.0.8，ES-DE 3.4.1-58。
 
 GBA gamelist共643条game记录，每条都有path和desc，精确路径无重复。641条使用绝对路径，2条使用相对路径。这与此前output_youdian中48条都缺path的结果明显不同。
 

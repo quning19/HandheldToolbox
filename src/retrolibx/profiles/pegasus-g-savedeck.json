@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "name": "pegasus-g-savedeck",
+  "pegasus_policy": "savedeck-1.0.1",
+  "media_directory": "media",
+  "media_fallbacks": {
+    "box_front": [
+      "boxfront", "box_front", "boxart2d"
+    ],
+    "logo": ["logo", "wheel"],
+    "video": "video"
+  },
+  "developer_as_version_note": false
+}

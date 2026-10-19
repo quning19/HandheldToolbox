@@ -14,6 +14,7 @@ import re
 from pathlib import Path, PurePosixPath
 
 from retrolibx.core.android import android_path
+from retrolibx.core.entries import DISC_EXTENSIONS
 from retrolibx.core.executor import PlanExecutor
 from retrolibx.core.operations import ExportIntent, FileRequest, TextRequest
 from retrolibx.core.options import ExportOptions
@@ -160,6 +161,48 @@ def _archive_files(raw: bytes) -> dict[str, bytes]:
     except tarfile.TarError as exc:
         raise ValidationError(f"Invalid remote archive: {exc}") from exc
     return result
+
+
+def capture_pegasus_source(reader: AdbReader, source_root: str, output: Path) -> list[str]:
+    """Capture source lists and file names for metadata-only frontend exports."""
+    source = android_path(source_root)
+    if output.exists():
+        raise ValidationError("来源捕获目录必须是新目录")
+    q = shlex.quote
+    names = reader.read(f"find {q(str(source))} -type f -print0").decode("utf-8").split("\0")
+    relatives = set()
+    case_names = {}
+    for name in filter(None, names):
+        path = android_path(name).relative_to(source)
+        if not path.parts or ":" in str(path) or "\\" in str(path):
+            raise ValidationError(f"无效的设备文件路径：{name}")
+        key = path.as_posix().casefold()
+        if key in case_names and case_names[key] != path.as_posix():
+            raise ValidationError(f"电脑捕获目录不能表示仅大小写不同的设备路径：{path}")
+        case_names[key] = path.as_posix()
+        relatives.add(path.as_posix())
+    metadata = sorted(name for name in relatives if PurePosixPath(name).name == "metadata.pegasus.txt")
+    if not metadata:
+        raise ValidationError("所选目录没有 metadata.pegasus.txt。")
+    downloads = metadata + sorted(name for name in relatives
+                                  if PurePosixPath(name).name == "savedeck.toml"
+                                  or PurePosixPath(name).suffix.casefold() in DISC_EXTENSIONS)
+    contents = {}
+    for offset in range(0, len(downloads), 48):
+        batch = downloads[offset:offset + 48]
+        payload = _archive_files(reader.read(f"tar -cf - -C {q(str(source))} " + " ".join(q(name) for name in batch)))
+        if set(payload) != set(batch):
+            raise ValidationError("来源配置捕获不完整")
+        contents.update(payload)
+    output.mkdir(parents=True)
+    for name in sorted(relatives):
+        destination = output.joinpath(*PurePosixPath(name).parts)
+        destination.resolve().relative_to(output.resolve())
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        # Only metadata, TOML and disc descriptors have content; binary ROMs and
+        # media remain file-name markers, never downloaded or uploaded.
+        destination.write_bytes(contents.get(name, b""))
+    return [PurePosixPath(name).parent.as_posix() for name in metadata]
 
 
 def capture_device(

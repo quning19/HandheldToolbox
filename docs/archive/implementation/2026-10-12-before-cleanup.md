@@ -70,7 +70,7 @@ MuMu已安装ES-DE 3.4.1-58；此前有过列表/媒体显示检查，后续由�
 
 ## RP6完整配置确认
 
-2026-10-12。当前设备27692c74，ROM根目录/storage/546B-6466/Roms，ES-DE目录/storage/emulated/0/ES-DE。主题工具source/configs/custom_systems-PG内四个XML与RP6/custom_systems逐字节一致，SHA-256一致，双方均76个平台。该目录确认作为最终完整基线；此前将其称作历史参考不准确。
+2026-10-12。当前设备序列号已脱敏，ROM根目录/storage/<SD_VOLUME>/Roms（存储卷标已脱敏），ES-DE目录/storage/emulated/0/ES-DE。主题工具source/configs/custom_systems-PG内四个XML与RP6/custom_systems逐字节一致，SHA-256一致，双方均76个平台。该目录确认作为最终完整基线；此前将其称作历史参考不准确。
 
 [完整配置副本](../../../jobs/rp6-complete-config-20261012/custom_systems)与[对比记录](../../../jobs/rp6-complete-config-20261012/comparison.json)已保存在电脑。掌机只读，未写入、安装或启动应用。
 

@@ -17,6 +17,7 @@ from retrolibx.core.operations import ConversionPlan, ExecutionReport
 from retrolibx.core.options import ConflictPolicy, ExportOptions, ImportOptions, MediaMode, RomMode
 from retrolibx.core.planner import ConversionPlanner
 from retrolibx.core.validation import validate_library
+from retrolibx.core.entries import select_entries
 from retrolibx.errors import ValidationError
 from retrolibx.registry import SystemRegistry
 from retrolibx.utils.discovery import rom_relative_path
@@ -72,9 +73,33 @@ class ConversionService:
         export_options: ExportOptions | None = None,
         dry_run: bool = False,
     ) -> ConversionResult:
-        source_adapter, library = self.import_library(source, source_format, import_options)
         target_adapter = self.adapters.resolve(target_format)
+        if target_adapter.name == "savedeck" and (import_options is None or import_options.source_profile is None):
+            import_options = (import_options or ImportOptions()).model_copy(update={
+                "source_profile": Path(__file__).parents[1] / "profiles/pegasus-g-savedeck.json",
+            })
+        source_adapter, library = self.import_library(source, source_format, import_options)
         options = export_options or ExportOptions()
+        synchronize = source_adapter.name == "pegasus" and target_adapter.name in {"es-de", "savedeck"} and options.rom_mode == RomMode.NONE
+        if synchronize:
+            existing = {}
+            from retrolibx.adapters.savedeck.document import parse_document
+            from retrolibx.adapters.savedeck.adapter import platform_directory
+            from retrolibx.adapters.esde.merge import parse_xml, relative_game_path
+            for system in library.systems:
+                name = system.metadata.get("target_system", system.id)
+                if target_adapter.name == "savedeck":
+                    name = platform_directory(system).as_posix()
+                    system.metadata["target_system"] = name
+                    path = target / platform_directory(system) / "savedeck.toml"
+                    existing[name] = {game["file"].casefold() for game in parse_document(path.read_bytes())["games"]} if path.is_file() else set()
+                else:
+                    path = target / "gamelists" / name / "gamelist.xml"
+                    existing[name] = {relative_game_path(game.findtext("path") or "", system.metadata["source_root"]).removeprefix("./").casefold()
+                                      for game in parse_xml(path.read_bytes(), "gameList").findall("game")} if path.is_file() else set()
+            select_entries(library, existing, skip_existing=options.conflict != ConflictPolicy.OVERWRITE)
+            if any(item.severity == "error" for item in library.diagnostics):
+                raise ValidationError("Resolve source library errors before synchronizing entries")
         if options.shared_pegasus and target_adapter.name != "es-de":
             raise ValidationError("--shared-pegasus is only available for ES-DE exports")
         if options.shared_pegasus and options.conflict == ConflictPolicy.RENAME:
@@ -84,6 +109,22 @@ class ConversionService:
         if options.shared_pegasus and any(d.severity == "error" for d in library.diagnostics):
             raise ValidationError("Resolve source library errors before migrating shared media")
         intent = target_adapter.render_library(library, target, options)
+        intent.diagnostics.extend(item for item in library.diagnostics if item.severity != "error")
+        if target_adapter.name == "savedeck":
+            from retrolibx.adapters.savedeck.adapter import platform_directory
+            from retrolibx.adapters.savedeck.merge import merge_lists
+
+            source_roots = {}
+            for system in library.systems:
+                rom = next((rom for game in system.games for rom in game.roms), None)
+                root = system.metadata.get("source_root")
+                if root is None:
+                    root = (rom.path.resolve().parents[len(rom_relative_path(rom.path, rom.metadata).parts) - 1]
+                            if rom else library.source_path or source)
+                source_roots[platform_directory(system).as_posix()] = Path(root)
+            merge_lists(intent, target, source_roots=source_roots, replace=options.conflict == ConflictPolicy.OVERWRITE,
+                        valid_files={platform_directory(system).as_posix(): set(system.metadata["valid_rom_paths"])
+                                     for system in library.systems} if synchronize else None)
         if target_adapter.name == "es-de":
             rom_roots: dict[str, str] = {}
             for system in library.systems:
@@ -99,9 +140,12 @@ class ConversionService:
                             roots.add(rom.path.resolve().parents[len(relative.parts) - 1])
                     if len(roots) > 1:
                         raise ValidationError(f"Multiple ROM roots for ES-DE system: {system.id}")
-                    rom_root = next(iter(roots), source.resolve())
+                    rom_root = next(iter(roots), Path(system.metadata.get("source_root") or source.resolve()))
                 rom_roots[target_name] = rom_root.as_posix()
-            merge_gamelists(intent, target, rom_roots)
+            merge_gamelists(intent, target, rom_roots, replace=synchronize and options.conflict == ConflictPolicy.OVERWRITE,
+                            skip_existing=synchronize and options.conflict != ConflictPolicy.OVERWRITE,
+                            valid_paths={system.metadata.get("target_system", system.id): {"./" + path for path in system.metadata["valid_rom_paths"]}
+                                         for system in library.systems} if synchronize else None)
             if options.shared_pegasus:
                 prepare_shared_media(
                     library, intent, library.source_path or source,

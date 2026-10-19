@@ -138,7 +138,7 @@ Library                         一次导入的整个库
 以下来自已有只读目录和配置记录；本次没有操作掌机。
 
 ```text
-/storage/546B-6466/Roms/                   device_rom_root，原始 ROM 不搬迁
+/storage/<SD_VOLUME>/Roms/                 device_rom_root，卷标已脱敏，原始 ROM 不搬迁
 ├─ GBA/
 │  ├─ metadata.pegasus.txt                 游戏和 collection 元数据
 │  ├─ 游戏.zip                            可以包含多版本

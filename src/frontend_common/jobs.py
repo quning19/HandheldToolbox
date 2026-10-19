@@ -14,7 +14,7 @@ def checkpoint(cancelled) -> None:
 
 
 def new_job(workspace: Path, kind: str) -> Path:
-    recovery = kind in {"scan", "convert"}
+    recovery = kind in {"scan", "convert", "savedeck-scan", "savedeck-export"}
     parent = workspace / "backups/library" if recovery else workspace / "temp"
     path = parent / (kind + "-" + datetime.now().strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8])
     path.mkdir(parents=True, exist_ok=False)

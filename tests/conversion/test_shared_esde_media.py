@@ -85,7 +85,7 @@ def test_pegasus_g_only_looks_for_three_media_roles(tmp_path: Path) -> None:
     assert not any(d.code == "missing-media" for d in library.diagnostics)
 
 
-def test_invalid_explicit_reference_falls_back_but_ambiguous_media_does_not(tmp_path: Path) -> None:
+def test_invalid_explicit_reference_falls_back_and_reports_multiple_candidates(tmp_path: Path) -> None:
     source = source_library(tmp_path)
     meta = source / "metadata.pegasus.txt"
     meta.write_text(meta.read_text(encoding="utf-8") + "assets.box_front: missing.png\n", encoding="utf-8")
@@ -96,8 +96,10 @@ def test_invalid_explicit_reference_falls_back_but_ambiguous_media_does_not(tmp_
     assert any(d.code == "repaired-media-reference" for d in repaired.diagnostics)
     source.joinpath("media/Game/box_front.webp").write_bytes(b"other-cover")
     ambiguous = adapter.import_library(source, options)
-    assert not ambiguous.library.systems[0].games[0].media.box_front.is_file()
-    assert any(d.code == "missing-media" for d in ambiguous.diagnostics)
+    assert ambiguous.library.systems[0].games[0].media.box_front == source / "media/Game/boxFront.jpeg"
+    issue = next(d for d in ambiguous.diagnostics if d.code == "multiple-media-candidates")
+    assert len(issue.details["candidates"]) == 2
+    assert issue.details["selected"] == str(source / "media/Game/boxFront.jpeg")
 
 
 def test_shared_migration_dry_run_preserves_source_and_plans_original_metadata(tmp_path: Path) -> None:

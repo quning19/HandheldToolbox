@@ -65,7 +65,7 @@ class ESDEAdapter(EmulationStationAdapter):
                             )
                         )
                     display = game.model_copy(deep=True)
-                    if len(game.roms) > 1:
+                    if game.source_metadata.get("valid_rom_count", len(game.roms)) > 1:
                         display.name = relative.stem
                     for role, media, folder in (
                         ("box_front", game.media.box_front, "covers"),

@@ -186,7 +186,7 @@ class PlatformCard(QPushButton):
         self.setToolTip(
             f"{item.name}\nROM：{item.roms}，封面：{item.covers}\n"
             f"新增：{max(0, item.roms - item.existing)}"
-            + (f"\nmetadata 中另有 {item.missing_references} 个缺失引用，未计入 ROM" if item.missing_references else "")
+            + (f"\nmetadata 中有 {item.missing_references} 个缺失 ROM 引用" if item.missing_references else "")
             + (f"\n{item.unlinked} 个 ROM 未关联资料，不会自动生成游戏信息" if item.unlinked else "")
             + ("\n无法转换：" + item.error if item.error else "")
         )

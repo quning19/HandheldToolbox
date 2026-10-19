@@ -37,6 +37,7 @@ class ImportOptions(BaseModel):
     source_profile: Path | None = None
     media_path_aliases: dict[str, dict[str, Path]] = Field(default_factory=dict)
     shared_media_root: Path | None = None
+    device_rom_root: str | None = None  # Real root represented by a captured local index.
 
 
 class ExportOptions(BaseModel):

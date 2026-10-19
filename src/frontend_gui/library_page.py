@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QHBoxLayout, QScrollArea, QStackedWidget, QVBoxLay
 from qfluentwidgets import CheckBox, ComboBox, LineEdit, PrimaryPushButton, PushButton
 
 from library_converter.desktop import convert_library, discover_device, local_target, scan_library
+from library_converter.savedeck import convert_savedeck, scan_savedeck
 from .appearance import ui_font
 from .state import UiStore
 from .tasks import TaskHub
@@ -24,7 +25,7 @@ class LibraryPage(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(24, 19, 24, 16)
         layout.setSpacing(12)
-        layout.addWidget(heading("游戏库转换", "天马 G → ES-DE · 选择来源后手动加载平台"))
+        layout.addWidget(heading("游戏库转换", "天马 G → ES-DE / SaveDeck · 选择来源后手动加载平台"))
         toolbar, controls = panel()
         first = QHBoxLayout()
         first.setSpacing(10)
@@ -33,6 +34,11 @@ class LibraryPage(QWidget):
         self.source.setFixedWidth(114)
         self.source.setAccessibleName("游戏库来源类型")
         first.addWidget(self.source)
+        self.frontend = ComboBox()
+        self.frontend.addItems(["ES-DE", "SaveDeck"])
+        self.frontend.setFixedWidth(116)
+        self.frontend.setAccessibleName("目标前端")
+        first.addWidget(self.frontend)
         self.paths = QStackedWidget()
         self.paths.setFixedHeight(36)
         self.device_root = ComboBox()
@@ -63,8 +69,8 @@ class LibraryPage(QWidget):
         second.addWidget(self.target, 1)
         self.shared = CheckBox("共用素材")
         self.shared.setToolTip("核对转换后的副本后更新天马 G 素材引用，并清理不再使用的源素材。默认关闭。")
-        self.full = CheckBox("全量替换")
-        self.full.setToolTip("重新处理已识别入口和对应素材；不清空目标或删除额外条目。")
+        self.full = CheckBox("全量覆盖")
+        self.full.setToolTip("覆盖来源资料、媒体和启动配置；保留 UUID、收藏及统计。")
         second.addWidget(self.shared)
         second.addWidget(self.full)
         self.start = PrimaryPushButton("开始转换")
@@ -100,6 +106,7 @@ class LibraryPage(QWidget):
         self.feedback.cancelled.connect(self.hub.cancel)
         layout.addWidget(self.feedback)
         self.source.currentIndexChanged.connect(self._source_changed)
+        self.frontend.currentIndexChanged.connect(self.clear_source)
         self.device_root.currentIndexChanged.connect(self.clear_source)
         self.computer_root.textChanged.connect(self.clear_source)
         self.browse.clicked.connect(self._browse)
@@ -121,6 +128,19 @@ class LibraryPage(QWidget):
         return self.device_root.currentData() if self.source.currentIndex() == 0 else self.computer_root.text().strip()
 
     def update_target(self):
+        savedeck = self.frontend.currentText() == "SaveDeck"
+        self.shared.setVisible(not savedeck)
+        if savedeck:
+            self.shared.setChecked(False)
+        self.full.setText("全量覆盖")
+        self.full.setToolTip("默认同步入口增删，已有有效入口跳过。全量覆盖来源资料、媒体和启动配置；保留 UUID、收藏及统计。失效入口移除，媒体不清理。")
+        self.start.setText("导出并推送" if savedeck and self.source.currentIndex() == 0 else
+                           "导出到原目录" if savedeck else "开始转换")
+        if savedeck:
+            self.target.setText("输出：" + (str(self.source_key() or "等待选择天马 G 目录")) +
+                                " · 共用 ROM，生成 SaveDeck 媒体和配置")
+            self.refresh_device.setVisible(self.source.currentIndex() == 0)
+            return
         target = self.device.esde_root if self.source.currentIndex() == 0 and self.device else (
             "等待设备识别" if self.source.currentIndex() == 0 else str(
                 local_target(self.store.workspace, self.computer_root.text().strip())
@@ -196,6 +216,8 @@ class LibraryPage(QWidget):
         self.scanning = True
         self.empty.setText("正在检测平台…")
         workspace, definitions = self.store.workspace, list(self.store.definitions)
+        savedeck = self.frontend.currentText() == "SaveDeck"
+        scanner = scan_savedeck if savedeck else scan_library
 
         def item_ready(info):
             if token == self.generation:
@@ -212,8 +234,9 @@ class LibraryPage(QWidget):
             failures = sum(bool(info.error) for info in session.platforms.values())
             missing = sum(info.missing_references for info in session.platforms.values())
             unlinked = sum(info.unlinked for info in session.platforms.values())
-            self.feedback.finish(f"{'已取消加载，保留' if session.cancelled else '检测完成：'}{len(session.platforms)} 个平台，{failures} 个平台有问题，"
-                                 f"{missing} 个缺失引用，{unlinked} 个 ROM 未关联资料。详情见平台卡片。")
+            message = f"{'已取消加载，保留' if session.cancelled else '加载完成：'}{len(session.platforms)} 个平台，{failures} 个平台有问题。"
+            self.feedback.finish(message + (f"共用 ROM，生成官方格式媒体与配置；{missing} 个缺失 ROM 入口将排除并报告。" if savedeck else
+                                 f"{missing} 个缺失引用，{unlinked} 个 ROM 未关联资料。详情见平台卡片。"))
             self.update_counts()
 
         def failed(_message):
@@ -222,7 +245,7 @@ class LibraryPage(QWidget):
             self.update_counts()
 
         started = self.hub.start(
-            lambda worker: scan_library(workspace, definitions, source, device,
+            lambda worker: scanner(workspace, definitions, source, device,
                                         worker.isInterruptionRequested, worker.progress.emit, worker.item.emit),
             self.feedback, complete, item_ready, failed)
         if not started:
@@ -243,7 +266,7 @@ class LibraryPage(QWidget):
         for widget in (self.load, self.refresh_device, self.shared, self.full, self.grid):
             widget.setEnabled(not busy)
         # Changing a source can cancel this page's scan; writing locks the source.
-        for widget in (self.source, self.device_root, self.computer_root, self.browse):
+        for widget in (self.source, self.frontend, self.device_root, self.computer_root, self.browse):
             widget.setEnabled(not busy or self.scanning)
         self.update_counts()
 
@@ -255,6 +278,8 @@ class LibraryPage(QWidget):
             return
         session = self.session
         full, shared, workspace = self.full.isChecked(), self.shared.isChecked(), self.store.workspace
+        savedeck = self.frontend.currentText() == "SaveDeck"
+        converter = convert_savedeck if savedeck else convert_library
 
         def complete(result):
             for card in self.grid.cards:
@@ -262,10 +287,14 @@ class LibraryPage(QWidget):
                     card.item.existing = card.item.roms
                     card.update_details()
             self.session = None
-            self.feedback.finish(f"转换完成：处理 {result['roms']} 个入口。输出：{result['output']}。再次转换前请重新加载平台。")
+            message = f"{'SaveDeck 导出' if savedeck else '转换'}完成：处理 {result['roms']} 个入口，移除 {result.get('removed', 0)} 个失效入口。输出：{result['output']}。再次转换前请重新加载平台。"
+            warnings = result.get("warnings", [])
+            if warnings:
+                message += " 提示：" + "；".join(warnings)
+            self.feedback.finish(message)
             self.update_counts()
 
-        self.hub.start(lambda worker: convert_library(session, selected, shared, full, workspace,
+        self.hub.start(lambda worker: converter(session, selected, shared, full, workspace,
                                                       worker.isInterruptionRequested, worker.progress.emit),
                        self.feedback, complete)
 

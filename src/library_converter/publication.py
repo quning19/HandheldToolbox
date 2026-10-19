@@ -6,6 +6,7 @@ import json
 import re
 import shlex
 import tempfile
+import uuid
 from pathlib import Path, PurePosixPath
 
 from retrolibx.core.android import android_path
@@ -128,6 +129,56 @@ def _publication_plan(task: Path, data: dict, payloads: dict[str, bytes], skip_p
 
 class AdbPublisher(AdbUploader):
     """Guard, back up, push small files via C4, then publish and optional cleanup."""
+
+    def copy_media(self, copies: list[tuple[str, str]], *, overwrite: bool = True) -> None:
+        """Copy only selected device media; no ROM transfer or content inspection."""
+        pairs = [(android_path(source), android_path(target)) for source, target in copies if source != target]
+        # Bound encoded exec-out commands on Windows, including Chinese paths.
+        for offset in range(0, len(pairs), 8):
+            batch = pairs[offset:offset + 8]
+            paths = {path for pair in batch for value in pair for path in (value, *value.parents)}
+            commands = [f"test ! -L {shlex.quote(str(path))}" for path in sorted(paths, key=str)]
+            for source, target in batch:
+                commands.extend((f"mkdir -p -- {shlex.quote(str(target.parent))}",
+                                 f"if [ -e {shlex.quote(str(target))} ]; then test -f {shlex.quote(str(target))}; fi",
+                                 f"cp {'-f' if overwrite else '-n'} -- {shlex.quote(str(source))} {shlex.quote(str(target))}"))
+            if commands:
+                self.read("\n".join(commands))
+
+    def publish_config(self, source: Path, destination: str, expected_sha256: str) -> None:
+        """Publish one small config via C4 with a baseline and versioned backup."""
+        target = android_path(destination)
+        expected = _sha(expected_sha256, allow_empty=True)
+        desired = hashlib.sha256(source.read_bytes()).hexdigest()
+        current = self._digest(str(target))
+        if current != expected:
+            raise ValidationError(f"设备配置已变化，请重新加载：{target}")
+        if current == desired:
+            return
+        q = shlex.quote
+        temporary = str(target) + "." + uuid.uuid4().hex + ".tmp"
+        if current:
+            backup = str(target) + ".handheldtoolbox." + current + ".bak"
+            existing = self._digest(backup)
+            if existing not in {"", current}:
+                raise ValidationError(f"配置备份冲突：{backup}")
+            if not existing:
+                self.read(f"cp -- {q(str(target))} {q(backup)}")
+                if self._digest(backup) != current:
+                    raise ValidationError(f"配置备份未完成：{backup}")
+        try:
+            self.upload(source, temporary)
+            if self._digest(temporary) != desired:
+                raise ValidationError(f"设备配置上传不完整，未覆盖：{target}")
+            if self._digest(str(target)) != expected:
+                raise ValidationError(f"设备配置已变化，未覆盖：{target}")
+            self.read(f"mv -f -- {q(temporary)} {q(str(target))}")
+        except Exception:
+            try:
+                self.read(f"rm -f -- {q(temporary)}")
+            except ValidationError:
+                pass
+            raise
 
     def _safe_paths(self, paths: list[str]) -> None:
         checks = []

@@ -7,22 +7,27 @@ import sys
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="天马 G → ES-DE 游戏库转换")
+    parser = argparse.ArgumentParser(description="天马 G → ES-DE / SaveDeck 游戏库转换")
     parser.add_argument("operation", choices=("scan", "convert"))
     parser.add_argument("source", help="电脑目录；使用 --device 时为设备完整 ROM 目录")
     parser.add_argument("--workspace", type=Path)
     parser.add_argument("--device", action="store_true", help="明确读取/写入当前已授权的唯一设备")
+    parser.add_argument("--to", choices=("es-de", "savedeck"), default="es-de", help="目标前端；SaveDeck 只在原平台目录发布配置")
     parser.add_argument("--platform", action="append", default=[], help="scan 输出的相对目录；可重复")
     parser.add_argument("--shared-media", action="store_true")
-    parser.add_argument("--full", action="store_true", help="重新处理所选平台已有游戏与素材")
+    parser.add_argument("--full", action="store_true", help="全量覆盖所选平台资料、媒体和启动配置；保留 UUID、收藏及统计")
     args = parser.parse_args(argv)
     if args.operation == "convert" and not args.platform:
         parser.error("convert 必须用 --platform 明确选择平台；请先 scan")
+    if args.to == "savedeck" and args.shared_media:
+        parser.error("SaveDeck 直接共用原媒体，不使用 ES-DE 的共用素材迁移")
     from frontend_common.state import UiStore
     from frontend_common.locking import workspace_lock
     from frontend_platforms.user_catalog import load_catalog
     from frontend_devices.discovery import discover_device
     from .desktop import scan_library, convert_library
+    if args.to == "savedeck":
+        from .savedeck import scan_savedeck as scan_library, convert_savedeck as convert_library
     from retrolibx.errors import RetroLibXError
     workspace = args.workspace.resolve() if args.workspace else UiStore().workspace
     progress = lambda text, *_: print(text, file=sys.stderr)

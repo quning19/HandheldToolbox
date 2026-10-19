@@ -30,6 +30,10 @@ HandheldToolbox/
 
 两个 converter 是平级业务工具，互不导入，也不导入 GUI 或 Qt。它们复用平台、设备、小型公共模块及通用引擎。GUI 只负责收集参数、调用工具、展示进度和结果。业务模型没有放在 GUI 中。
 
+SaveDeck 作为游戏库工具的新目标，格式渲染与合并在 `retrolibx/adapters/savedeck/`，原目录发布用例在 `library_converter/savedeck.py`；复用通用模型、计划、执行器、平台目录和 ADB 上传／发布，不依赖 GUI 或主题工具。它共用原 ROM，发布官方命名的媒体与配置。Pegasus 来源使用独立 `pegasus-g-savedeck` profile，保留官方 1.0.1 的字段别名及简介规则。见 [SaveDeck 说明](SAVEDECK.md)。
+
+后续媒体规则统一：两个天马 profile 的媒体发现共用 `adapters/pegasus/asset_discovery.py`，从 PegasusGGameManager 的本地状态读取及候选匹配代码适配，按用户决定采用四级目录、同级排序首选并报告；不再按导出目标区分补找。字段与简介仍各用原 profile，目标媒体布局不变；没有相邻项目运行时依赖。
+
 安装本项目后可以分别运行：
 
 ```powershell

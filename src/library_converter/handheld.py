@@ -184,7 +184,7 @@ def _systems_xml(config: HandheldConfig, library: Library, baseline: bytes | Non
             old = _system_node(root, system.id)
             if old is not None:
                 root.remove(old)
-        if system.metadata.get("reused_system") and existing_system is not None:
+        if system.metadata.get("reused_system") and existing_system is not None and config.existing_entries != "replace":
             source = existing_system
         node = deepcopy(source)
         for child in base_template:
@@ -307,6 +307,7 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
         ImportOptions(
             platforms=platforms, metadata_encoding=config.encoding,
             media_path_aliases=config.media_path_aliases,
+            device_rom_root=config.device_rom_root if config.device_index else None,
             source_profile=config.source_profile or (
                 Path(__file__).parents[1] / "retrolibx/profiles/pegasus-g.json"
             ),
@@ -349,7 +350,10 @@ def build_handheld(config: HandheldConfig, platforms: list[str], output: Path) -
             android_path(config.device_rom_root) / system.metadata["source_platform"]
         )
         for system in library.systems
-    }, config.gamelist_rom_roots, config.gamelist_sources)
+    }, config.gamelist_rom_roots, config.gamelist_sources,
+       replace=config.existing_entries == "replace", skip_existing=config.existing_entries == "skip",
+       valid_paths={_target_name(system): {"./" + path for path in system.metadata["valid_rom_paths"]}
+                    for system in library.systems if "valid_rom_paths" in system.metadata})
     systems_path = PurePosixPath("custom_systems/es_systems.xml")
     existing_path = snapshot.joinpath(*systems_path.parts)
     baseline = existing_path.read_bytes() if existing_path.is_file() else None

@@ -93,7 +93,7 @@ class DesktopBusinessTests(unittest.TestCase):
         result = convert_library(self.scan(), ["GBA"], False, False, self.workspace, NO_CANCEL, NO_PROGRESS)
         self.assertEqual(result["roms"], 1)
         root = parse_xml(path.read_bytes(), "gameList")
-        self.assertEqual(len(root.findall("game")), 3)
+        self.assertEqual(len(root.findall("game")), 2)
         self.assertEqual(root.findtext("game[path='./a.gba']/name"), "User title")
         self.assertEqual(root.findtext("game[path='./a.gba']/favorite"), "true")
         self.assertEqual(old_cover.read_bytes(), b"keep-old-cover")
@@ -102,7 +102,7 @@ class DesktopBusinessTests(unittest.TestCase):
         for name in ("es_systems.xml", "es_find_rules.xml", "es_import_rules.xml", "es_systems_sorting.xml"):
             self.assertTrue((self.target / "custom_systems" / name).is_file())
 
-    def test_full_replace_updates_media_and_retains_extra_games(self):
+    def test_full_replace_updates_media_and_removes_obsolete_games(self):
         self.source_fixture()
         path = self.old_list()
         cover = self.target / "downloaded_media/gba/covers/a.png"
@@ -111,7 +111,7 @@ class DesktopBusinessTests(unittest.TestCase):
         result = convert_library(self.scan(), ["GBA"], False, True, self.workspace, NO_CANCEL, NO_PROGRESS)
         self.assertEqual(result["roms"], 2)
         self.assertEqual(cover.read_bytes(), b"original-cover")
-        self.assertIsNotNone(parse_xml(path.read_bytes(), "gameList").find("game[path='./old-extra.gba']"))
+        self.assertIsNone(parse_xml(path.read_bytes(), "gameList").find("game[path='./old-extra.gba']"))
 
     def test_shared_mode_can_add_variant_after_source_media_was_migrated(self):
         metadata, cover = self.source_fixture()

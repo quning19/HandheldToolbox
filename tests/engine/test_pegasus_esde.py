@@ -30,6 +30,19 @@ def test_explicit_legacy_rom_root_preserves_user_fields_and_remaps_path():
     assert result.findtext("game/desc") == "New description"
 
 
+def test_legacy_absolute_path_keeps_case_when_matching_existing_entry():
+    old = b'<gameList><game><path>/storage/card/Roms/psx/DiscA/Game.CHD</path><name>User</name><favorite>true</favorite></game></gameList>'
+    incoming = '<gameList><game><path>./DiscA/Game.CHD</path><name>Imported</name></game></gameList>'
+    result = etree.fromstring(merge_gamelist(
+        incoming, old, "/storage/card/Roms/PS1", ["/storage/card/Roms/psx"],
+        valid_paths={"./DiscA/Game.CHD"}, skip_existing=True,
+    ).encode())
+    assert len(result.findall("game")) == 1
+    assert result.findtext("game/path") == "./DiscA/Game.CHD"
+    assert result.findtext("game/name") == "User"
+    assert result.findtext("game/favorite") == "true"
+
+
 def test_legacy_list_id_reuses_user_data_without_claiming_new_target_exists(tmp_path):
     donor = tmp_path / "gamelists/famicom/gamelist.xml"
     donor.parent.mkdir(parents=True)

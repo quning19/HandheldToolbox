@@ -109,6 +109,7 @@ def scan_library(workspace, definitions, source, device, cancelled, progress, em
             _, library = service.import_library(session.source, "pegasus", ImportOptions(
                 platforms=[platform], metadata_encoding=encoding,
                 media_path_aliases=session.media_path_aliases,
+                device_rom_root=source if device else None,
                 shared_media_root=None if device else session.target / "downloaded_media",
                 source_profile=Path(__file__).parents[1] / "retrolibx/profiles/pegasus-g.json"))
             system = library.systems[0]
@@ -193,7 +194,8 @@ def convert_library(session, platforms, shared, full, workspace, cancelled, prog
         progress("正在设备上复制素材并发布列表与系统配置，请等待…", 45, False)
         remote = "/data/local/tmp/frontendtrans-" + job.name + ".sh"
         deploy_task(AdbPublisher(session.device.adb, session.device.serial, temporary_root=job), job / "task", remote)
-        return {"roms": summary["roms"], "output": str(job / "task")}
+        return {"roms": summary["roms"], "removed": (summary["selection"] or {}).get("removed", 0), "output": str(job / "task"),
+                "warnings": [item["message"] for item in summary["issues"] if item["severity"] != "error"]}
     service = ConversionService(platform_config_dir=session.config_dir)
     _, library = service.import_library(session.source, "pegasus", ImportOptions(
         platforms=platforms, metadata_encoding=encoding,
@@ -207,7 +209,10 @@ def convert_library(session, platforms, shared, full, workspace, cancelled, prog
         raise ValidationError("；".join(errors))
     options = ExportOptions(rom_mode="none", conflict="overwrite" if full else "skip", shared_pegasus=shared)
     intent = service.adapters.resolve("es-de").render_library(library, session.target, options)
-    merge_gamelists(intent, session.target, roots)
+    intent.diagnostics.extend(library.diagnostics)
+    merge_gamelists(intent, session.target, roots, replace=full, skip_existing=not full,
+                    valid_paths={system.id: {"./" + path for path in system.metadata["valid_rom_paths"]}
+                                 for system in library.systems})
     documents = platform_configuration(session.config_dir)
     old = session.target / "custom_systems/es_systems.xml"
     template = parse_xml(documents["es_systems.xml"].encode("utf-8"), "systemList")
@@ -217,6 +222,12 @@ def convert_library(session, platforms, shared, full, workspace, cancelled, prog
             root.append(deepcopy(node))
     for system in library.systems:
         node = next(entry for entry in root.findall("system") if entry.findtext("name") == system.id)
+        if full:
+            original = next(entry for entry in template.findall("system") if entry.findtext("name") == system.id)
+            for command in list(node.findall("command")):
+                node.remove(command)
+            for command in original.findall("command"):
+                node.append(deepcopy(command))
         node.find("path").text = roots[system.id].replace("\\", "/")
     documents["es_systems.xml"] = xml_text(root)
     for name, text in documents.items():
@@ -234,5 +245,6 @@ def convert_library(session, platforms, shared, full, workspace, cancelled, prog
     checkpoint(cancelled)
     progress("正在复制素材并保存列表与完整系统配置…", 50, False)
     service.executor.execute(plan)
-    return {"roms": selection["selected"], "output": str(session.target)}
+    return {"roms": selection["selected"], "removed": selection["removed"], "output": str(session.target),
+            "warnings": [item.message for item in intent.diagnostics if item.severity != "error"]}
 

@@ -19,6 +19,7 @@ class SourceProfile(BaseModel):
     developer_as_version_note: bool = False
     version_note_label: str = "版本说明"
     confirmation_systems: list[str] = Field(default_factory=list)
+    pegasus_policy: Literal["generic", "savedeck-1.0.1"] = "generic"
 
     @field_validator("media_directory")
     @classmethod
