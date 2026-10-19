@@ -1,21 +1,19 @@
 # Windows 图形界面
 
-2026-10-16。显示布局沿用已确认的 Fluent 工作台，窗口尺寸和固定进度区不变。源码已拆为独立工具和汇总 GUI，见 [结构](ARCHITECTURE.md)。
-
-本机双击根目录“掌机工具箱.cmd”（旧“启动界面.cmd”保留），或：
+本机双击根目录“掌机工具箱.cmd”（旧“启动界面.cmd”保留），或在根目录运行：
 
 ```powershell
 & '.\retrolibx\.venv\Scripts\python.exe' '.\launch_gui.py'
 ```
 
-其他机器安装 `pip install -e '.[desktop]'` 后运行 `python -m frontend_gui`。当前开发环境不等于独立 EXE 发布。目录迁移后应关闭旧进程，再重新打开。
+其他机器使用 Python 3.12+ 安装 `pip install -e '.[desktop]'` 后运行 `HandheldToolbox` 或 `python -m frontend_gui`。安装入口依赖 Python，独立 EXE 尚未打包。
 
-软件显示名为“掌机工具箱”，采用竖版掌机 1 作为应用、窗口和侧栏图标。原稿同时保留横版 1、翻盖 1 和橙色手柄，见 [图标资源](design/assets/app-icons/README.md)。新增同名 Python GUI 入口，安装后的 Windows 入口文件名为“掌机工具箱.exe”，依赖 Python 环境；没有在此轮重新安装或独立打包。
+| 页面 | 用途 |
+|---|---|
+| 游戏库转换 | 手动连接设备、加载所选来源的平台，执行天马G → ES-DE 转换与发布 |
+| 主题管理 | 浏览官方主题与图集，勾选后下载／更新、转换或上传；点击行只切换预览 |
+| 设置 | 外观、四套卡片风格、唯一工作目录、平台管理及工作目录清理 |
 
-游戏库页面保持手动刷新设备、选择来源后手动加载、后台逐平台追加卡片。ROM 计数、多版本、多轨、封面、增量跳过与全量替换、共用素材及完整四文件初始化规则保持。电脑目标自动放在 workspace/library；设备目标自动识别 ES-DE。MuMu 连接在用户点击刷新后发现运行实例端口，不启动模拟器。
+软件使用“掌机工具箱”名称及选定竖版图标，原稿见 [图标资源](design/assets/app-icons/README.md)。
 
-主题页面初次可以为空；导入本地主题，或刷新设备后选择真实主题同步。操作为导入本地、同步原版、同步并转换、转换、上传。状态分别显示本地原版、可上传/需要重新转换/失败、设备是否存在；错误及过期原因在提示中。未知结构保留错误报告，不冒充转换成功。见 [主题规则](THEME_CONVERSION.md)。
-
-设置包含亮暗外观、平台卡片风格（Canvas/Aura/Alekfull NX/iiSU Interpreted）、唯一工作目录、平台增删改及 [三类手动清理](WORKSPACE_DATA.md)。风格切换只换平台卡片，缺少专用图时使用同风格母体图或占位。
-
-测试批准范围和结果集中记录在 [状态](engine/STATUS.md)。本轮不自动操作窗口、连接模拟器或写入设备，页面由用户手动验收。迁移前业务和既有测试记录保存在 [2026-10-15 记录](archive/windows-gui-business-20261015.md)。
+详细交互统一见 [页面约定](WINDOWS_UI_PLAN.md)，主题规则见 [主题说明](THEME_CONVERSION.md)，数据保留规则见 [工作目录与清理](WORKSPACE_DATA.md)。用户手测反馈和测试边界统一记录在 [当前状态](engine/STATUS.md)。

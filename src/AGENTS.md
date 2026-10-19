@@ -2,6 +2,8 @@
 
 ## 当前范围
 
+仓库和本地目录统一为 `HandheldToolbox`，中文显示名为“掌机工具箱”；英文包名和主命令同名，原有 Python 模块入口保留。旧名称只在历史记录和一次性迁移材料中保留，本机绝对路径记在全局规则中。
+
 基于RetroLibX扩展天马G/Pegasus到Android ES-DE。保留多前端能力，按当前方向逐步交付。当前状态看[状态](../docs/engine/STATUS.md)，使用说明看[README](../README.md)，历史设计在[docs/archive](../docs/archive/README.md)。
 
 Python运行要求3.12+；frontend_platforms保持标准库及Python 3.9兼容。依赖集中维护于pyproject.toml和uv.lock，不把缓存或候选源码作为产品依赖。

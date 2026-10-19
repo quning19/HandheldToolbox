@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         self.settings = SettingsPage(store, self.tasks)
         self.navigation = QButtonGroup(self)
         self.navigation.setExclusive(True)
-        entries = ((self.library, FluentIcon.GAME, "游戏库转换"), (self.themes, FluentIcon.BRUSH, "主题适配"), (self.settings, FluentIcon.SETTING, "设置"))
+        entries = ((self.library, FluentIcon.GAME, "游戏库转换"), (self.themes, FluentIcon.BRUSH, "主题管理"), (self.settings, FluentIcon.SETTING, "设置"))
         for index, (page, icon, text) in enumerate(entries):
             self.pages.addWidget(page)
             if index == 2:

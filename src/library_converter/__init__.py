@@ -1,1 +1,1 @@
-"""Independent FrontendTransTool component."""
+"""Independent HandheldToolbox component."""

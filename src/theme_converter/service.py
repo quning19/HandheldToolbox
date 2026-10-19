@@ -1,12 +1,11 @@
 """Dynamic managed originals, generic ES-DE adaptation and explicit uploads."""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path, PurePosixPath
 import hashlib
 import json
 import re
 import shlex
-import subprocess
 import uuid
 from lxml import etree
 
@@ -37,6 +36,16 @@ class ThemeInfo:
     stale: bool = False
     reason: str = ""
     remote_path: str = ""
+    repository: str = ""
+    author: str = ""
+    screenshots: list[tuple[Path, str]] = field(default_factory=list)
+    variants: list[str] = field(default_factory=list)
+    color_schemes: list[str] = field(default_factory=list)
+    aspect_ratios: list[str] = field(default_factory=list)
+    deprecated: bool = False
+    update_available: bool | None = None
+    checked: str = ""
+    update_error: str = ""
 
 
 def json_file(path, default):
@@ -57,9 +66,7 @@ def local_themes(workspace, definitions):
     deps = dependencies(definitions)
     originals = workspace / "themes/original"
     result = []
-    if not originals.is_dir():
-        return result
-    for directory in sorted(originals.iterdir()):
+    for directory in (sorted(originals.iterdir()) if originals.is_dir() else []):
         if not directory.is_dir() or not (directory / "capabilities.xml").is_file():
             continue
         platform_component(directory.name)
@@ -94,6 +101,17 @@ def local_themes(workspace, definitions):
         except (OSError, ValueError, ValidationError) as exc:
             info.reason = str(exc)
         result.append(info)
+    known = {info.id for info in result}
+    for identity, record in records.items():
+        if identity in known or not record.get("directory"):
+            continue
+        platform_component(identity)
+        platform_component(record["directory"])
+        output = workspace / "themes/exported" / record["directory"]
+        if output.is_dir():
+            result.append(ThemeInfo(identity, record["directory"].removesuffix("_天马G"),
+                                    output=output, output_name=record["directory"], stale=True,
+                                    reason="本地原版缺失；旧转换结果保留，重新下载或导入原版后再转换。"))
     return result
 
 
@@ -120,7 +138,8 @@ fi"""
 
 def refresh_themes(workspace, definitions, device, cancelled, progress):
     checkpoint(cancelled)
-    result = local_themes(workspace, definitions)
+    from .catalog import managed_themes
+    result = managed_themes(workspace, definitions)
     if device is None:
         return result
     progress("读取设备主题目录与描述信息…", 30, True)
@@ -133,18 +152,6 @@ def refresh_themes(workspace, definitions, device, cancelled, progress):
                 result.append(ThemeInfo("device-only-" + theme_identity(path), name, device=True,
                                         reason="设备上的适配主题；本地没有对应原版和生成记录。"))
             continue
-        marker_matches = []
-        for info in result:
-            if info.source:
-                marker = json_file(info.source / ".frontendtrans-original.json", {})
-                if marker.get("remote_directory") == PurePosixPath(path).name:
-                    marker_matches.append(info)
-        matches = marker_matches or [info for info in result if info.name == name and info.source]
-        if len(matches) == 1:
-            matches[0].remote_path = path
-        else:
-            identity = theme_identity(PurePosixPath(path).name)
-            result.append(ThemeInfo(identity, name, device=False, remote_path=path))
     return result
 
 
@@ -198,31 +205,11 @@ def import_original(workspace, source, cancelled=lambda: False, progress=lambda 
     return identity
 
 
-def sync_originals(workspace, definitions, identities, device, cancelled, progress):
-    if device is None:
-        raise ValidationError("请先连接设备。")
-    available = {info.id: info for info in refresh_themes(workspace, definitions, device, cancelled, progress)}
-    for identity in identities:
-        info = available.get(identity)
-        if info is None or not info.remote_path:
-            raise ValidationError("设备上没有可同步的唯一原版主题：" + identity)
-        checkpoint(cancelled)
-        job = new_job(workspace, "theme-sync")
-        target = job / "original"
-        progress("同步原版：" + info.name, 20, False)
-        subprocess.run([str(device.adb), "-s", device.serial, "pull", info.remote_path, str(target)],
-                       capture_output=True, check=True, timeout=3600,
-                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-        if capabilities_name(target) != info.name:
-            raise ValidationError("同步的主题描述与设备列表不一致：" + info.name)
-        import_original(workspace, target, cancelled, progress, identity, PurePosixPath(info.remote_path).name)
-
-
 def adapt_theme(workspace, definitions, info, cancelled, progress):
     from PIL import Image
     from .badges import draw_badge
     if info.source is None:
-        raise ValidationError("请先同步或导入原版：" + info.name)
+        raise ValidationError("请先下载或导入原版：" + info.name)
     source = info.source.resolve()
     before_index = source_index(source)
     job = new_job(workspace, "theme-convert")
@@ -308,14 +295,24 @@ def adapt_theme(workspace, definitions, info, cancelled, progress):
 
 
 def run_themes(operation, workspace, definitions, identities, device, cancelled, progress):
+    from .catalog import managed_themes, refresh_catalog, check_updates, download_themes, remove_local
     if operation == "refresh":
         return refresh_themes(workspace, definitions, device, cancelled, progress)
-    if operation in {"sync", "sync-convert"}:
-        sync_originals(workspace, definitions, identities, device, cancelled, progress)
-        if operation == "sync":
-            return {"themes": refresh_themes(workspace, definitions, device, cancelled, progress), "message": "原版同步完成。"}
+    if operation == "catalog":
+        refresh_catalog(workspace, cancelled, progress)
+        return {"themes": managed_themes(workspace, definitions), "message": "官方主题列表与预览已更新。"}
+    if operation == "check-updates":
+        message = check_updates(workspace, definitions, identities, cancelled, progress)
+        return {"themes": managed_themes(workspace, definitions), "message": message}
+    if operation in {"delete-original", "delete-output"}:
+        remove_local(workspace, definitions, identities, operation)
+        return {"themes": managed_themes(workspace, definitions), "message": "本地主题已移至备份；设备内容未改动。"}
+    if operation in {"download", "download-convert"}:
+        download_themes(workspace, definitions, identities, cancelled, progress)
+        if operation == "download":
+            return {"themes": managed_themes(workspace, definitions), "message": "原版下载／更新完成。"}
     infos = {info.id: info for info in local_themes(workspace, definitions)}
-    if operation in {"convert", "sync-convert"}:
+    if operation in {"convert", "download-convert"}:
         for identity in identities:
             checkpoint(cancelled)
             try:
@@ -326,7 +323,7 @@ def run_themes(operation, workspace, definitions, identities, device, cancelled,
                 records.setdefault(identity, {})["last_error"] = str(exc)
                 save_json(path, records)
                 raise
-        return {"themes": local_themes(workspace, definitions), "message": "主题转换完成。"}
+        return {"themes": managed_themes(workspace, definitions), "message": "主题转换完成。"}
     if operation != "upload" or device is None:
         raise ValidationError("请先连接设备。")
     for index, identity in enumerate(identities):
@@ -340,4 +337,5 @@ def run_themes(operation, workspace, definitions, identities, device, cancelled,
             raise ValidationError("原版主题内容已改变，请重新转换：" + info.name)
         progress("上传完整主题：" + info.name, int(index * 100 / len(identities)), False)
         AdbUploader(device.adb, device.serial).upload(info.output, str(PurePosixPath(device.esde_root) / "themes" / info.output_name))
-    return {"themes": refresh_themes(workspace, definitions, device, cancelled, progress), "message": "主题上传完成，设备状态已刷新。"}
+    return {"themes": refresh_themes(workspace, definitions, device, cancelled, progress),
+            "message": "主题上传完成，设备状态已刷新。", "device_refreshed": True}

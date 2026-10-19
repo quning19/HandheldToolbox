@@ -1,6 +1,6 @@
 # 本地 Git 工作流
 
-更新日期：2026-10-16。仓库根目录为 FrontendTransTool，当前分支 **main**，产品显示名为“掌机工具箱”。用户要求将功能分支合入主干，合并提交为 `791d7de`，没有冲突。本页只维护当前工作方式；旧分支与建库过程见 [历史记录](archive/workflows/2026-10-16-git-workflow-history.md)。
+更新日期：2026-10-19。仓库和本地目录统一为 HandheldToolbox，当前分支 **main**，产品显示名为“掌机工具箱”。独立工具分支已通过 `791d7de` 合入主干；旧分支与建库过程见 [历史记录](archive/workflows/2026-10-16-git-workflow-history.md)。
 
 | 引用 | 用途 |
 |---|---|
@@ -12,7 +12,7 @@
 
 在当前分支先读 `git status` 和 `git diff`，仅暂存本次改动，静态 review 后按一个明确目的提交。使用 feat、fix、docs、chore 等清楚描述结果；测试、构建、设备操作仍按明确批准范围执行，不因准备提交而自动扩大检查。
 
-目前只有 upstream（原 retrolibx 来源仓库），没有配置 origin、推送或创建线上 fork。此次仅按用户要求完成本地主干合并，不代表已推送或发布。不能把 upstream 当作本项目发布仓库；后续合并、推送或发布仍依用户要求执行。原上游提交、作者和 MIT 许可保留，具体差异见 [结构与上游关系](ARCHITECTURE.md)。
+origin 已配置为用户新建的独立仓库 `git@github.com:quning19/HandheldToolbox.git`；upstream 保留为原 retrolibx 来源仓库 `https://github.com/tiancheng91/retrolibx.git`。用户已授权将当前 main 推送至 origin；独立 EXE 和 Release 发布另行安排。不能把 upstream 当作本项目发布仓库。原上游提交、作者和 MIT 许可保留，具体差异见 [结构与上游关系](ARCHITECTURE.md)。
 
 Git 保存源码、测试源码、配置基线、锁文件、当前文档、历史说明、图标及随包卡片资源。真实 ROM、完整主题、运行设置与工作目录、设备资料、作业报告、旧工程完整归档、虚拟环境和构建产物按 .gitignore 排除。被忽略的真实资料须在本地保留，Git 不提供其备份。
 

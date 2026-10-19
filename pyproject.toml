@@ -1,12 +1,12 @@
 [project]
-name = "frontend-trans-tool"
+name = "HandheldToolbox"
 version = "0.1.0"
 description = "Windows frontend toolkit with independent game-library and ES-DE theme converters"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "MIT"
-license-files = ["LICENSE"]
-authors = [{ name = "RetroLibX contributors" }]
+license = "GPL-3.0-only"
+license-files = ["LICENSE", "NOTICE.md", "docs/licenses/*.txt"]
+authors = [{ name = "quning19" }, { name = "RetroLibX contributors" }]
 dependencies = [
   "lxml>=5.3",
   "platformdirs>=4.3",
@@ -19,7 +19,7 @@ dependencies = [
 
 [project.scripts]
 retrolibx = "retrolibx.cli:run"
-frontend-trans-tool = "frontend_gui.app:run"
+HandheldToolbox = "frontend_gui.app:run"
 library-converter = "library_converter.__main__:main"
 theme-converter = "theme_converter.__main__:main"
 

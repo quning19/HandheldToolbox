@@ -864,7 +864,7 @@ wheels = [
 ]
 
 [[package]]
-name = "frontend-trans-tool"
+name = "handheldtoolbox"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

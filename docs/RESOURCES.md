@@ -20,7 +20,7 @@
 | R14 | test_data、references、jobs、artifacts、archive、research/themes/legacy-lab | 不发布；大型本地资料不进 Git | 真实 ROM/主题、设备快照、原包来源、测试报告、实验、旧工程及历史输出；不作为运行时依赖，不随本次文档清理删除 |
 | R15 | docs/design/assets/app-icons 四张 PNG 与原 HTML 原型 | 不放运行包；在 Git 保留设计记录 | 当前竖版、横版、翻盖第一款及橙色手柄；ICO 可由工具从竖版原稿重新导出 |
 | R16 | tests、tools/themes、tools/migrations、开发虚拟环境 | 不作为正常应用运行资料发布 | 测试、旧逐主题对照、迁移和开发工具；迁移脚本不作为每次启动步骤，不反复执行 |
-| R17 | LICENSE 与各依赖/素材要求的声明 | 需要保留适用的许可和来源 | 本项目保留上游 MIT 历史；第三方素材不因进入本项目而自动获得重新许可 |
+| R17 | LICENSE 与各依赖/素材要求的声明 | 需要保留适用的许可和来源 | 应用采用 GPL-3.0-only，保留上游 MIT 声明与历史；第三方素材维持原许可，详见根目录 NOTICE.md |
 
 R01–R17 是本页资源编号，不替代此前讨论的需求编号：第 6 项为通用主题解析，第 7 项为卡片素材，第 11 项为平台升级合并，第 15 项为结果过期，第 17/18 项为清理与恢复资料。原需求清单见 [归档](archive/plans/2026-10-16-windows-approved-scope.md)。
 

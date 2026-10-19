@@ -3,7 +3,7 @@
 2026-10-16，按用户批准的“独立工具＋汇总 GUI”调整；实现自 `codex/independent-tools`，已通过 `791d7de` 合入本地 `main`，当前位于主干。
 
 ```text
-FrontendTransTool/
+HandheldToolbox/
 ├─ src/
 │  ├─ retrolibx/          基于上游修改的通用转换引擎
 │  ├─ library_converter/ 游戏库扫描、转换、Android 任务及发布
@@ -42,7 +42,7 @@ python -m frontend_gui
 python -m retrolibx.cli --help
 ```
 
-源码目录也提供 `python run_tool.py library|theme|gui|engine ...`，无需安装即可使用同样的模块入口。游戏库设备模式须显式加 `--device`；主题的 refresh/sync/sync-convert/upload 命令明确操作当前唯一设备。普通本地命令不发现或连接设备。
+源码目录也提供 `python run_tool.py library|theme|gui|engine ...`，无需安装即可使用同样的模块入口。游戏库设备模式须显式加 `--device`；主题仅 refresh/upload 命令操作当前唯一设备。catalog/check-updates/download/download-convert 使用官方目录与 HTTPS Git 仓库，不发现设备。Git 管理位于独立 catalog 模块，不依赖 Qt 或相邻 ES-DE 工程。
 
 独立运行指各工具不依赖 GUI 和另一个业务工具；当前仍共用一个安装包与环境，不为每个工具复制一套共享源码或依赖。以后加入 PegasusGGameManager 一类工具时，在 `src/` 新增平级包和独立入口，再在 `frontend_gui/` 接入页面；本次没有搬入该项目，也没有预设空业务框架。
 
@@ -56,7 +56,7 @@ python -m retrolibx.cli --help
 
 ## retrolibx 与上游的关系
 
-这是保留上游 Git 历史和 MIT 许可的修改版本，来源为 [tiancheng91/retrolibx](https://github.com/tiancheng91/retrolibx)，基点 `f1a73c126ba450ae7d01a856e17ed7aad83eeff9`。不是原封不动的 vendor 副本，也不能用 PyPI 的同名原版直接替换。原作者信息与 LICENSE 保留；没有创建线上 fork 或推送。
+这是保留上游 Git 历史和 MIT 许可的修改版本，来源为 [tiancheng91/retrolibx](https://github.com/tiancheng91/retrolibx)，基点 `f1a73c126ba450ae7d01a856e17ed7aad83eeff9`。不是原封不动的 vendor 副本，也不能用 PyPI 的同名原版直接替换。原作者信息与 MIT 许可保留于 docs/licenses/RetroLibX-MIT.txt；HandheldToolbox 应用采用 GPL-3.0-only，另建独立仓库 quning19/HandheldToolbox，保留 upstream 来源。
 
 迁移前静态对照：上游 35 个源码文件全部保留，其中 23 个未改、12 个改动；当时额外增加 58 个源码/资源文件。本次将设备、业务和 GUI 扩展移出引擎目录，文件位置变化不代表回退这些修改。
 
