@@ -125,7 +125,33 @@ def test_adapter_rejects_media_outside_the_platform(tmp_path):
         SaveDeckAdapter(SystemRegistry.load()).render_library(library, tmp_path / "out", ExportOptions(rom_mode="none"))
 
 
-def test_multiple_existing_entries_use_rom_names_sort_and_uuid4(tmp_path):
+def test_source_sort_by_orders_groups_stably_and_keeps_file_order(tmp_path):
+    source = tmp_path / "GBA"
+    source.mkdir()
+    groups = []
+    for name, sort_name, filenames in (
+        ("Later", "012", ["later.gba"]),
+        ("Mercury", "011A", ["version-b.gba", "version-a.gba"]),
+        ("Before", "011", ["before.gba"]),
+        ("Same key", "011A", ["same.gba"]),
+        ("Zulu", None, ["fallback.gba"]),
+    ):
+        roms = []
+        for filename in filenames:
+            path = source / filename
+            path.write_bytes(b"rom")
+            roms.append(Rom(path=path))
+        groups.append(Game(name=name, sort_name=sort_name, roms=roms))
+    library = Library(format="pegasus", systems=[System(
+        id="gba", name="GBA", metadata={"source_root": str(source)}, games=groups)])
+    intent = SaveDeckAdapter(SystemRegistry.load()).render_library(library, tmp_path / "out", ExportOptions(rom_mode="none"))
+    games = parse_document(intent.texts[0].content.encode())["games"]
+    assert [game["file"] for game in games] == [
+        "before.gba", "version-b.gba", "version-a.gba", "same.gba", "later.gba", "fallback.gba"]
+    assert [game["sort"] for game in games] == [f"{i:06d}" for i in range(1, 7)]
+
+
+def test_multiple_existing_entries_use_game_and_rom_names_sort_and_uuid4(tmp_path):
     source = tmp_path / "GBA"
     source.mkdir()
     roms = []
@@ -140,13 +166,44 @@ def test_multiple_existing_entries_use_rom_names_sort_and_uuid4(tmp_path):
                       games=[Game(name="游戏", roms=roms, media=Media(box_front=cover))])])
     intent = SaveDeckAdapter(SystemRegistry.load()).render_library(library, tmp_path / "out", ExportOptions(rom_mode="none"))
     games = parse_document(intent.texts[0].content.encode())["games"]
-    assert [entry["name"] for entry in games] == ["原版", "改版"]
+    assert [entry["name"] for entry in games] == ["游戏 · 原版", "游戏 · 改版"]
     assert [entry["sort"] for entry in games] == ["000001", "000002"]
     assert all(UUID(entry["id"]).version == 4 for entry in games)
     assert games[0]["id"] != games[1]["id"]
-    assert [entry["cover"] for entry in games] == ["media/原版/cover.png", "media/改版/cover.png"]
-    assert [request.destination.as_posix() for request in intent.files] == ["gba/media/原版/cover.png", "gba/media/改版/cover.png"]
+    assert [entry["cover"] for entry in games] == ["media/游戏 · 原版/cover.png", "media/游戏 · 改版/cover.png"]
+    assert [request.destination.as_posix() for request in intent.files] == ["gba/media/游戏 · 原版/cover.png", "gba/media/游戏 · 改版/cover.png"]
     assert [item.code for item in intent.diagnostics] == ["missing-rom"]
+
+
+def test_multiple_versions_keep_group_names_with_identical_nested_rom_stems(tmp_path):
+    source = tmp_path / "GBA"
+    groups = []
+    for language in ("汉化版", "英文版"):
+        name = f"迷宫战记1+2 {language}"
+        folder = source / name
+        folder.mkdir(parents=True)
+        roms = []
+        for filename in ("迷宫战记1.zip", "迷宫战记2.zip"):
+            path = folder / filename
+            path.write_bytes(b"rom")
+            roms.append(Rom(path=path))
+        cover = folder / "boxfront.png"
+        cover.write_bytes(language.encode("utf-8"))
+        video = folder / "video.mp4"
+        video.write_bytes(language.encode("utf-8"))
+        groups.append(Game(name=name, roms=roms, media=Media(box_front=cover, video=video)))
+    library = Library(format="pegasus", systems=[System(
+        id="gba", name="GBA", metadata={"source_root": str(source)}, games=groups)])
+    intent = SaveDeckAdapter(SystemRegistry.load()).render_library(library, tmp_path / "out", ExportOptions(rom_mode="none"))
+    games = parse_document(intent.texts[0].content.encode())["games"]
+    expected_names = [f"{group.name} · 迷宫战记{disc}" for group in groups for disc in (1, 2)]
+    assert [entry["name"] for entry in games] == expected_names
+    assert [entry["file"] for entry in games] == [
+        f"{group.name}/迷宫战记{disc}.zip" for group in groups for disc in (1, 2)]
+    assert [entry["cover"] for entry in games] == [f"media/{name}/cover.png" for name in expected_names]
+    assert [entry["video"] for entry in games] == [f"media/{name}/video.mp4" for name in expected_names]
+    destinations = [request.destination.as_posix() for request in intent.files]
+    assert len(destinations) == len(set(destinations)) == 8
 
 
 def test_official_profile_preserves_description_and_recovers_broken_explicit_media(tmp_path):
@@ -214,6 +271,6 @@ def test_pegasus_game_launch_overrides_are_preserved_and_defaults_inherited(tmp_
     ConversionService().convert(source, target, "savedeck", source_format="pegasus", export_options=ExportOptions(rom_mode="none"))
     data = parse_document(config.read_bytes())
     assert data["launch"] == 'am start -e LIBRETRO mgba.so -e ROM "{file.path}"'
-    assert [game["file"] for game in data["games"]] == ["default.gba", "custom.gba"]
-    assert "launch" not in data["games"][0]
-    assert data["games"][1]["launch"] == 'am start -e LIBRETRO gpsp.so -e ROM "{file.path}"'
+    assert [game["file"] for game in data["games"]] == ["custom.gba", "default.gba"]
+    assert "launch" not in data["games"][1]
+    assert data["games"][0]["launch"] == 'am start -e LIBRETRO gpsp.so -e ROM "{file.path}"'

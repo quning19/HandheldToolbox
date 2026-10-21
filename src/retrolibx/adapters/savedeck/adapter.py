@@ -25,6 +25,11 @@ def platform_directory(system) -> PurePosixPath:
                          or system.id)
 
 
+def ordered_games(system):
+    # Match the Pegasus adapter's sort-by/name fallback; Python sorting is stable.
+    return sorted(system.games, key=lambda game: game.sort_name or game.name)
+
+
 class SaveDeckAdapter(LibraryAdapter):
     name = "savedeck"
     aliases = ("save-deck",)
@@ -54,7 +59,7 @@ class SaveDeckAdapter(LibraryAdapter):
                 data["launch"] = default_launch
             data.update(extensions(collection, {"collection", "sort-by", "launch"}))
             media_destinations = {}
-            for game in system.games:
+            for game in ordered_games(system):
                 if not game.roms:
                     raise ValidationError(f"游戏没有 ROM 入口：{game.name}")
                 # Use the same file-presence snapshot for naming and entry selection.
@@ -73,7 +78,7 @@ class SaveDeckAdapter(LibraryAdapter):
                             message=f"ROM 文件不存在，已从 SaveDeck 列表排除：{rom.path}",
                             path=rom.path, game_name=game.name))
                         continue
-                    name = game.name if existing_count == 1 else relative.stem
+                    name = game.name if existing_count == 1 else f"{game.name} · {relative.stem}"
                     entry = {"name": name, "file": relative.as_posix(),
                              "id": rom.metadata.get("savedeck", {}).get("id") or str(uuid4()),
                              "sort": f"{len(data['games']) + 1:06d}"}

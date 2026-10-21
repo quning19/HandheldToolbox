@@ -9,7 +9,8 @@ from frontend_common.files import write_json
 from frontend_devices.adb import AdbReader, capture_pegasus_source
 from frontend_devices.discovery import Device
 from frontend_platforms.catalog import materialize_catalog
-from retrolibx.adapters.savedeck.document import merge_documents, parse_document, render_document
+from retrolibx.adapters.savedeck.adapter import ordered_games
+from retrolibx.adapters.savedeck.document import apply_source_order, merge_documents, parse_document, render_document
 from retrolibx.adapters.savedeck.merge import filter_missing_roms
 from retrolibx.application.service import ConversionService
 from retrolibx.core.models import Library
@@ -131,6 +132,7 @@ def convert_savedeck(session, platforms, shared, full, workspace, cancelled, pro
                 raise ValidationError(f"天马配置已变化，请重新加载：{platform}")
         baseline = session.baselines[platform]
         old = parse_document(baseline) if baseline is not None else None
+        system.games = ordered_games(system)
         selection = select_entries(library, {system.id: {game["file"].casefold() for game in old["games"]} if old else set()},
                                    skip_existing=not full)
         rendered = service.adapters.resolve("savedeck").render_library(library, stage, ExportOptions(rom_mode="none"))
@@ -139,6 +141,7 @@ def convert_savedeck(session, platforms, shared, full, workspace, cancelled, pro
             data = merge_documents(old, data, replace=full, valid_files=set(system.metadata["valid_rom_paths"]))
         intent.diagnostics.extend(rendered.diagnostics)
         data = filter_missing_roms(data, session.source / platform, intent.diagnostics)
+        data = apply_source_order(data, system.metadata["valid_rom_paths"])
         count += selection["selected"]
         removed += selection["removed"]
         intent.texts.append(TextRequest(destination=PurePosixPath(platform) / "savedeck.toml", content=render_document(data)))

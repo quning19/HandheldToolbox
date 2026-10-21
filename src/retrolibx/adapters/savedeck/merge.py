@@ -6,7 +6,7 @@ from pathlib import Path
 from retrolibx.core.models import Diagnostic
 from retrolibx.core.operations import ExportIntent
 
-from .document import merge_documents, parse_document, relative_path, render_document
+from .document import apply_source_order, merge_documents, parse_document, relative_path, render_document
 
 
 def filter_missing_roms(data: dict, source_root: Path, diagnostics: list[Diagnostic]) -> dict:
@@ -25,7 +25,8 @@ def filter_missing_roms(data: dict, source_root: Path, diagnostics: list[Diagnos
 
 
 def merge_lists(intent: ExportIntent, target: Path, *, source_roots: dict[str, Path], replace: bool = False,
-                valid_files: dict[str, set[str]] | None = None) -> None:
+                valid_files: dict[str, set[str]] | None = None,
+                source_order: dict[str, list[str]] | None = None) -> None:
     for request in intent.texts:
         if request.destination.name != "savedeck.toml":
             continue
@@ -37,6 +38,9 @@ def merge_lists(intent: ExportIntent, target: Path, *, source_roots: dict[str, P
             data = merge_documents(parse_document(raw), data, replace=replace,
                                    valid_files=(valid_files or {}).get(request.destination.parent.as_posix()))
         data = filter_missing_roms(data, source_roots[request.destination.parent.as_posix()], intent.diagnostics)
+        order = (source_order or {}).get(request.destination.parent.as_posix())
+        if order is not None:
+            data = apply_source_order(data, order)
         request.content = render_document(data)
         request.expected_sha256 = hashlib.sha256(raw).hexdigest() if raw is not None else ""
         request.backup = True

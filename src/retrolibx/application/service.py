@@ -84,11 +84,12 @@ class ConversionService:
         if synchronize:
             existing = {}
             from retrolibx.adapters.savedeck.document import parse_document
-            from retrolibx.adapters.savedeck.adapter import platform_directory
+            from retrolibx.adapters.savedeck.adapter import ordered_games, platform_directory
             from retrolibx.adapters.esde.merge import parse_xml, relative_game_path
             for system in library.systems:
                 name = system.metadata.get("target_system", system.id)
                 if target_adapter.name == "savedeck":
+                    system.games = ordered_games(system)
                     name = platform_directory(system).as_posix()
                     system.metadata["target_system"] = name
                     path = target / platform_directory(system) / "savedeck.toml"
@@ -124,7 +125,9 @@ class ConversionService:
                 source_roots[platform_directory(system).as_posix()] = Path(root)
             merge_lists(intent, target, source_roots=source_roots, replace=options.conflict == ConflictPolicy.OVERWRITE,
                         valid_files={platform_directory(system).as_posix(): set(system.metadata["valid_rom_paths"])
-                                     for system in library.systems} if synchronize else None)
+                                     for system in library.systems} if synchronize else None,
+                        source_order={platform_directory(system).as_posix(): system.metadata["valid_rom_paths"]
+                                      for system in library.systems} if synchronize else None)
         if target_adapter.name == "es-de":
             rom_roots: dict[str, str] = {}
             for system in library.systems:

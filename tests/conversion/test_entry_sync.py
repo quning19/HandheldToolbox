@@ -168,4 +168,36 @@ def test_savedeck_same_system_in_separate_directories_has_independent_entry_sets
                                 export_options=ExportOptions(rom_mode="none"))
     first = parse_document((output / "PackA/savedeck.toml").read_bytes())
     assert [game["file"] for game in first["games"]] == ["a.gba"]
-    assert parse_document((output / "PackB/savedeck.toml").read_bytes()) == existing
+    expected = {**existing, "games": [{**existing["games"][0], "sort": "000001"}]}
+    assert parse_document((output / "PackB/savedeck.toml").read_bytes()) == expected
+
+
+@pytest.mark.parametrize("full", [False, True])
+@pytest.mark.parametrize("entrypoint", ["workflow", "engine"])
+def test_savedeck_sync_inserts_new_source_sort_between_old_entries_and_preserves_state(tmp_path, full, entrypoint):
+    source, output = tmp_path / "Roms", tmp_path / "out"
+    platform = source / "GBA"
+    for name in ("a.gba", "b.gba", "mercury.gba"):
+        write(platform, name)
+    write(platform, "metadata.pegasus.txt", (
+        "collection: GBA\ngame: A\nfile: a.gba\nsort-by: 011\n"
+        "game: B\nfile: b.gba\nsort-by: 012\n"
+        "game: Mercury\nfile: mercury.gba\nsort-by: 011A\n").encode())
+    old = {name: {"name": "User " + name, "file": name, "id": str(uuid4()),
+                  "sort": "000009", "favorite": True, "play_count": 7, "custom": "keep"}
+           for name in ("b.gba", "a.gba")}
+    config = (platform if entrypoint == "workflow" else output / "GBA") / "savedeck.toml"
+    write(config.parent, config.name, render_document({"platform": "GBA", "games": list(old.values())}).encode())
+    if entrypoint == "workflow":
+        workflow(source, tmp_path / "work", "savedeck", full)
+    else:
+        ConversionService().convert(source, output, "savedeck", source_format="pegasus",
+                                    export_options=ExportOptions(rom_mode="none", conflict="overwrite" if full else "skip"))
+    games = parse_document(config.read_bytes())["games"]
+    assert [game["file"] for game in games] == ["a.gba", "mercury.gba", "b.gba"]
+    assert [game["sort"] for game in games] == ["000001", "000002", "000003"]
+    for game in (games[0], games[2]):
+        previous = old[game["file"]]
+        for key in ("id", "favorite", "play_count", "custom"):
+            assert game[key] == previous[key]
+        assert game["name"] == (game["file"][0].upper() if full else previous["name"])

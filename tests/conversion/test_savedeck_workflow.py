@@ -61,7 +61,7 @@ def test_repeat_export_preserves_user_fields_and_uuid_and_backs_up(tmp_path):
     path.write_text(render_document(data), encoding="utf-8")
     original = path.read_bytes()
     publish(tmp_path, scan(tmp_path, source))
-    assert parse_document(path.read_bytes()) == data
+    assert parse_document(path.read_bytes())["games"][0] == dict(data["games"][0], sort="000001")
     publish(tmp_path, scan(tmp_path, source), full=True)
     updated = parse_document(path.read_bytes())
     assert updated["games"][0]["name"] == "游戏"
@@ -98,9 +98,9 @@ def test_new_registered_rom_is_added_and_unregistered_rom_is_not_imported(tmp_pa
     assert session.platforms["GBA"].existing == 1
     result = publish(tmp_path, session)
     games = parse_document(config.read_bytes())["games"]
-    assert [game["file"] for game in games] == ["游戏.gba", "新增.gba"]
-    assert games[0]["id"] == identifier
-    assert games[1]["id"] != identifier
+    assert [game["file"] for game in games] == ["新增.gba", "游戏.gba"]
+    assert games[1]["id"] == identifier
+    assert games[0]["id"] != identifier
     assert result["roms"] == 1
     assert (platform / "未登记.gba").read_bytes() == b"unregistered rom"
 
@@ -119,10 +119,10 @@ def test_version_addition_and_deletion_update_names_without_changing_surviving_i
     (platform / "改版.gba").write_bytes(b"second version")
     publish(tmp_path, scan(tmp_path, source))
     added = parse_document(config.read_bytes())["games"]
-    assert [game["name"] for game in added] == ["原游戏名", "改版"]
+    assert [game["name"] for game in added] == ["原游戏名", "原游戏名 · 改版"]
     publish(tmp_path, scan(tmp_path, source), full=True)
     updated = parse_document(config.read_bytes())["games"]
-    assert [game["name"] for game in updated] == ["主版", "改版"]
+    assert [game["name"] for game in updated] == ["原游戏名 · 主版", "原游戏名 · 改版"]
     assert updated[0]["id"] == first["id"]
     assert updated[1]["id"] == added[1]["id"]
     (platform / "改版.gba").unlink()

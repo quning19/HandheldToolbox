@@ -110,6 +110,15 @@ def render_document(data: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def apply_source_order(data: dict, source_order: list[str]) -> dict:
+    """Refresh only entry order and sort numbers after merging user-owned fields."""
+    ranks = {relative_path(path).as_posix().casefold(): index for index, path in enumerate(source_order)}
+    data["games"].sort(key=lambda game: ranks.get(game["file"].casefold(), len(ranks)))
+    for index, game in enumerate(data["games"], 1):
+        game["sort"] = f"{index:06d}"
+    return data
+
+
 def merge_documents(existing: dict, incoming: dict, *, replace: bool = False,
                     valid_files: set[str] | None = None) -> dict:
     validate_document(existing)
